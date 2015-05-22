@@ -1,0 +1,72 @@
+@import "normalize.scss";
+@import "global.scss";
+@import "icons.scss";
+@import "buttons.scss";
+@import "inline-style.scss";
+@import "input.scss";
+@import "accordion.scss";
+
+div {
+  //outline: 1px solid orange;
+}
+
+// 布局变量
+$plat-side-width: rem-calc(230);
+$plat-side-top-height: rem-calc(100);
+$plat-body-info-width: rem-calc(290);
+$plat-body-hander-height: rem-calc(78px);
+$plat-body-footer-height: rem-calc(32px);
+
+// 布局颜色
+$plat-side-bg-color: #5e636b;
+
+#plat-main {
+  height: 100%;
+  padding-left: $plat-side-width;
+
+  #plat-side {
+    height: 100%;
+    width: $plat-side-width;
+    padding-top: $plat-side-top-height;
+    margin-left: -$plat-side-width;
+    background-color: $plat-side-bg-color;
+
+    #plat-side-top {
+      height: $plat-side-top-height;
+      padding-top: rem-calc(18);
+      margin-top: -$plat-side-top-height;
+      line-height: 0;
+      text-align: center;
+
+      > div { margin-top: rem-calc(5);}
+    }
+
+    #plat-side-content {
+      height: 100%;
+    }
+  }
+
+  #plat-body {
+    height: 100%;
+    padding-top: $plat-body-hander-height;
+    padding-bottom: $plat-body-footer-height;
+
+    #plat-body-hander {
+      height: $plat-body-hander-height;
+      margin-top: -$plat-body-hander-height;
+    }
+
+    #plat-body-info {
+      height: 100%;
+      width: $plat-body-info-width;
+    }
+
+    #plat-body-container {
+      height: 100%;
+    }
+
+    #plat-body-footer {
+      height: $plat-body-footer-height;
+    }
+  }
+}

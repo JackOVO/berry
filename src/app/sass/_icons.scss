@@ -1,0 +1,26 @@
+@import "global";
+
+// 图标条决定定位
+@mixin icon-bar-posi ($c-height: null, $c-left: null, $c-right: null) {
+  position: relative;
+  & > .icon-bar {
+    line-height: 0;
+    @include posi-vertical-middle($c-height, $c-left, $c-right);
+  }
+}
+
+@include exports ("icons") {
+
+  .icon {
+    display: inline-block;
+    background-color: red;
+  }
+
+  .icon-btn {
+    @extend .icon;
+    width: 12px;
+    height: 12px;
+    cursor: pointer;
+  }
+
+}

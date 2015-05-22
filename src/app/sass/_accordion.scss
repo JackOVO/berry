@@ -1,0 +1,121 @@
+@import "global";
+@import "icons";
+// 手风琴
+
+// 控制项填充
+$accordion-height: 100%;
+$accordion-padding-left: rem-calc(20);
+
+// 默认颜色定义
+$accordion-font-color: rgba($white, .5);
+$accordion-header-bg-color: #777d86;
+$accordion-header-border-color: #95999e;
+$accordion-content-border-color: #24282e;
+
+// 激活状态颜色定义
+$accordion-active-font-color: $white;
+$accordion-header-active-color: #87c4ff;
+
+// // 手风琴头
+$accordion-hander-height: rem-calc(36);
+$accordion-hander-padding-right: $accordion-padding-left;
+$accordion-hander-font-size: rem-calc(16);
+$accordion-hander-letter-spacing: 2px;
+$accordion-header-active-before-width: rem-calc(10);
+
+// 内容
+$accordion-content-font-size: rem-calc(12);
+$accordion-content-block-spacing: $body-area-spac;
+$accordion-content-line-color: #838a93;
+
+// 内容项
+$accordion-content-item-height: rem-calc(36);
+$accordion-content-item-border-color: #87898b;
+$accordion-content-item-bg-color: #4A525D;
+
+// 推荐
+$recommend-container-block-spac: rem-calc(15);
+
+// 指标搜索
+$accordion-indicator-search-bg-color: #3b424a;
+$accordion-indicator-border-color: hsl(0, 0%, 27%);
+$accordion-indicator-font-color: rgba($white, .8);;
+
+@include exports("accordion") {
+  .accordion {
+    height: $accordion-height;
+
+    .accordion-navigation {
+      > a { text-decoration: none; }
+      .hander {
+        position: relative;
+        display: block;
+        height: $accordion-hander-height;
+        padding-left: $accordion-padding-left;
+        border-top: 1px solid $accordion-header-border-color;
+        border-bottom: 1px solid $accordion-header-bg-color;
+        line-height: $accordion-hander-height - rem-calc(2);
+        letter-spacing: $accordion-hander-letter-spacing;
+        color: $accordion-font-color;
+        background-color: $accordion-header-bg-color;
+
+        @include icon-bar-posi(rem-calc(12), null, $accordion-padding-left);
+
+        &.active {
+          color: $accordion-active-font-color;
+
+          &::before {
+            content: "";
+            display: block;
+            position: absolute;
+            top: -1px; left: 0;
+            height: $accordion-hander-height;
+            width: $accordion-header-active-before-width;
+            background-color: $accordion-header-active-color;
+          }
+        }
+      }
+
+      .content {
+        height: 1px;
+        border-top: 1px solid $accordion-content-border-color;
+        font-size: $accordion-content-font-size;
+        overflow: hidden;
+
+        &.active { height: auto; }
+        .fn-fonthid { width: 100%; }
+
+        .item {
+          height: $accordion-content-item-height;
+          width: 100%;
+          // 为了删除icon两像素的对其
+          padding: 0 $accordion-padding-left 0 ($accordion-padding-left + rem-calc(2));
+          line-height: $accordion-content-item-height;
+          color: $white;
+          border-bottom: 1px solid $accordion-content-item-border-color;
+          background-color: $accordion-content-item-bg-color;
+        }
+
+        .recommend-container {
+          padding: 0 $accordion-padding-left;
+          margin-top: $accordion-content-block-spacing;
+          line-height: 1;
+
+          .line-font-line {
+            margin-bottom: $recommend-container-block-spac;
+            color: $accordion-font-color;
+            &::after, &::before { background-color: $accordion-content-line-color; }
+          }
+          .checkbox { margin-bottom: $recommend-container-block-spac; }
+        }
+      }
+    }
+
+    // 搜索指标的按钮
+    .search-indicator {
+      color: $accordion-indicator-font-color;
+      background: $accordion-indicator-search-bg-color;
+      border-color: $accordion-indicator-border-color;
+    }
+  }
+}
