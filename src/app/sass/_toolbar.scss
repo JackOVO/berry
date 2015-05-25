@@ -1,0 +1,126 @@
+@import "global";
+@import "icons";
+// 工具条定义
+
+// 工具条尺寸
+$toolbar-height: rem-calc(38);
+$toolbar-tool-btn-margin: 0 2px 0 0;
+$toolbar-tool-btn-padding: 5px;
+$toolbar-tool-btn-radius: 2px;
+
+// 工具条按钮图标尺寸
+$toolbar-cut-margin: 0 11px 0 9px;
+$toolbar-tool-btn-icon-width: 16px;
+$toolbar-tool-btn-icon-height: 16px;
+
+$toolbar-font-container-font-size: 12px;
+
+// 工具条图标容器各种状态下透明度
+$toolbar-icon-container-active-opacity: 1;
+$toolbar-icon-container-normal-opacity: .7;
+
+// 工具条背景颜色
+$toolbar-border-color: #d7dadc;
+$toolbar-box-shadow-color: #f2f2f2;
+$toolbar-linear-gradient-top-color: #fafbfc;
+$toolbar-linear-gradient-bottom-color: #f5f5f5;
+
+// 工具条按钮颜色
+$toolbar-tool-btn-hover-color: #cccccc;
+$toolbar-tool-btn-gradient-top-color: #fafafa;
+$toolbar-tool-btn-gradient-bottom-color: #f0f0f0;
+$toolbar-cut-color: #e3e5e7;
+
+@include exports ("toolbar") {
+  .toolbar {
+    height: $toolbar-height;
+    overflow: hidden;
+    border-top: 1px solid $toolbar-border-color;
+    border-bottom: 1px solid $toolbar-border-color;
+    line-height: 40px;
+
+    background-image:
+      linear-gradient(to bottom,
+        $toolbar-linear-gradient-top-color,
+        $toolbar-linear-gradient-bottom-color);
+    box-shadow: 2px 3px 4px $toolbar-box-shadow-color;
+  }
+
+  .tool-btn {
+    display: inline-block;
+    margin: $toolbar-tool-btn-margin;
+    padding: $toolbar-tool-btn-padding;
+    border: 1px solid transparent;
+    border-radius: $toolbar-tool-btn-radius;
+    cursor: pointer;
+
+    &:hover, &.hover {
+      border-color: $toolbar-tool-btn-hover-color;
+      background-image:
+        linear-gradient(to bottom,
+          $toolbar-tool-btn-gradient-top-color,
+          $toolbar-tool-btn-gradient-bottom-color);
+      .icon-container { opacity: $toolbar-icon-container-active-opacity; }
+    }
+    &:active, &.active { box-shadow: inset 1px 1px 3px rgba(0,0,0, .25); }
+    
+    .icon-container { // 图标显示容器
+      @include icon-container(
+        $toolbar-tool-btn-icon-width,
+        $toolbar-tool-btn-icon-height);
+      opacity: $toolbar-icon-container-normal-opacity;
+    }
+
+    .font-container { // 字体容器
+      display: block;
+      line-height: 1.4;
+      font-size: $toolbar-font-container-font-size;
+      overflow: hidden; // 行高???
+    }
+
+    & > .icon {
+      display: block;
+      overflow: hidden;
+      height: $toolbar-tool-btn-icon-height;
+      background-position-y: 50%;
+    }
+  }
+
+  .tool-cut { // 分割线
+    display: inline-block;
+    height: $toolbar-height;
+    width: 1px;
+    margin: $toolbar-cut-margin;
+    background-color: $toolbar-cut-color;
+  }
+
+  .tool-group { // 工具组
+    display: inline-block;
+
+    &:hover .tool-btn, &.hover .tool-btn {
+      border-color: $toolbar-tool-btn-hover-color;
+      background-image:
+        linear-gradient(to bottom,
+          $toolbar-tool-btn-gradient-top-color,
+          $toolbar-tool-btn-gradient-bottom-color);
+      .icon-container { opacity: $toolbar-icon-container-active-opacity; }
+    }
+
+    & > .tool-btn:first-child {
+      margin-right: -1px;
+      @include side-radius(right, 0);
+    }
+  }
+
+  .tool-more > .icon-container { line-height: 10px; width: 5px; height: 16px; }
+
+  // 图标颜色小方块
+  .icon-color-value {
+    position: absolute;
+    display: block;
+    height: 3px;
+    width: 11px;
+    background-color: red;
+  }
+
+}

@@ -1,0 +1,114 @@
+@import "global";
+@import "icons";
+// 级联菜单
+
+$menu-z-index: 2;
+$menu-container-display: block; // 菜单容器
+$menu-container-direction: left;// 一级li
+
+$menu-group-line-margin: rem-calc(4) 0;
+$menu-content-padding: rem-calc(5) 0;
+
+$menu-item-font-size: 12px;
+$menu-item-display: block;
+$menu-item-gap: rem-calc(12); // 菜单项空隙
+$menu-item-filling: rem-calc(20); // 两侧填充尺寸
+$menu-item-min-width: rem-calc(140); // 最小尺寸
+$menu-item-font-padding: rem-calc(5) rem-calc(8); // 权重低默认
+
+// 颜色定义
+$menu-group-line-color: #ebebeb;
+$menu-content-border-color: #d3d7d9;
+$menu-content-bg-color: $white;
+$menu-item-hover-bg-color: #f0f0f0;
+$menu-content-box-shadow: 2px 2px 9px #e6e7e7;
+$menu-item-font-color: $black;
+
+@include exports ("menu") {
+  .menu { // ul
+    margin: 0; padding: 0;
+
+    li {
+      display: $menu-container-display;
+      float: $menu-container-direction;
+
+      &.hover { // 悬浮
+        position: relative; // 下层容器相对定位
+        z-index: $menu-z-index;
+        > ul { display: block; } // 展开下层
+      }
+      &.group-line { // 组分割线
+        border-bottom: 1px solid $menu-group-line-color;
+        margin: $menu-group-line-margin;
+      }
+      &.child::before { // 子项icon
+         content: "";
+        //         float: right;
+        //         margin: 9px 3px 0 0;
+
+        //         background-repeat: no-repeat;
+        //         // @include icon-image(
+        //         //   $width: 10px, $height: 10px,
+        //         //   $img-key: "arrow", $img-posi: (1px, 0));
+        //         // @include rotate2d(-90deg);
+      }
+
+      > ul { // 二级菜单容器
+        padding: $menu-content-padding;
+        background-color: $menu-content-bg-color;
+        border: 1px solid $menu-content-border-color;
+
+        a { // 菜单项尺寸定义
+          min-width: $menu-item-min-width;
+          padding: $menu-item-gap/2 $menu-item-filling;
+          &:hover { background-color: $menu-item-hover-bg-color; }
+        }
+      }
+    }
+
+    ul {
+      position: absolute; // 根据li绝对定位
+      display: none;
+      padding: 0; margin: 0;
+      box-shadow:$menu-content-box-shadow;
+
+      ul {
+        top: 0;
+        left: 100%;
+        margin-left: -5px;
+        box-shadow: $menu-content-box-shadow;
+      }
+      li { float: none; }
+    }
+
+    a { // 菜单项的大小控制
+      display: $menu-item-display;
+      padding: $menu-item-font-padding; // 权重低默认
+      font-size: $menu-item-font-size;
+      color: $menu-item-font-color;
+      cursor: default;
+      white-space: nowrap;
+      vertical-align: middle;
+      text-decoration: none;
+    }
+
+    > li.hover > a { // 向下覆盖li形成一个整体的框
+      position: relative;
+      border: 1px solid $menu-content-border-color;
+      border-bottom-color: $menu-content-border-color;
+      background-color: $menu-content-bg-color;
+      box-shadow: $menu-content-box-shadow;
+
+      &::after { // 遮盖阴影
+        content: "";
+        position: absolute;
+        z-index: 100;
+        display: inline-block;
+        height: 9px; width: 100%;
+        left: 0; bottom: -2px;
+        background-color: $menu-content-bg-color;
+      }
+    }
+  }
+}
+

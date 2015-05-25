@@ -1,5 +1,23 @@
 @import "global";
 
+$icon-container-width: rem-clac(16);
+$icon-container-width: rem-clac(16);
+
+// 图标容器
+// $width - 控制宽度可以显示的宽度
+// $height - 控制容器可以显示的高度
+@mixin icon-container (
+  $width: $icon-container-width,
+  $height: $icon-container-height) {
+
+  position: relative;
+  display: block;
+  width: $width;
+  height: $height;
+  line-height: $height;
+  overflow: hidden;
+}
+
 // 图标条决定定位
 @mixin icon-bar-posi ($c-height: null, $c-left: null, $c-right: null) {
   position: relative;
@@ -13,14 +31,181 @@
 
   .icon {
     display: inline-block;
-    background-color: red;
   }
 
   .icon-btn {
     @extend .icon;
-    width: 12px;
-    height: 12px;
     cursor: pointer;
   }
+
+  // /assets/images/
+  .icon-sprite, .icon-add-search, .icon-arrow-min, .icon-background, .icon-blod, .icon-broken, .icon-carry, .icon-color, .icon-column, .icon-curve, .icon-del, .icon-down, .icon-e, .icon-fail, .icon-file, .icon-filter, .icon-format, .icon-italics, .icon-left, .icon-less, .icon-middle, .icon-percent, .icon-pie, .icon-refresh, .icon-right, .icon-row, .icon-strikethrough {
+    background-image: url('/assets/images/icon-s1be00fc897.png');
+    background-repeat: no-repeat;
+  }
+
+  .icon-add-search {
+    background-position: 0 0;
+    height: 21px;
+    width: 20px;
+  }
+
+  .icon-arrow-min {
+    background-position: 0 -21px;
+    height: 3px;
+    width: 5px;
+  }
+
+  .icon-background {
+    background-position: 0 -24px;
+    height: 16px;
+    width: 16px;
+  }
+
+  .icon-blod {
+    background-position: 0 -40px;
+    height: 16px;
+    width: 16px;
+  }
+
+  .icon-broken {
+    background-position: 0 -56px;
+    height: 16px;
+    width: 16px;
+  }
+
+  .icon-carry {
+    background-position: 0 -72px;
+    height: 16px;
+    width: 16px;
+  }
+
+  .icon-color {
+    background-position: 0 -88px;
+    height: 16px;
+    width: 16px;
+  }
+
+  .icon-column {
+    background-position: 0 -104px;
+    height: 16px;
+    width: 16px;
+  }
+
+  .icon-curve {
+    background-position: 0 -120px;
+    height: 16px;
+    width: 16px;
+  }
+
+  .icon-del {
+    background-position: 0 -151px;
+    height: 15px;
+    width: 15px;
+  }
+  .icon-del:hover, .icon-del.del-hover {
+    background-position: 0 -136px;
+  }
+
+  .icon-down {
+    background-position: 0 -166px;
+    height: 16px;
+    width: 16px;
+  }
+
+  .icon-e {
+    background-position: 0 -182px;
+    height: 16px;
+    width: 16px;
+  }
+
+  .icon-fail {
+    background-position: 0 -198px;
+    height: 16px;
+    width: 16px;
+  }
+
+  .icon-file {
+    background-position: 0 -214px;
+    height: 16px;
+    width: 16px;
+  }
+
+  .icon-filter {
+    background-position: 0 -230px;
+    height: 16px;
+    width: 16px;
+  }
+
+  .icon-format {
+    background-position: 0 -246px;
+    height: 16px;
+    width: 16px;
+  }
+
+  .icon-italics {
+    background-position: 0 -262px;
+    height: 16px;
+    width: 16px;
+  }
+
+  .icon-left {
+    background-position: 0 -278px;
+    height: 16px;
+    width: 16px;
+  }
+
+  .icon-less {
+    background-position: 0 -294px;
+    height: 16px;
+    width: 16px;
+  }
+
+  .icon-middle {
+    background-position: 0 -310px;
+    height: 16px;
+    width: 16px;
+  }
+
+  .icon-percent {
+    background-position: 0 -326px;
+    height: 16px;
+    width: 16px;
+  }
+
+  .icon-pie {
+    background-position: 0 -342px;
+    height: 16px;
+    width: 16px;
+  }
+
+  .icon-refresh {
+    background-position: 0 -358px;
+    height: 16px;
+    width: 16px;
+  }
+
+  .icon-right {
+    background-position: 0 -374px;
+    height: 16px;
+    width: 16px;
+  }
+
+  .icon-row {
+    background-position: 0 -402px;
+    height: 12px;
+    width: 12px;
+  }
+  .icon-row:hover, .icon-row.row-hover {
+    background-position: 0 -390px;
+  }
+
+  .icon-strikethrough {
+    background-position: 0 -414px;
+    height: 16px;
+    width: 16px;
+  }
+
+
 
 }
