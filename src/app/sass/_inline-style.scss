@@ -20,6 +20,24 @@
     &::before { left: auto; right: 0; }
   }
 
+  .font-line {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    overflow: hidden;
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      display: inline-block;
+      width: 100%;
+      margin-left: 10px;
+      border-top: 1px solid #ebdee0;
+    }
+    &.dashed:after { border-top-style: dashed; }
+  }
+
   .fn-fonthid {
     display: inline-block;
     overflow: hidden;
@@ -39,25 +57,7 @@
 
 
 //   // 线字:)
-//   .font-line {
-//     width: 100%;
-//     position: relative;
-//     display: inline-block;
-//     overflow: hidden;
-//     line-height: 1;
 
-//     &:after {
-//       content: '';
-//       position: absolute;
-//       top: 50%;
-//       display: inline-block;
-//       width: 100%;
-//       margin-left: 10px;
-//       border-top: 1px solid $font-line-color;
-//     }
-
-//     &.dashed:after { border-top-style: dashed; }
-//   }
 
 //   .fn-fonthid {
 //     display: inline-block;

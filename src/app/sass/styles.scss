@@ -7,9 +7,11 @@
 @import "accordion.scss";
 @import "menu.scss";
 @import "toolbar.scss";
+@import "tabs.scss";
+@import "fiexible.scss";
 
 div {
-  //outline: 1px solid orange;
+  // outline: 1px solid orange;
 }
 
 // 布局变量
@@ -26,6 +28,13 @@ $plat-body-hamburger-height: rem-calc(40);
 $plat-side-bg-color: #5e636b;
 $plat-hamburger-bg-color: #ff8585;
 $plat-main-bg-color: #f5f7f9;
+$plat-body-info-border-color: #a3a4a5;
+$plat-body-info-bg-color: #fefefe;
+$plat-info-sudo-font-size: rem-calc(12);
+$plat-info-sudo-color: $white;
+$plat-info-sudo-bg-color: #87c4ff;
+$plat-body-footer-border-color: #d7dadc;
+$plat-body-footer-bg-color: #f0f0f0;
 
 #plat-main {
   height: 100%;
@@ -84,8 +93,24 @@ $plat-main-bg-color: #f5f7f9;
     }
 
     #plat-body-info {
+      position: relative;
       height: 100%;
       width: $plat-body-info-width;
+      padding: 20px 0 0 10px;
+      border-left: 1px solid $plat-body-info-border-color;
+      background-color: $plat-body-info-bg-color;
+      overflow: hidden;
+
+      #plat-info-sudo {
+        position: absolute;
+        top: 5px;
+        right: 0;
+        font-size: $plat-info-sudo-font-size;
+        color: $plat-info-sudo-color;
+        background: $plat-info-sudo-bg-color;
+        border-color: $plat-info-sudo-bg-color;
+        border-radius: 4px;
+      }
     }
 
     #plat-body-container {
@@ -94,6 +119,14 @@ $plat-main-bg-color: #f5f7f9;
 
     #plat-body-footer {
       height: $plat-body-footer-height;
+      padding: 0 0 0 20px;
+      border-top: 1px solid $plat-body-footer-border-color;
+      background-color: $plat-body-footer-bg-color;
+
+      > .icon-btn {
+        margin-left: 10px;
+        vertical-align: middle;
+      }
     }
   }
 }

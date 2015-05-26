@@ -42,15 +42,12 @@ $menu-item-font-color: $black;
         margin: $menu-group-line-margin;
       }
       &.child::before { // 子项icon
-         content: "";
-        //         float: right;
-        //         margin: 9px 3px 0 0;
-
-        //         background-repeat: no-repeat;
-        //         // @include icon-image(
-        //         //   $width: 10px, $height: 10px,
-        //         //   $img-key: "arrow", $img-posi: (1px, 0));
-        //         // @include rotate2d(-90deg);
+        content: "";
+        display: inline-block;
+        float: right;
+        margin: 12px 4px 0 0;
+        @extend .icon-arrow;
+        @include rotate2d(-90deg);
       }
 
       > ul { // 二级菜单容器
