@@ -1,8 +1,11 @@
-'use strict';
+(function() {
+  'use strict';
+
   angular
     .module('platform', [
       'platform.core',
       'platform.directive',
+      'platform.workbook',
       'ui.router',
       'ngResource',
       'ngSanitize'])
@@ -19,6 +22,7 @@
     $urlRouterProvider.otherwise('/');
   }
 
+})();
 // angular.module('berry', ['ngAnimate', 'ngCookies', 'ngSanitize', 'ngResource', 'ui.router'])
 //   .config(function ($stateProvider, $urlRouterProvider) {
 //     $stateProvider

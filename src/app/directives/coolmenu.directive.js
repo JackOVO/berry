@@ -1,4 +1,5 @@
-'user strict';
+(function() {
+  'user strict';
   angular
     .module('platform.directive')
     .directive('coolmenu', coolMenuDirective);
@@ -8,3 +9,4 @@
       templateUrl: 'app/template/coolmenu.html'
     };
   }
+})();

@@ -1,4 +1,5 @@
-'use strict';
+(function() {
+  'use strict';
   angular
     .module('platform.directive')
     .directive('toolbar', toolbarDirective);
@@ -8,3 +9,4 @@
       templateUrl: 'app/template/toolbar.html'
     }
   }
+})();

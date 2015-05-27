@@ -60,6 +60,7 @@
     "inject": false,
     "module": false,
     // JASMINE
+    "$": false,
     "describe": false,
     "it": false,
     "before": false,

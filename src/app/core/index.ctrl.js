@@ -1,4 +1,5 @@
-'use strict';
+(function() {
+  'use strict';
 
   angular
     .module('platform.core')
@@ -10,3 +11,4 @@
     that.index = 'http://www.dfinder.cn';
     that.title = '(╯‵□′)╯︵┻━┻';
   }
+})();
