@@ -9,7 +9,8 @@
         'wbc': 'workBookChange'
       },
       condition: {
-        'dims': '[{"codeName":"indicatorCode", "codes":["00010000000058"]}]'
+        'dims': '[{"codeName":"indicatorCode", "codes":["00010000000058"]}]',
+        'productID': '00010000000000000000000000000001'
       }
     });
 })();

@@ -37,6 +37,7 @@
     function get(name, params) {
       var url = createRepeatUrl(name);
       var options = {'params': params};
+      //params.productID='00010000000000000000000000000001';
 
       return $http.get(url, options)
         .then(completeCallBack)
@@ -69,7 +70,7 @@ console.log(new Date().getTime(), response.data);
         case 600: // 未登录
           console.warn('请登录后操作, 即将跳转!');
           window.setTimeout(function() {
-            //window.location.href = config.loginUrl + '?url=' + location.href;
+            window.location.href = config.loginUrl + '?url=' + location.href;
           }, 1000);
         break;
         case 650: // 没权限

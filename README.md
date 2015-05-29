@@ -1,11 +1,10 @@
 #模块职责
 
-1. workbook(工作簿模块)
-  bean: 工作表的容器, 源数据二次处理
-  service: 获取源数据, 
-
-
-
+1. workbook(工作簿)
+2. sheet(工作表)
+3. table(handsonTable包装对象,数据处理)
+4. dimension(维度数据)
+5. condition(条件转换)
 
 
   

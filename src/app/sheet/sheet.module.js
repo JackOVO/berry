@@ -2,5 +2,5 @@
   'use strict';
 
   angular
-    .module('platform.sheet', ['platform.core']);
+    .module('platform.sheet', ['platform.table']);
 })();

@@ -19,6 +19,7 @@
     // 工作簿改变监听
     $scope.$on(spreadKey.wbc, function(e, workBook) {
       that.workBook = workBook;
+      console.info(that.workBook);
     });
   }
 

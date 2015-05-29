@@ -5,8 +5,8 @@
     .module('platform.workbook')
     .factory('workBookService', workBookService);
 
-  workBookService.$inject = ['$q', '$rootScope', 'WorkBook', 'dataService', 'workBookCF'];
-  function workBookService ($q, $rootScope, WorkBook, dataService, config) {
+  workBookService.$inject = ['$q', '$rootScope', 'workBookBean', 'dataService', 'workBookCF'];
+  function workBookService ($q, $rootScope, workBookBean, dataService, config) {
     var service = {
       'initialize': initialize,
       'getWorkBook': getWorkBookSource
@@ -33,7 +33,7 @@
       return dataService.get('workBook', params)
         .then(function(source) {
           if (source.length) {
-            var workBook = WorkBook.parse(source);
+            var workBook = workBookBean.parse(source);
             workBookChange(workBook);
             return workBook;
           }

@@ -3,18 +3,21 @@
 
   angular
     .module('platform.sheet')
-    .factory('Sheet', SheetBean);
+    .factory('sheetBean', sheetBean);
 
-  function SheetBean () {
+  sheetBean.$inject = ['tableBean'];
+  function sheetBean(tableBean) {
     var service = {
       'parse': parse
     };
 
     return service;
 
-    function Sheet(id, name) {
+    function Sheet(id, name, table, dimension) {
       this.id = id;
       this.name = name;
+      this.table = table;
+      this.dimension = dimension;
     }
 
     /**
@@ -28,8 +31,10 @@
       var name = sheetInfo.sheetName;
       var freqId = sheetInfo.freqId;
       var cubeId = sheetInfo.cubeId;
-console.info(new Sheet(id, name));
-      return new Sheet(id, name);
+
+      var table = tableBean.parse(source.tableVO);
+
+      return new Sheet(id, name, table);
     }
   }
 })();

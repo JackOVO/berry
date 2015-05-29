@@ -3,10 +3,10 @@
 
   angular
     .module('platform.workbook')
-    .factory('WorkBook', WorkBookBean);
+    .factory('workBookBean', workBookBean);
 
-  WorkBookBean.$inject = ['Sheet'];
-  function WorkBookBean (Sheet) {
+  workBookBean.$inject = ['sheetBean'];
+  function workBookBean (sheetBean) {
     var service = {
       'parse': parse
     };
@@ -29,7 +29,7 @@
       var sheets = [];
 
       for(var i = 0, ilen = source.length; i < ilen; i++) {
-        var sheet = Sheet.parse(source[i]);
+        var sheet = sheetBean.parse(source[i]);
         sheets.push(sheet);
         if (index === null) { index = 0; }
       }
