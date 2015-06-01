@@ -5,19 +5,19 @@
     .module('platform.sheet')
     .factory('sheetBean', sheetBean);
 
-  sheetBean.$inject = ['tableBean'];
-  function sheetBean(tableBean) {
+  sheetBean.$inject = ['tableBean', 'conditionBean'];
+  function sheetBean(tableBean, conditionBean) {
     var service = {
       'parse': parse
     };
 
     return service;
 
-    function Sheet(id, name, table, dimension) {
+    function Sheet(id, name, table, container) {
       this.id = id;
       this.name = name;
       this.table = table;
-      this.dimension = dimension;
+      this.container = container;
     }
 
     /**
@@ -33,8 +33,9 @@
       var cubeId = sheetInfo.cubeId;
 
       var table = tableBean.parse(source.tableVO);
+      var container = conditionBean.parse(source.accordionVO);
 
-      return new Sheet(id, name, table);
+      return new Sheet(id, name, table, container);
     }
   }
 })();

@@ -27,25 +27,29 @@
      */
     function parse (source) {
       var data = [];
+      var merges = [];
       var values = source.values;
       var fixedRowsTop = source.fixedRowsTop;
       var fixedColumnsLeft = source.fixedColumnsLeft;
 
       var extract = extractValues(values);
-console.info(extract);
-      return new Table(data);
+      data = extract.data;
+      merges = extract.merges;
+      return new Table(data, fixedRowsTop, fixedColumnsLeft, merges);
     }
 
+    // 表格值格式化
     function cellFormat(cell) {
       return cell.value || 'Orz';
     }
+    // 提取生成合并值
     function cellMerge(r, c, cell) {
       if (cell.colspan || cell.rowspan) {
         return {
           row: r, col: c,
           colspan: cell.colspan + 1,
           rowspan: cell.rowspan + 1
-        }
+        };
       }
     }
 
@@ -57,7 +61,7 @@ console.info(extract);
     function extractValues (values) {
       var result = {
         'data': [],
-        'mergeCells': []
+        'merges': []
       };
 
       var row = [];

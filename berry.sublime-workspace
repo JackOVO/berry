@@ -1,0 +1,1133 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"tab",
+				"tableBean"
+			],
+			[
+				"re",
+				"require"
+			],
+			[
+				"sh",
+				"sheets"
+			],
+			[
+				"wokr",
+				"workBookService"
+			],
+			[
+				"ver",
+				"vertical-align"
+			],
+			[
+				"acc",
+				"accordion"
+			],
+			[
+				"plats",
+				"plat-side-width"
+			],
+			[
+				"con",
+				"controller"
+			],
+			[
+				"search",
+				"searchService"
+			],
+			[
+				"fi",
+				"firm"
+			],
+			[
+				"a",
+				"attrs"
+			],
+			[
+				"ti",
+				"title"
+			],
+			[
+				"cl",
+				"colgroup"
+			],
+			[
+				"col",
+				"colgroup"
+			],
+			[
+				"par",
+				"paramsUrl"
+			],
+			[
+				"pr",
+				"priv"
+			],
+			[
+				"shar",
+				"shareService"
+			],
+			[
+				"s",
+				"ShareController"
+			],
+			[
+				"po",
+				"pointer"
+			],
+			[
+				"rem",
+				"recommendBean"
+			],
+			[
+				"temp",
+				"templates"
+			],
+			[
+				"file",
+				"fileId"
+			],
+			[
+				"getfi",
+				"getFileById"
+			],
+			[
+				"inlie",
+				"inline-block"
+			],
+			[
+				"file-header",
+				"file-header-wrapper-padding"
+			],
+			[
+				"bac",
+				"background"
+			],
+			[
+				"cur",
+				"cursor"
+			],
+			[
+				"le",
+				"letter-spacing"
+			],
+			[
+				"bu",
+				"button-sml-height"
+			],
+			[
+				"mar",
+				"margin-right"
+			],
+			[
+				"no",
+				"normal"
+			],
+			[
+				"JAVA_",
+				"JAVA_OPTS"
+			],
+			[
+				"mi",
+				"middle"
+			],
+			[
+				"cu",
+				"cursor"
+			],
+			[
+				"file-s",
+				"file-status-height"
+			],
+			[
+				"files",
+				"file-status-height"
+			],
+			[
+				"file-h",
+				"file-header-height"
+			],
+			[
+				"bacck",
+				"background-color"
+			],
+			[
+				"ba",
+				"background-repeat"
+			],
+			[
+				"fil",
+				"file-header-padding"
+			],
+			[
+				"sear",
+				"search-input-border-color"
+			],
+			[
+				"li",
+				"line-height"
+			],
+			[
+				"st",
+				"startTests"
+			],
+			[
+				"brow",
+				"browserSync"
+			],
+			[
+				"excl",
+				"excludeFiles"
+			],
+			[
+				"ch",
+				"changeEvent"
+			],
+			[
+				"app",
+				"appPage"
+			],
+			[
+				"conf",
+				"config"
+			],
+			[
+				"karma",
+				"karmaResult"
+			],
+			[
+				"gul",
+				"gulpConfig"
+			],
+			[
+				"tem",
+				"templatecache"
+			],
+			[
+				"templ",
+				"templateCache"
+			],
+			[
+				"specR",
+				"specRunnerFile"
+			],
+			[
+				"specr",
+				"specRunnerFile"
+			],
+			[
+				"back",
+				"background-image"
+			],
+			[
+				"op",
+				"options"
+			],
+			[
+				"font-s",
+				"font-size"
+			],
+			[
+				"table",
+				"table-fieldset"
+			],
+			[
+				"tabl",
+				"table-fieldset"
+			],
+			[
+				"ta",
+				"table"
+			],
+			[
+				"dialo",
+				"dialog-content"
+			],
+			[
+				"fl",
+				"float"
+			],
+			[
+				"rem-ca",
+				"rem-calc"
+			],
+			[
+				"ov",
+				"overflow-x"
+			],
+			[
+				"p",
+				"padding"
+			],
+			[
+				"de",
+				"default"
+			],
+			[
+				"box-s",
+				"box-shadow-color"
+			],
+			[
+				"inline",
+				"inline-block"
+			],
+			[
+				"wid",
+				"width"
+			],
+			[
+				"inlin",
+				"inline-block"
+			],
+			[
+				"inl",
+				"inline-block"
+			],
+			[
+				"accordion-active",
+				"accordion-header-active-bg-color"
+			],
+			[
+				"h",
+				"height"
+			],
+			[
+				"tet",
+				"text-align"
+			],
+			[
+				"plat-body",
+				"plat-body-container"
+			],
+			[
+				"bacc",
+				"background-color"
+			],
+			[
+				"name",
+				"namespace"
+			],
+			[
+				"mo",
+				"module_index"
+			],
+			[
+				"border-to",
+				"border-top-color"
+			],
+			[
+				"m",
+				"margin"
+			],
+			[
+				"in",
+				"inline-block"
+			],
+			[
+				"spa",
+				"white-space"
+			],
+			[
+				"spac",
+				"word-spacing"
+			],
+			[
+				"text",
+				"text-align"
+			],
+			[
+				"pos",
+				"position"
+			],
+			[
+				"overfl",
+				"overflow-x"
+			],
+			[
+				"overf",
+				"overflow-y"
+			],
+			[
+				"white",
+				"white-space"
+			],
+			[
+				"over",
+				"overflow-y"
+			],
+			[
+				"select-dr",
+				"select-dropdown-content"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "README.md",
+			"settings":
+			{
+				"buffer_size": 324,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/app/sheet/sheet.bean.js",
+			"settings":
+			{
+				"buffer_size": 944,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/app/sheet/sheet.module.js",
+			"settings":
+			{
+				"buffer_size": 119,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 375.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"rmp",
+				"Package Control: Remove Package"
+			],
+			[
+				"inp",
+				"Package Control: Install Package"
+			],
+			[
+				"ip",
+				"Package Control: Install Package"
+			],
+			[
+				"pci",
+				"Package Control: Install Package"
+			],
+			[
+				"rp",
+				"Package Control: Remove Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 514.0
+	},
+	"console":
+	{
+		"height": 145.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = 'eb2297e1a458f27d836c04bb0cbaf282' + 'd0e7a3098092775ccb37ca9d6b2e4b7d'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)",
+			"import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/D/jkwork/berry/src/app/dimension/dimension.bean.js",
+		"/D/jkwork/berry/src/app/table/table.bean.js",
+		"/D/jkwork/berry/src/app/sheet/sheet.bean.js",
+		"/D/jkwork/berry/src/app/sheet/sheet.module.js",
+		"/D/jkwork/berry/README.md",
+		"/D/jkwork/berry/src/app/condition/condition.module.js",
+		"/D/jkwork/berry/src/app/condition/condition.bean.js",
+		"/D/jkwork/berry/src/app/dimension/dimension.module.js",
+		"/D/jkwork/berry/berry.sublime-workspace",
+		"/D/jkwork/berry/src/app/workbook/workbook.bean.js",
+		"/D/jkwork/berry/src/app/workbook/workbook.controller.js",
+		"/D/jkwork/berry/src/app/table/table.module.js",
+		"/D/jkwork/berry/src/app/workbook/workbook.service.js",
+		"/D/jkwork/berry/src/app/workbook/workbook.module.js",
+		"/D/jkwork/berry/src/app/core/layout.html",
+		"/D/jkwork/proxy/routes/index.js",
+		"/D/jkwork/berry/src/app/core/core.module.js",
+		"/C/Windows/System32/drivers/etc/hosts",
+		"/D/jkwork/proxy/app.js",
+		"/D/jkwork/berry/src/login.html",
+		"/D/jkwork/berry/src/index.html",
+		"/D/jkwork/proxy/views/index.ejs",
+		"/D/jkwork/berry/src/app/core/data.service.js",
+		"/D/jkwork/berry/src/app/core/index.ctrl.js",
+		"/D/jkwork/berry/.jshintrc",
+		"/D/jkwork/berry/bower.json",
+		"/D/jkwork/berry/src/app/index.js",
+		"/D/jkwork/midi/app/scripts/file/file.bean.js",
+		"/D/jkwork/berry/src/app/template/coolmenu.html",
+		"/D/jkwork/berry/src/app/directives/toolbar.directive.js",
+		"/D/jkwork/berry/src/app/directives/directive.module.js",
+		"/D/jkwork/berry/src/app/directives/coolmenu.directive.js",
+		"/D/jkwork/berry/src/app/directives/container/accordion.directives.js",
+		"/D/jkwork/berry/src/app/template/fiexible.html",
+		"/D/jkwork/berry/src/app/sass/_fiexible.scss",
+		"/D/jkwork/dfinder/app/styles/components/_flexible.scss",
+		"/D/jkwork/berry/src/app/sass/_inline-style.scss",
+		"/D/jkwork/berry/src/app/sass/styles.scss",
+		"/D/jkwork/berry/src/app/sass/_accordion.scss",
+		"/D/jkwork/berry/src/app/sass/_menu.scss",
+		"/D/jkwork/berry/src/app/sass/_tabs.scss",
+		"/D/jkwork/berry/src/app/sass/_global.scss",
+		"/D/jkwork/berry/src/app/sass/_icons.scss",
+		"/D/jkwork/csssprite/stylesheets/sprite.css",
+		"/D/jkwork/berry/src/app/template/toolbar.html",
+		"/D/jkwork/dfinder/app/platform.html",
+		"/D/jkwork/berry/src/app/sass/_toolbar.scss",
+		"/D/jkwork/dfinder/app/styles/components/_tabs.scss",
+		"/D/jkwork/dfinder/app/styles/components/_toolbar.scss",
+		"/D/jkwork/csssprite/sass/sprite.scss",
+		"/D/jkwork/berry/src/app/template/container/accordion.html",
+		"/D/jkwork/dfinder/app/styles/components/_icons.scss",
+		"/D/jkwork/dfinder/app/styles/components/_menu.scss",
+		"/D/jkwork/dfinder/app/styles/platform.scss",
+		"/D/jkwork/berry/src/app/sass/_buttons.scss",
+		"/D/jkwork/berry/.tmp/serve/index.html",
+		"/D/jkwork/berry/src/app/sass/_input.scss",
+		"/D/jkwork/dfinder/app/styles/components/_icon-bar.scss",
+		"/D/jkwork/dfinder/app/styles/components/_global.scss",
+		"/D/jkwork/dfinder/app/styles/components/_input.scss",
+		"/D/jkwork/dfinder/app/styles/components/_accordion.scss",
+		"/D/jkwork/dfinder/app/styles/components/_inline-style.scss",
+		"/D/jkwork/berry/dist/scripts/app-467ad53c.js",
+		"/D/jkwork/berry/gulp/build.js",
+		"/D/jkwork/berry/gulp/inject.js",
+		"/D/jkwork/berry/gulp/watch.js",
+		"/D/jkwork/berry/gulp/server.js",
+		"/D/jkwork/berry/dist/index.html",
+		"/D/jkwork/berry/.tmp/partials/templateCacheHtml.js",
+		"/D/jkwork/berry/src/app/directives/container/accordion.temp.html",
+		"/D/jkwork/berry/dist/scripts/app-d52c5c05.js",
+		"/D/jkwork/berry/dist/styles/app-f436cc02.css",
+		"/D/jkwork/berry/src/app/directives",
+		"/D/jkwork/dfinder/app/styles/components/_buttons.scss",
+		"/D/jkwork/berry/.tmp/serve/app/index.css",
+		"/D/jkwork/dfinder/app/styles/components/_color.scss",
+		"/D/jkwork/berry/src/app/sass/_functions.scss",
+		"/D/jkwork/berry/gulp/styles.js",
+		"/D/jkwork/berry/src/app/index.scss",
+		"/D/jkwork/midi/.jshintrc",
+		"/D/jkwork/berry/src/app/core/main.html",
+		"/D/jkwork/berry/src/app/core/core.ctrl.js",
+		"/D/jkwork/berry/src/app/core/main.ctrl.js",
+		"/D/jkwork/berry/src/app/main/main.module.js",
+		"/D/jkwork/berry/src/app/main/main.html",
+		"/D/jkwork/midi/app/index.html",
+		"/D/jkwork/berry/src/app/app.module.js",
+		"/D/jkwork/berry/src/app/vendor.scss",
+		"/C/Users/ADMINI~1/AppData/Local/Temp/Rar$DRa0.389/karma.conf.js",
+		"/D/jkwork/midi2/src/app/main/main.spec.js",
+		"/D/jkwork/midi2/gulp/watch.js",
+		"/D/jkwork/midi2/src/index.html",
+		"/D/jkwork/gulp/.tmp/serve/index.html",
+		"/D/jkwork/midi2/.tmp/serve/index.html",
+		"/D/jkwork/midi2/gulp/server.js",
+		"/D/jkwork/gulp/src/index.html",
+		"/D/jkwork/midi2/src/app/app.module.js",
+		"/D/jkwork/midi2/.tmp/partials/templateCacheHtml.js",
+		"/D/jkwork/midi2/gulp/build.js",
+		"/D/jkwork/midi2/gulpfile.js",
+		"/D/jkwork/gulp/gulp/server.js",
+		"/D/jkwork/midi2/karma.conf.js",
+		"/D/jkwork/midi2/gulp/unit-tests.js",
+		"/D/jkwork/midi2/package.json",
+		"/D/jkwork/gulp/gulp/unit-tests.js",
+		"/D/jkwork/midi2/src/app/dl/abc.mock.js",
+		"/D/jkwork/midi2/src/app/dl/abc.spec.js",
+		"/D/jkwork/gulp/karma.conf.js",
+		"/D/jkwork/midi/karma.conf.js",
+		"/D/jkwork/midi2/gulp/inject.js",
+		"/D/jkwork/midi2/gulp/proxy.js",
+		"/D/jkwork/gulp/gulp/proxy.js",
+		"/D/jkwork/gulp/gulp/e2e-tests.js",
+		"/D/jkwork/midi/gulp/optimize.js",
+		"/D/jkwork/gulp/gulp/build.js",
+		"/D/jkwork/midi2/gulp/styles.js",
+		"/D/jkwork/midi2/gulp/scripts.js",
+		"/D/jkwork/gulp/gulp/inject.js",
+		"/D/jkwork/gulp/package.json",
+		"/D/jkwork/gulp/gulp/styles.js",
+		"/D/jkwork/gulp/gulp/scripts.js",
+		"/D/jkwork/midi2/gulp/.jshintrc",
+		"/D/jkwork/midi2/.jshintrc",
+		"/D/jkwork/midi2/src/app/vendor.scss",
+		"/D/jkwork/midi2/.tmp/serve/app/index.css",
+		"/D/jkwork/midi2/.tmp/serve/app/vendor.css",
+		"/D/jkwork/midi2/src/app/index.scss",
+		"/D/jkwork/midi2/src/app/file.html"
+	],
+	"find":
+	{
+		"height": 30.0
+	},
+	"find_in_files":
+	{
+		"height": 101.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"dimension",
+			"dimensionBean",
+			"WorkBook",
+			"WorkBookBean",
+			"        ",
+			"\"",
+			"getS",
+			"getParams",
+			"post",
+			"options",
+			"\"",
+			"source.",
+			"constant",
+			"config",
+			"'",
+			"\"",
+			"dims",
+			"\"",
+			"'",
+			"toolbar",
+			";\n",
+			"icon ",
+			"icon-m-close",
+			"smaill-arrow",
+			"arrow",
+			"icon-arrow-min",
+			"filter",
+			"color",
+			"16px",
+			"$toolbar-tool-btn-hover-color",
+			"5",
+			"span",
+			"16px",
+			"height: 16px",
+			"10",
+			"width",
+			"$toolbar-icon-container-normal-opacity",
+			"16px",
+			"F",
+			"div",
+			"$menu-item-hover-bg-color",
+			"$plat-body-hander-hamburger-bg-color",
+			"div",
+			"A",
+			"24",
+			"#",
+			"rem-calc(15)",
+			"$accordion-content-line-color",
+			"indicator",
+			"$accordion-content-indicator-height",
+			"$accordion-bg-color",
+			"$accordion-hander-letter-spacing",
+			"%;\n",
+			"'",
+			"process",
+			"useref",
+			"useref assets",
+			"useref.assets",
+			"jquery",
+			"$",
+			" ",
+			"inject",
+			"npm i gulp-angular-templatecache",
+			"scope.$id",
+			"console",
+			"search",
+			"$select-option-hover-font-color",
+			"proposal",
+			"value",
+			"O",
+			"; ",
+			"200",
+			"400",
+			"; ",
+			"File",
+			"paramsUrl",
+			"'no'",
+			"yes",
+			"\"",
+			"分享",
+			"风向",
+			"Controller",
+			" !important",
+			", 1000ms",
+			"width",
+			"inject",
+			"document.getElementById(attr.cid)",
+			"\"",
+			"200",
+			"right",
+			"clearfix",
+			"right",
+			"$file-primary-btn-height",
+			"file-content",
+			"           \n",
+			":",
+			"60px",
+			"$file-header-wrapper-line-height",
+			"16px;",
+			"4px",
+			"6px",
+			"linear-gradient",
+			"-ms-linear-gradient",
+			"moz",
+			"-webkit-linear-gradient",
+			"    -",
+			"button",
+			"div",
+			"$teach-area-bg-color",
+			")\n",
+			"    \n",
+			"-webkit-",
+			"        \n",
+			"div",
+			"#",
+			"    \n",
+			"div.inlne",
+			">\n",
+			"{\n",
+			"1111",
+			"登陆",
+			"sml",
+			"i",
+			"button",
+			"div",
+			"$button-font-size",
+			"button",
+			"$select-control-font-size"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "README.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 324,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								174,
+								174
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content"
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/cobalt2 (SL).tmTheme",
+							"syntax": "Packages/Markdown/Markdown.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/app/sheet/sheet.bean.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 944,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								469,
+								469
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content"
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/cobalt2 (SL).tmTheme",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 275.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/app/sheet/sheet.module.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 119,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content"
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/cobalt2 (SL).tmTheme",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 30.0
+	},
+	"input":
+	{
+		"height": 40.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "berry.sublime-project",
+	"replace":
+	{
+		"height": 56.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"shmo.js",
+				"berry\\src\\app\\sheet\\sheet.module.js"
+			],
+			[
+				"sheet.m",
+				"berry\\src\\app\\sheet\\sheet.module.js"
+			],
+			[
+				"an/r",
+				"angular\\node_modules\\chai\\README.md"
+			],
+			[
+				"a/gu",
+				"dfinderA\\gulpfile.js"
+			],
+			[
+				"dfindera/appp",
+				"dfinderA\\app\\script\\app.js"
+			],
+			[
+				"app.js",
+				"dfinder\\app\\scripts\\app.js"
+			],
+			[
+				"styleicons.scss",
+				"dfinder\\app\\styles\\components\\_icons.scss"
+			],
+			[
+				"platform.scss",
+				"dfinder\\app\\styles\\platform.scss"
+			],
+			[
+				"platfor",
+				"DfSass\\sass\\platform.scss"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 178.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
