@@ -1,5 +1,5 @@
-<div id="plat-main" ng-controller="WorkBookCtrl as vm">
-  <div id="plat-side" class="left">
+<div id="plat-main" ng-controller="WorkBookCtrl as wbvm">
+  <div id="plat-side" class="left" ng-controller="SheetCtrl as upvm">
     <div id="plat-side-top">
       <a href="{{global.index}}" class="inline-block">
         <img src="assets/images/platform-logo.png" alt="LOGO">
@@ -7,7 +7,7 @@
       <div><img src="assets/images/oval.png" alt="LOGO"></div>
       <button class="large primary submit" disabled>更新数据</button>
     </div>
-    <div id="plat-side-content">
+    <div id="plat-side-content" ng-controller="ConditionCtrl as ccvm">
       <accordion></accordion>
     </div>
   </div>
@@ -24,13 +24,12 @@
     <div id="plat-body-container">123</div>
     <div id="plat-body-footer">
       <span class="tabs-item fn-fonthid"
-        ng-repeat="sheet in vm.workBook.sheets"
-        ng-class="{'selected':vm.workBook.index==$index}">
+        ng-repeat="sheet in wbvm.workBook.sheets"
+        ng-class="{'selected':wbvm.workBook.index==$index}"
+        ng-click="wbvm.selected($index)">
         {{sheet.name}}
         <i class="icon-btn icon-small-close"></i>
       </span>
       <i class="icon-btn icon-cross"></i>
-      <!-- <span class="tabs-item selected fn-fonthid">啊哈哈哈哈哈啊哈<i class="icon-btn icon-small-close"></i></span><span class="tabs-item fn-fonthid" title="在阴暗中默默的吃着胡萝卜">在阴暗中默默的吃着胡萝卜<i class="icon-btn icon-small-close"></i></span><span class="tabs-item fn-fonthid">吃就吃你别乱扔啊!!<i class="icon-btn icon-small-close"></i></span>
-       -->
     </div>
 </div>

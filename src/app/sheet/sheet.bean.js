@@ -13,11 +13,11 @@
 
     return service;
 
-    function Sheet(id, name, table, container) {
+    function Sheet(id, name, table, condition) {
       this.id = id;
       this.name = name;
       this.table = table;
-      this.container = container;
+      this.condition = condition;
     }
 
     /**
@@ -33,9 +33,9 @@
       var cubeId = sheetInfo.cubeId;
 
       var table = tableBean.parse(source.tableVO);
-      var container = conditionBean.parse(source.accordionVO);
+      var condition = conditionBean.parse(source.accordionVO);
 
-      return new Sheet(id, name, table, container);
+      return new Sheet(id, name, table, condition);
     }
   }
 })();

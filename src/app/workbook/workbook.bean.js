@@ -11,6 +11,7 @@
       'parse': parse
     };
 
+    WorkBook.prototype.selected = selected;
     WorkBook.prototype.toString = toString;
     return service;
 
@@ -34,6 +35,21 @@
         if (index === null) { index = 0; }
       }
       return new WorkBook(index, sheets);
+    }
+
+    /**
+     * 选择一个表并返回
+     * @param  {Number} index sheets中的下标
+     * @return {Sheet} 选中的表
+     */
+    function selected(index) {
+      /*jshint validthis:true */
+      var length = this.sheets.length;
+      if (index < 0 || index > length) {
+        return console.error('错误的下标:' + index);
+      }
+      this.index = index;
+      return this.sheets[this.index];
     }
 
     /**
