@@ -8,11 +8,13 @@
   ConditionController.$inject = ['$scope', 'coreCF'];
   function ConditionController($scope, config) {
     var that = this;
+    that.condition = null;
 
     var spk = config.spreadKey;
 
-    $scope.$on(spk.conditionChange, function(e, condition) {
+    $scope.$on(spk.nowConditionChange, function(e, condition) {
       console.info(condition);
+      that.condition = condition;
     });
   }
 })();

@@ -10,6 +10,12 @@
     var service = {
       'parse': parse
     };
+    var priv = {
+      'directionMap': {
+        'metaColumn': 'col',
+        'metaRow': 'row'
+      }
+    };
     return service;
 
     function Condition(sequence, direction, dimensions) {
@@ -24,13 +30,15 @@
      * @return {Object} 解析后的实体
      */
     function parse(source) {
-      var sequence = extractSequence(source);
-      var direction = {};
-      var dimensions = [], dimSources = source.dimensionVOLst;
+      var locate = extractLocate(source);
+      var sequence = locate[0];
+      var direction = locate[1];
+      var dimensions = {}, dimSources = source.dimensionVOLst;
+
       for (var i = 0, ilen = dimSources.length; i < ilen; i++) {
         var dimItem = dimSources[i];
         var dimension = dimensionBean.parse(dimItem);
-        dimensions.push(dimension);
+        dimensions[dimension.code] = dimension;
       }
 
       return new Condition(sequence, direction, dimensions);
@@ -41,16 +49,20 @@
      * @param  {Object} source 源数据
      * @return {Array} 维度代码的位置
      */
-    function extractSequence(source) {
-      var order = ['metaColumn', 'metaRow'], sequence = [];
+    function extractLocate(source) {
+      var sequence = [], // 位置
+          direction = {},// 方向
+          order = ['metaColumn', 'metaRow'];
+
       for (var i = 0, ilen = order.length; i < ilen; i++) {
         var key = order[i];
-        angular.forEach(source[key], function(codeName, index) {
-          sequence.push(codeName);
+        angular.forEach(source[key], function(code, index) {
+          sequence.push(code);
+          direction[code] = priv.directionMap[key];
         });
       }
-
-      return sequence;
+      return [sequence, direction];
     }
+
   }
 })();

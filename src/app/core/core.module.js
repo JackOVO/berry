@@ -14,8 +14,8 @@
       spreadKey: {
         'tableChange': 'tc',
         'workBookChange': 'wbc',
-        'conditionChange': 'cc',
-        'selectedSheetChange': 'ssc',
+        'nowConditionChange': 'ncc',
+        'selectedSheetChange': 'ssc'
       },
       condition: {
         'dims': '[{"codeName":"indicatorCode",' +

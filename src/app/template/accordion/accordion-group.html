@@ -1,0 +1,12 @@
+<div class="accordion-navigation">
+  <a href="javascript:;" class="hander"
+    ng-class="{'active': isOpen}"
+    ng-click="toggleOpen()"
+    accordion-transclude="heading">
+  </a>
+  <div class="content"
+    ng-style="{'height': height}"
+    ng-class="{'active': isOpen}"
+    ng-transclude></div>
+</div>
+

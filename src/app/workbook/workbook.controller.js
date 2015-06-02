@@ -5,8 +5,8 @@
     .module('platform.workbook')
     .controller('WorkBookCtrl', WorkBookController);
 
-  WorkBookController.$inject = ['$scope', 'workBookService', 'coreCF'];
-  function WorkBookController ($scope, workBookService, config) {
+  WorkBookController.$inject = ['$scope', '$timeout', 'workBookService', 'coreCF'];
+  function WorkBookController ($scope, $timeout, workBookService, config) {
     var that = this;
     that.workBook = null;
     that.selected = selectSheet;
@@ -20,7 +20,9 @@
     // 工作簿改变监听
     $scope.$on(spk.workBookChange, function(e, workBook) {
       that.workBook = workBook;
-      workBookService.selected(1);
+      $timeout(function(){
+        workBookService.selected(1);
+      }, 500);
     });
 
     // 轻轻地我选中了你
@@ -28,7 +30,7 @@
       workBookService.selected(index);
     }
 
-    console.log('我是彩0!');
+    console.log('\"!\"');
   }
 
 })();

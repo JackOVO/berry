@@ -1,5 +1,5 @@
-<div id="plat-main" ng-controller="WorkBookCtrl as wbvm">
-  <div id="plat-side" class="left" ng-controller="SheetCtrl as upvm">
+<div id="plat-main" ng-controller="SheetCtrl as scvm">
+  <div id="plat-side" class="left">
     <div id="plat-side-top">
       <a href="{{global.index}}" class="inline-block">
         <img src="assets/images/platform-logo.png" alt="LOGO">
@@ -8,7 +8,20 @@
       <button class="large primary submit" disabled>更新数据</button>
     </div>
     <div id="plat-side-content" ng-controller="ConditionCtrl as ccvm">
-      <accordion></accordion>
+      <accordion>
+        <accordion-group
+          ng-init="dim = ccvm.condition.dimensions[code];
+                   direction = ccvm.condition.direction[code]"
+          ng-repeat="code in ccvm.condition.sequence">
+          <accordion-heading>{{dim.name}}
+            <div class="icon-bar">
+              <i class="icon-btn"
+                ng-class="{'row':'icon-row', 'col':'icon-col'}[direction]"></i>
+            </div>
+          </accordion-heading>
+          内容
+        </accordiong-group>
+      </accordion>
     </div>
   </div>
   <div id="plat-body">
@@ -32,4 +45,5 @@
       </span>
       <i class="icon-btn icon-cross"></i>
     </div>
+  </div>
 </div>

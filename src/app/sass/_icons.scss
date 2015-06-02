@@ -38,6 +38,11 @@ $icon-container-width: rem-clac(16);
     cursor: pointer;
   }
 
+  .icon-col {
+    @extend .icon-row;
+    @include rotate2d(90deg);
+  }
+
   // /assets/images/
   .icon-sprite, .icon-add-search, .icon-arrow, .icon-background, .icon-blod, .icon-broken, .icon-carry, .icon-color, .icon-column, .icon-cross, .icon-curve, .icon-del, .icon-down, .icon-e, .icon-fail, .icon-file, .icon-filter, .icon-format, .icon-italics, .icon-left, .icon-less, .icon-middle, .icon-percent, .icon-pie, .icon-refresh, .icon-right, .icon-row, .icon-small-arrow, .icon-small-close, .icon-strikethrough {
     background-image: url('/assets/images/icon-s11f357442e.png');
