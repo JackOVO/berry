@@ -69,11 +69,12 @@
         values,
         function(r, rdata) { row = []; },
         function(r, c, cell) {
+          if (cell === null) { cell = {}; } // 啊啊啊啊啊啊啊啊啊
           var value = cellFormat(cell);
           var merge = cellMerge(r, c, cell);
 
           row.push(value);
-          if(merge) { result.mergeCells.push(merge); }
+          if(merge) { result.merges.push(merge); }
         },
         function(r, rdata) { result.data.push(row); });
       return result;

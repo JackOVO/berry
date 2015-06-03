@@ -10,16 +10,15 @@
     <div id="plat-side-content" ng-controller="ConditionCtrl as ccvm">
       <accordion>
         <accordion-group
-          ng-init="dim = ccvm.condition.dimensions[code];
-                   direction = ccvm.condition.direction[code]"
+          ng-init="dim = ccvm.condition.dimensions[code]"
           ng-repeat="code in ccvm.condition.sequence">
           <accordion-heading>{{dim.name}}
             <div class="icon-bar">
               <i class="icon-btn"
-                ng-class="{'row':'icon-row', 'col':'icon-col'}[direction]"></i>
+                ng-class="{'row':'icon-row', 'col':'icon-col'}[ccvm.condition.direction[code]]"
+                ng-click="ccvm.toggleDirective($event, code)"></i>
             </div>
           </accordion-heading>
-          内容
         </accordiong-group>
       </accordion>
     </div>
@@ -28,6 +27,7 @@
     <div id="plat-body-hander">
       <button id="plat-body-hamburger"></button>
       <coolmenu></coolmenu>
+      <div ng-controller="UserController as usvm"></div>
       <toolbar></toolbar>
     </div>
     <div id="plat-body-info" class="right">

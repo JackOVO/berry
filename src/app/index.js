@@ -4,12 +4,20 @@
   angular
     .module('platform', [
       'platform.core',
+      'platform.user',
       'platform.directive',
       'platform.workbook',
       'ui.router',
       'ngResource',
       'ngSanitize'])
-    .config(appConfig);
+    .config(appConfig)
+    .run(['userService', '$timeout', function(userService, $timeout) {
+      // 用户初始化, 启动逻辑, 顺序问题
+      $timeout(function() {
+        userService.initialize();
+        console.info(1);
+      }, 1);
+    }]);
 
   appConfig.$inject = ['$stateProvider', '$urlRouterProvider'];
   function appConfig ($stateProvider, $urlRouterProvider) {

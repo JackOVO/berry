@@ -5,13 +5,14 @@
     .module('platform.core')
     .factory('dataService', dataService);
 
-  dataService.$inject = ['$http', '$q', 'coreCF'];
-  function dataService ($http, $q, config) {
+  dataService.$inject = ['$http', '$cookieStore', '$q', 'coreCF'];
+  function dataService($http, $cookieStore, $q, config) {
 
     var map = config.urlMap;
     return {
       'get': get,
       'post': post,
+      'getCookieObj': getCookieObj
     };
 
     /**
@@ -37,7 +38,6 @@
     function get(name, params) {
       var url = createRepeatUrl(name);
       var options = {'params': params};
-      //params.productID='00010000000000000000000000000001';
 
       return $http.get(url, options)
         .then(completeCallBack)
@@ -56,6 +56,15 @@
       return $http.post(url, params)
         .then(completeCallBack)
         .catch(failedCallBack);
+    }
+
+    /**
+     * cookies服务封装
+     * @param  {String} key
+     * @return {String} 存啥出啥
+     */
+    function getCookieObj(key) {
+      return $cookieStore.get(key);
     }
 
     // 完成后的回调

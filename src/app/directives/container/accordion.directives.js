@@ -20,15 +20,8 @@
     that.addGroup = addGroup;
     that.closeOthers = closeOthers;
     that.removeGroup = removeGroup;
+    that.setTotalHeight = updateTotalHeight;
     that.addGroupHeight = function(height) { groupsHeight += height; };
-    that.setTotalHeight = function(height) {
-      totalHeight = height;
-      angular.forEach(that.groups, function(group) {
-        if (group ===  nowOpenGroup && group.isOpen === true) {
-          group.height = totalHeight - groupsHeight;
-        }
-      });
-    };
 
     // 关闭其他组
     function closeOthers(openGroup) {
@@ -55,6 +48,16 @@
       if (index !== -1) {
         that.groups.splice(index, 1);
       }
+    }
+
+    // 更新总高度及当前选中组的高度
+    function updateTotalHeight(height) {
+      totalHeight = height;
+      angular.forEach(that.groups, function(group) {
+        if (group ===  nowOpenGroup && group.isOpen === true) {
+          group.height = totalHeight - groupsHeight;
+        }
+      });
     }
   }
 
@@ -120,7 +123,7 @@
     };
   }
 
-  // 头引入
+  // 编译引入块添加到元素上
   function accordionTranscludeDirective() {
     return {
       require: '^accordionGroup',

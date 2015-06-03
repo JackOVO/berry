@@ -11,7 +11,7 @@
       'updateSheet': updateSelectedSheet
     };
     var priv = {
-      'selectedSheet': {}
+      'selectedSheet': null
     };
     var spk = config.spreadKey;
     return service;
@@ -28,6 +28,7 @@
 
       $rootScope.$broadcast(spk.nowTableChange, nowTable);
       $rootScope.$broadcast(spk.nowConditionChange, nowCondition);
+      return priv.selectedSheet;
     }
   }
 })();
