@@ -11,6 +11,7 @@
     that.user = null;
     var spk = config.spreadKey;
 console.info('userController');
+
     $scope.$on(spk.userChange, function(e, user) {
       that.user = user;
       console.info(user);

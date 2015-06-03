@@ -31,6 +31,8 @@
   }
 
 })();
+
+
 // angular.module('berry', ['ngAnimate', 'ngCookies', 'ngSanitize', 'ngResource', 'ui.router'])
 //   .config(function ($stateProvider, $urlRouterProvider) {
 //     $stateProvider

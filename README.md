@@ -17,7 +17,7 @@
 1. 初始化事件流
   -核心依赖脚本加载完毕, 以用户模块为启动点.
   1. UserModel(用户模块)
-  -从Cookie中拿到用户数据.
+  -从Cookie中拿到用户数据.(需要解析?)
   -启动逻辑, 判断权限状态.
 
   -由WorkBookCtrl请求WorkBook源数据, set到WorkBookService中, 监听WorkBook变更事件.

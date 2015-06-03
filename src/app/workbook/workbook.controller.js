@@ -27,6 +27,13 @@
       }, 500);
     });
 
+     $scope.$on('$viewContentLoaded', function(event) {
+      console.info('撒');
+      // $timeout(function() {
+      //   $scope.formData.value = document.getElementById("loginForm").id;
+      // },0);
+    });
+
     // 轻轻地我选中了你
     function selectSheet(index) {
       workBookService.selected(index);

@@ -18,17 +18,31 @@
 
     // 启动吧, 启动吧, 启动吧, 重要的事要说三遍
     function initialize() {
-      var key = config.userCookieKey;
-      var userData = dataService.getCookieObj(key);
-console.info(userData);
-      var userInfoMeta = {}; // 外接口免登陆?
-      if (userData.dims.uid) { userInfoMeta.uid = userData.dims.uid; }
-      if (userData.dims.secretKey) { userInfoMeta.secretKey = userData.dims.secretKey; }
+      var key = config.userCookieKey, userInfoMeta = {};
+      var userData = getUserDataByCookie(key); // 格式化后
+
+      if (userData.uid) { userInfoMeta.uid = userData.uid; }
+      if (userData.secretKey) { userInfoMeta.secretKey = userData.secretKey; }
 
       getUserInfo(userInfoMeta)
         .then(function(userInfo) {
           // 判断处理
         });
+    }
+
+    /**
+     * 从cookie获取公共域的用户数据并格式化
+     * @param  {String} key cookie key
+     * @return {Object} 格式化后的对象 || {}
+     */
+    function getUserDataByCookie(key) {
+      var userData = {};
+      var ckobj = dataService.getCookieObj(key);
+      if (ckobj) {
+        if (ckobj.dims.uid) { userData.uid = ckobj.dims.uid; }
+        if (ckobj.dims.secretKey) { userData.secretKey = ckobj.dims.secretKey; }
+      }
+      return userData;
     }
 
     /**
