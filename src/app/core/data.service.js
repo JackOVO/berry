@@ -12,7 +12,10 @@
     return {
       'get': get,
       'post': post,
-      'getCookieObj': getCookieObj
+      'getItem': getItem,
+      'setItem': setItem,
+      'getCookieObj': getCookieObj,
+      'putCookieObj': putCookieObj
     };
 
     /**
@@ -58,14 +61,36 @@
         .catch(failedCallBack);
     }
 
-    /**
-     * cookies服务封装
-     * @param  {String} key
-     * @return {String} 存啥出啥
-     */
-    function getCookieObj(key) {
-      return $cookieStore.get(key);
+    //jquery-cookie封装
+    function getCookieObj(key, options) {
+      return $.cookie(key);
     }
+
+    function putCookieObj(key, value, options) {
+      return $.cookie(key, value, options);
+    }
+
+    function removeCookie(key, options) {
+      return $.removeCookie(key, options);
+    }
+    //jquery-cookie封装
+
+    // html5本地储存
+    function setItem(key, value) {
+      if (!angular.isString(value)) {
+        value = angular.toJson(value);
+      }
+      return window.localStorage.setItem(key, value);
+    }
+
+    function getItem(key) {
+      var value = {};
+      var string = window.localStorage.getItem(key);
+      if (string) { value = angular.fromJson(string); }
+      return value;
+    }
+    // html5本地储存
+
 
     // 完成后的回调
     function completeCallBack(response) {

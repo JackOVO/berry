@@ -8,7 +8,8 @@
   conditionBean.$inject = ['dimensionBean'];
   function conditionBean (dimensionBean) {
     var service = {
-      'parse': parse
+      'parse': parse,
+      'parseGundam': parseGundam
     };
     var priv = {
       'directionMap': {
@@ -22,6 +23,12 @@
       this.sequence = sequence;
       this.direction = direction; // 各个维度方向
       this.dimensions = dimensions;
+    }
+
+    // 维度选中对象
+    function Gundam(dims, productID) {
+      this.dims = dims;
+      this.productID = productID;
     }
 
     /**
@@ -44,6 +51,18 @@
       return new Condition(sequence, direction, dimensions);
     }
 
+    /**
+     * 转化选择的维度数据条件对象
+     * @param  {Object} source 为转换的源
+     * @return {Object} 前台所用的实体
+     */
+    function parseGundam(source) {
+      var dims = {}; // {code: [id, id, ...]}
+      var array = source.dim;
+      var productID = source.productID;
+      return new Gundam(array, productID);
+    }
+ 
     /**
      * 提取出维度的位置并返回
      * @param  {Object} source 源数据

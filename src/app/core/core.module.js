@@ -5,6 +5,8 @@
     .module('platform.core', ['ngCookies'])
     .constant('coreCF', {
       userCookieKey: 'userData',
+      globalGundomKey: 'gundom',
+      domain: 'dfinder.cn',
       baseUrl: 'http://localhost:5323/platform/',
       loginUrl: 'http://localhost:3000/login.html',
       urlMap: {
@@ -13,6 +15,7 @@
       },
       // 传播关键字
       spreadKey: {
+        'go': 'orz',
         'userChange': 'uc',
         'tableChange': 'tc',
         'workBookChange': 'wbc',

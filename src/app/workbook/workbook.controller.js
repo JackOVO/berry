@@ -15,7 +15,6 @@
 
     var initCondition = config.condition;
 
-    console.log('\"!\"');
     /*启动逻辑开始*/
     // workBookService.getWorkBook(initCondition);
 
@@ -27,12 +26,12 @@
       }, 500);
     });
 
-     $scope.$on('$viewContentLoaded', function(event) {
-      console.info('撒');
+     //$scope.$on('$viewContentLoaded', function(event) {
+      //console.info('撒');
       // $timeout(function() {
       //   $scope.formData.value = document.getElementById("loginForm").id;
       // },0);
-    });
+    //});
 
     // 轻轻地我选中了你
     function selectSheet(index) {

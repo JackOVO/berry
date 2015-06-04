@@ -5,8 +5,16 @@
     .module('platform.workbook')
     .factory('workBookService', workBookService);
 
-  workBookService.$inject = ['$q', '$rootScope', 'workBookBean', 'dataService', 'coreCF'];
-  function workBookService ($q, $rootScope, workBookBean, dataService, config) {
+  workBookService.$inject = [
+    '$q',
+    '$rootScope',
+    'workBookBean',
+    'conditionService',
+    'dataService',
+    'coreCF'
+  ];
+
+  function workBookService ($q, $rootScope, workBookBean, conditionService, dataService, config) {
     var service = {
       'initialize': initialize,
       'getWorkBook': getWorkBookSource,
@@ -20,7 +28,9 @@
 
     // 启动逻辑
     function initialize () {
-      
+      // 得到初始化对象
+      var gundom = conditionService.initialize();
+      console.info(gundom);
     }
 
     /**

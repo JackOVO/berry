@@ -24,10 +24,7 @@
       if (userData.uid) { userInfoMeta.uid = userData.uid; }
       if (userData.secretKey) { userInfoMeta.secretKey = userData.secretKey; }
 
-      getUserInfo(userInfoMeta)
-        .then(function(userInfo) {
-          // 判断处理
-        });
+      return getUserInfo(userInfoMeta);
     }
 
     /**
@@ -38,7 +35,7 @@
     function getUserDataByCookie(key) {
       var userData = {};
       var ckobj = dataService.getCookieObj(key);
-      if (ckobj) {
+      if (ckobj && ckobj.dims) {
         if (ckobj.dims.uid) { userData.uid = ckobj.dims.uid; }
         if (ckobj.dims.secretKey) { userData.secretKey = ckobj.dims.secretKey; }
       }

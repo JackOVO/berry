@@ -75,6 +75,12 @@ $plat-body-footer-bg-color: #f0f0f0;
       .menu { display: inline-block; vertical-align: middle; }
       .toolbar { padding-left: 52px; }
     }
+    #plat-body-userInfo {
+      float: right;
+      display: inline-block;
+      padding-right: rem-calc(10);
+      line-height: $plat-body-hamburger-height;
+    }
 
     #plat-body-hamburger {
       position: relative;

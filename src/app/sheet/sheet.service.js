@@ -8,6 +8,7 @@
   sheetService.$inject = ['$rootScope', 'coreCF'];
   function sheetService ($rootScope, config) {
     var service = {
+      'initialize': initialize,
       'updateSheet': updateSelectedSheet
     };
     var priv = {
@@ -15,6 +16,10 @@
     };
     var spk = config.spreadKey;
     return service;
+
+    function initialize() {
+      
+    }
 
     /**
      * 更新选中的工作表
