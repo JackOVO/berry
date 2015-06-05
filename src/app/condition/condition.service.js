@@ -8,11 +8,14 @@
   conditionService.$inject = ['$rootScope', 'conditionBean', 'dataService', 'coreCF'];
   function conditionService($rootScope, conditionBean, dataService, config) {
     var service = {
-      'initialize': initialize
+      'initialize': initialize,
+      'formatGundam': formatGundam,
+      'selectedDimension': selectedDimension,
+      'updateNowCondition': updateNowCondition
     };
     var priv = {
-      'globalGundom': null, // 全局初始条件, 共同表
-      'nowCondition': null
+      'gundom': null, // 全局初始条件, 共同表
+      'condition': null
     };
     var spk = config.spreadKey;
     var cookieDomain = config.domain;
@@ -21,8 +24,30 @@
 
     function initialize () {
       diversionByCookie(); // cookie转移条件
-      priv.globalGundom = dataService.getItem(gundamKey);
-      return priv.globalGundom;
+      priv.gundom = dataService.getItem(gundamKey);
+      if (window.debug) { priv.gundom = config.gundom; }
+      return priv.gundom;
+    }
+
+    /**
+     * 选中一个维度
+     * @param  {String} code 维度代码
+     */
+    function selectedDimension (code) {
+      console.info(priv.condition);
+      priv.condition.selectedDimension(code);
+    }
+
+    /**
+     * 格式化传输条件对象, 供提交用
+     * @param  {[type]} gundam [description]
+     * @return {[type]}        [description]
+     */
+    function formatGundam(gundam) {
+      var result = {};
+      result.dims = angular.toJson(gundam.dims);
+      if (gundam.productID) { result.productID = gundam.productID; }
+      return result;
     }
 
     /**
@@ -49,9 +74,10 @@
      * @return {Condition} 当前条件对象
      */
     function updateNowCondition(condition) {
-      priv.nowCondition = condition;
-      $rootScope.$broadcast(spk.nowConditionChange, condition);
-      return priv.nowCondition;
+      priv.condition = condition;
+      $rootScope.$broadcast(spk.conditionChange, condition);
+      console.info(priv.condition);
+      return priv.condition;
     }
   }
 })();

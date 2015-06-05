@@ -5,8 +5,8 @@
     .module('platform.sheet')
     .factory('sheetService', sheetService);
 
-  sheetService.$inject = ['$rootScope', 'coreCF'];
-  function sheetService ($rootScope, config) {
+  sheetService.$inject = ['$rootScope', 'conditionService', 'coreCF'];
+  function sheetService ($rootScope, conditionService, config) {
     var service = {
       'initialize': initialize,
       'updateSheet': updateSelectedSheet
@@ -31,8 +31,9 @@
       var nowCondition = priv.selectedSheet.condition;
       var nowTable = priv.selectedSheet.table;
 
-      $rootScope.$broadcast(spk.nowTableChange, nowTable);
-      $rootScope.$broadcast(spk.nowConditionChange, nowCondition);
+      conditionService.updateNowCondition(nowCondition);
+      //$rootScope.$broadcast(spk.nowTableChange, nowTable);
+      //$rootScope.$broadcast(spk.nowConditionChange, nowCondition);
       return priv.selectedSheet;
     }
   }

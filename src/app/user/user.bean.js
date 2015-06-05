@@ -9,6 +9,7 @@
     var service = {
       'parse': parse
     };
+    User.prototype.setStatus = function(status){ this.status = status; };
     return service;
 
     function User(id, name, group) {

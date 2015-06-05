@@ -10,11 +10,12 @@
     '$rootScope',
     'workBookBean',
     'conditionService',
+    'userService',
     'dataService',
     'coreCF'
   ];
 
-  function workBookService ($q, $rootScope, workBookBean, conditionService, dataService, config) {
+  function workBookService ($q, $rootScope, workBookBean, conditionService, userService, dataService, config) {
     var service = {
       'initialize': initialize,
       'getWorkBook': getWorkBookSource,
@@ -30,17 +31,18 @@
     function initialize () {
       // 得到初始化对象
       var gundom = conditionService.initialize();
-      console.info(gundom);
+      return getWorkBookSource(gundom);
     }
 
     /**
      * 初始工作簿源数据
-     * @param  {Condition} condition 条件对象
+     * @param  {gundom} gundom 传输条件对象
      * @return {Promise}
      */
-    function getWorkBookSource(condition) {
+    function getWorkBookSource(gundom) {
       var params = {};
-      params = condition; // 应该由条件进行转换操作.
+      params = conditionService.formatGundam(gundom);
+
       return dataService.get('workBook', params)
         .then(function(source) {
           if (source.length) {
@@ -57,6 +59,7 @@
       var nowSheet = priv.workBook.selected(sheetIndex);
       if (nowSheet) {
         $rootScope.$broadcast(spk.selectedSheetChange, nowSheet);
+        userService.setStatus('sheetIndex', sheetIndex);
       } else {
         console.error('无法选择有效的表.');
       }

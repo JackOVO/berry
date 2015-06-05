@@ -8,10 +8,12 @@
       <button class="large primary submit" disabled>更新数据</button>
     </div>
     <div id="plat-side-content" ng-controller="ConditionCtrl as ccvm">
-      <accordion>
+      <accordion data="ccvm.condition.sequence">
         <accordion-group
+          is-open="dim.code == ccvm.condition.selectedCode"
+          selected="ccvm.selected(code)"
           ng-init="dim = ccvm.condition.dimensions[code]"
-          ng-repeat="code in ccvm.condition.sequence">
+          ng-repeat="code in ccvm.condition.sequence track by ccvm.byIndex(code)">
           <accordion-heading>{{dim.name}}
             <div class="icon-bar">
               <i class="icon-btn"
@@ -19,6 +21,7 @@
                 ng-click="ccvm.toggleDirective($event, code)"></i>
             </div>
           </accordion-heading>
+          {{dim}}
         </accordiong-group>
       </accordion>
     </div>

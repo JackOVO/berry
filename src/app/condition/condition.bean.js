@@ -17,9 +17,10 @@
         'metaRow': 'row'
       }
     };
+    Condition.prototype.selectedDimension = function(code) { this.selectedCode = code; };
     return service;
 
-    function Condition(sequence, direction, dimensions) {
+    function Condition(sequence, direction, dimensions, selectedcode) {
       this.sequence = sequence;
       this.direction = direction; // 各个维度方向
       this.dimensions = dimensions;
@@ -58,7 +59,7 @@
      */
     function parseGundam(source) {
       var dims = {}; // {code: [id, id, ...]}
-      var array = source.dim;
+      var array = source.dim; 
       var productID = source.productID;
       return new Gundam(array, productID);
     }

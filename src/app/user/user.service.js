@@ -8,7 +8,8 @@
   userService.$inject = ['$rootScope', 'userBean', 'dataService', 'coreCF'];
   function userService($rootScope, userBean, dataService, config) {
     var service = {
-      'initialize': initialize
+      'initialize': initialize,
+      'setStatus': setStatus
     };
     var priv = {
       'user': null
@@ -24,7 +25,30 @@
       if (userData.uid) { userInfoMeta.uid = userData.uid; }
       if (userData.secretKey) { userInfoMeta.secretKey = userData.secretKey; }
 
-      return getUserInfo(userInfoMeta);
+      return getUserInfo(userInfoMeta)
+        .then(function(user) {
+          if(user) {
+            var key = config.statusKey + user.id;
+            var status = dataService.getItem(key);
+            user.setStatus(status);
+console.info('状态', status);
+          }
+          return user;
+        });
+    }
+
+    /**
+     * set一个用户的状态
+     * @param {String} key
+     * @param {Object} value
+     */
+    function setStatus(key, value) {
+      var skey = config.statusKey + priv.user.id;
+      var status = dataService.getItem(skey);
+      status[key] = value;
+      priv.user.setStatus(status); // 同步一下
+      dataService.setItem(skey, status);
+      return status;
     }
 
     /**

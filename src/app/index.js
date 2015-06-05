@@ -21,16 +21,22 @@
   ];
 
   function startLogic ($rootScope, userService, workBookService, config) {
+    $.cookie.json = true;
+    window.debug = true;
     var spk = config.spreadKey;
 
+    // 监听模板渲染完成事件
     $rootScope.$on(spk.go, function(e) {
-      $.cookie.json = true;
-
-      console.info('启动!');
+console.info('启动!');
       userService.initialize()
-        .then(function(userInfo) {
-          if (userInfo) {
-            workBookService.initialize();
+        .then(function(user) {
+          if (user) {
+            workBookService.initialize()
+              .then(function() {
+                workBookService.selected(user.status.sheetIndex || 0);
+            });
+          } else {
+
           }
         });
     });

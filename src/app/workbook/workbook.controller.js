@@ -21,9 +21,6 @@
     // 工作簿改变监听
     $scope.$on(spk.workBookChange, function(e, workBook) {
       that.workBook = workBook;
-      $timeout(function(){
-        workBookService.selected(1);
-      }, 500);
     });
 
      //$scope.$on('$viewContentLoaded', function(event) {
@@ -36,6 +33,8 @@
     // 轻轻地我选中了你
     function selectSheet(index) {
       workBookService.selected(index);
+      //console.info(userService);
+      //userService.selected(index);
     }
   }
 

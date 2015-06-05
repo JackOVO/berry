@@ -23,6 +23,13 @@
     that.setTotalHeight = updateTotalHeight;
     that.addGroupHeight = function(height) { groupsHeight += height; };
 
+    // 监听切换重置参数
+    $scope.$watch('data', function(t) {
+      that.groups = [];
+      nowOpenGroup = null;
+      groupsHeight = 0;
+    });
+
     // 关闭其他组
     function closeOthers(openGroup) {
       if (openGroup) {
@@ -67,6 +74,7 @@
       controller:'AccordionController',
       transclude: true,
       replace: true,
+      scope: {'data': '=?'},
       templateUrl: 'app/template/accordion/accordion.html',
       link: function(scope, element, attrs, accordionCtrl) {
         accordionCtrl.setTotalHeight(element.height());
@@ -87,13 +95,14 @@
       transclude: true,
       replace: true,
       templateUrl: 'app/template/accordion/accordion-group.html',
-      scope: {heading: '@', isOpen: '=?'},
+      scope: {heading: '@', isOpen: '=?', selected: '&'},
       controller: function() {
         this.setHeading = function(element) {
           this.heading = element;
         };
       },
       link: function(scope, element, attrs, accordionCtrl) {
+        var selectedEvent = scope.selected();
         accordionCtrl.addGroup(scope);
         accordionCtrl.addGroupHeight(element.height());
 
@@ -104,6 +113,7 @@
 
         scope.toggleOpen = function () {
           scope.isOpen = !scope.isOpen;
+          if (scope.isOpen && selectedEvent) { selectedEvent(); }
         };
       }
     };
