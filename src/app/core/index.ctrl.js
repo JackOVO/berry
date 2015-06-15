@@ -3,10 +3,9 @@
 
   angular
     .module('platform.core')
-    .controller('IndexCtrl', IndexController);
+    .controller('HeadCtrl', HeadCtrl);
 
-  IndexController.$inject = ['$http'];
-  function IndexController ($http) {
+  function HeadCtrl() {
     var that = this;
     that.index = 'http://www.dfinder.cn';
     that.title = '(╯‵□′)╯︵┻━┻';

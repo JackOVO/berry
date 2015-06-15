@@ -9,6 +9,7 @@
     var service = {
       'parse': parse
     };
+    // 方便其他模块读取数据
     User.prototype.setStatus = function(status){ this.status = status; };
     return service;
 

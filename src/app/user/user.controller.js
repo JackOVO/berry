@@ -3,10 +3,10 @@
 
   angular
     .module('platform.user')
-    .controller('UserController', UserController);
+    .controller('UserCtrl', UserCtrl);
 
-  UserController.$inject = ['$scope', 'coreCF'];
-  function UserController($scope, config) {
+  UserCtrl.$inject = ['$scope', 'coreCF'];
+  function UserCtrl($scope, config) {
     var that = this;
     that.user = null;
     var spk = config.spreadKey;

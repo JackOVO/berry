@@ -8,36 +8,38 @@
   userService.$inject = ['$rootScope', 'userBean', 'dataService', 'coreCF'];
   function userService($rootScope, userBean, dataService, config) {
     var service = {
-      'initialize': initialize,
-      'setStatus': setStatus
+      'initialize': initialize
     };
     var priv = {
       'user': null
     };
+
     var spk = config.spreadKey;
     return service;
 
-    // 启动吧, 启动吧, 启动吧, 重要的事要说三遍
-    function initialize() {
-      var key = config.userCookieKey, userInfoMeta = {};
-      var userData = getUserDataByCookie(key); // 格式化后
+    // 初始化服务
+    function initialize () {
+      var key = config.userCookieKey, params = {};
+      var current = getUserCurrentByCookie(key); // 格式化后
 
-      if (userData.uid) { userInfoMeta.uid = userData.uid; }
-      if (userData.secretKey) { userInfoMeta.secretKey = userData.secretKey; }
+      // 免登陆用户信息匹配
+      if (current.uid) { params.uid = current.uid; }
+      if (current.secretKey) { params.secretKey = current.secretKey; }
 
-      return getUserInfo(userInfoMeta)
-        .then(function(user) {
-          if(user) {
-            var key = config.statusKey + user.id;
-            var status = dataService.getItem(key);
-            user.setStatus(status);
-console.info('状态', status);
-          }
-          return user;
+      return getUserInfo(params)
+        .then(function(source) {
+console.info(source);
+//           if(user) {
+//             var key = config.statusKey + user.id;
+//             var status = dataService.getItem(key);
+//             user.setStatus(status);
+// console.info('状态', status);
+//           }
+          return source;
         });
     }
 
-    /**
+    /** 
      * set一个用户的状态
      * @param {String} key
      * @param {Object} value
@@ -49,21 +51,6 @@ console.info('状态', status);
       priv.user.setStatus(status); // 同步一下
       dataService.setItem(skey, status);
       return status;
-    }
-
-    /**
-     * 从cookie获取公共域的用户数据并格式化
-     * @param  {String} key cookie key
-     * @return {Object} 格式化后的对象 || {}
-     */
-    function getUserDataByCookie(key) {
-      var userData = {};
-      var ckobj = dataService.getCookieObj(key);
-      if (ckobj && ckobj.dims) {
-        if (ckobj.dims.uid) { userData.uid = ckobj.dims.uid; }
-        if (ckobj.dims.secretKey) { userData.secretKey = ckobj.dims.secretKey; }
-      }
-      return userData;
     }
 
     /**
@@ -81,5 +68,22 @@ console.info('状态', status);
           return priv.user;
         });
     }
+
+    /**
+     * 从cookie获取用户通行证并格式化(特殊免登陆用户)
+     * @param  {String} key cookie key
+     * @return {Object} 格式化后的对象 || {}
+     */
+    function getUserCurrentByCookie(key) {
+      var crrent = {};
+      var ckobj = dataService.getCookieObj(key);
+      if (ckobj && ckobj.dims) {
+        if (ckobj.dims.uid) { crrent.uid = ckobj.dims.uid; }
+        if (ckobj.dims.secretKey) { crrent.secretKey = ckobj.dims.secretKey; }
+      }
+      return crrent;
+    }
+
   }
+
 })();

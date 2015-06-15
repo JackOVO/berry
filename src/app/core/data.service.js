@@ -94,6 +94,7 @@
 
     // 完成后的回调
     function completeCallBack(response) {
+    // 错误处理问题
 console.log(new Date().getTime(), response.data);
       return response.data; // 注意返回
     }

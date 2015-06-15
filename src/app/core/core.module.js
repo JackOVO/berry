@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('platform.core', ['ngCookies'])
+    .module('platform.core', ['ngCookies', 'platform.error'])
     .constant('coreCF', {
       // 本地存储key
       statusKey: 'status',

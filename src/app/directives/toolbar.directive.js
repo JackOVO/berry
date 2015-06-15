@@ -7,6 +7,6 @@
   function toolbarDirective () {
     return {
       templateUrl: 'app/template/toolbar.html'
-    }
+    };
   }
 })();
