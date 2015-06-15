@@ -27,6 +27,7 @@
 
   startLogic.$inject = ['userService'];
   function startLogic(userService) {
+
     userService.initialize()  
       .then(function(user) {
 

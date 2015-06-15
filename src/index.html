@@ -21,11 +21,21 @@
     <!-- css files will be automatically insert here -->
     <!-- endinject -->
     <!-- endbuild -->
+
   </head>
   <body>
-    <!--[if lt IE 9]>
-      <p>您使用的是<strong>过时的</strong>浏览器。请<a href="http://browsehappy.com/">升级您的浏览器</a>，以提高你浏览体验。</p>
+    <!--[if IE 9]>
+        <script src="//cdn.rawgit.com/jpillora/xdomain/0.7.3/dist/xdomain.min.js" slave="http://localhost:5323/proxy.html"></script>
     <![endif]-->
+
+    <!--[if lt IE 9]>
+        <p>您使用的是<strong>过时的</strong>浏览器。请<a href="http://browsehappy.com/">升级您的浏览器</a>，以提高你浏览体验。</p>
+        <script>
+        window.alert('您使用的是过时的浏览器。请升级您的浏览器，以提高你浏览体验。');
+        var scripts = window.document.getElementsByTagName('script');
+        </script>
+    <![endif]-->
+
 
     <div ui-view style="height:100%;"></div>
 
