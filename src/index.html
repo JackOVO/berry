@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="edge">
+
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <title ng-bind="head.title"></title>
@@ -37,7 +38,7 @@
     <![endif]-->
 
 
-    <div ui-view style="height:100%;"></div>
+    <div ui-view style="height:100%;" ng-controller="WorkBookCtrl as wbvm"></div>
 
     <!-- build:js(src) scripts/vendor.js -->
     <!-- bower:js -->

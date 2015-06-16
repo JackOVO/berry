@@ -7,11 +7,9 @@
 
   userService.$inject = ['$rootScope', 'userBean', 'dataService', 'coreCF'];
   function userService($rootScope, userBean, dataService, config) {
+    var _user = null;
     var service = {
       'initialize': initialize
-    };
-    var priv = {
-      'user': null
     };
 
     var spk = config.spreadKey;
@@ -27,15 +25,15 @@
       if (current.secretKey) { params.secretKey = current.secretKey; }
 
       return getUserInfo(params)
-        .then(function(source) {
-console.info(source);
-//           if(user) {
-//             var key = config.statusKey + user.id;
-//             var status = dataService.getItem(key);
-//             user.setStatus(status);
-// console.info('状态', status);
-//           }
-          return source;
+        .then(function(user) {
+          if(user) {
+            var key = config.statusKey + user.id;
+            var status = dataService.getItem(key);
+            user.setStatus(status);
+          } else {
+            console.error('没有用户, 考虑处理放在那里?');
+          }
+          return user;
         });
     }
 
@@ -45,10 +43,10 @@ console.info(source);
      * @param {Object} value
      */
     function setStatus(key, value) {
-      var skey = config.statusKey + priv.user.id;
+      var skey = config.statusKey + _user.id;
       var status = dataService.getItem(skey);
       status[key] = value;
-      priv.user.setStatus(status); // 同步一下
+      _user.setStatus(status); // 同步一下
       dataService.setItem(skey, status);
       return status;
     }
@@ -62,10 +60,10 @@ console.info(source);
       return dataService.post('userInfo', params)
         .then(function(userSource) {
           if(userSource) {
-            priv.user = userBean.parse(userSource);
-            $rootScope.$broadcast(spk.userChange, priv.user);
+            _user = userBean.parse(userSource);
+            $rootScope.$broadcast(spk.userChange, _user);
           }
-          return priv.user;
+          return _user;
         });
     }
 

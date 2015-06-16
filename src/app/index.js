@@ -7,7 +7,9 @@
       'ngResource',
       'ngSanitize',
       'platform.core',
-      'platform.user'
+      'platform.user',
+      'platform.workbook',
+      'platform.directive'
     ])
     .config(appConfig)
     .run(startLogic);
@@ -18,69 +20,32 @@
       .state('home', {
         url: '/',
         templateUrl: 'app/core/layout.html',
-        //controller: 'SheetCtrl', // 绑定的试图完成事件, 会广播给大家
-        //controllerAs: 'scvm'
+        controller: 'SheetCtrl as scvm' // 绑定的试图完成事件, 会广播给大家
       });
 
     $urlRouterProvider.otherwise('/');
   }
 
-  startLogic.$inject = ['userService'];
-  function startLogic(userService) {
+  startLogic.$inject = ['$rootScope', 'userService', 'workBookService', 'coreCF'];
+  function startLogic($rootScope, userService, workBookService, config) {
+    window.debug = true;
+    var spk = config.spreadKey;
 
-    userService.initialize()  
-      .then(function(user) {
-
-      });
+    // 监听模板是否加载完毕
+    $rootScope.$on(spk.go, function(e) {
+      userService.initialize()
+        .then(function(user) {
+  console.info('初始用户', user);
+          workBookService.initialize()
+            .then(function(workBook) {
+  console.info('初始工作簿', workBook);
+              workBookService.selected(0);
+            });
+        });
+    });
   }
 
 })();
-
-
-// (function() {
-//   'use strict';
-
-//   angular
-//     .module('platform', [
-//       'platform.directive',
-//       'ui.router',
-//       'ngResource',
-//       'ngSanitize'])
-//     .config(appConfig)
-//     .run(startLogic);
-
-//   startLogic.$inject = [
-//     '$rootScope',
-//     'userService',
-//     'workBookService',
-//     'coreCF'
-//   ];
-
-//   function startLogic ($rootScope, userService, workBookService, config) {
-//     $.cookie.json = true;
-//     window.debug = true;
-//     var spk = config.spreadKey;
-
-//     // 监听模板渲染完成事件
-//     $rootScope.$on(spk.go, function(e) {
-// console.info('启动!');
-//       userService.initialize()
-//         .then(function(user) {
-//           if (user) {
-//             workBookService.initialize()
-//               .then(function() {
-//                 workBookService.selected(user.status.sheetIndex || 0);
-//             });
-//           } else {
-
-//           }
-//         });
-//     });
-//   }
-
-
-
-// })();
 
 
 

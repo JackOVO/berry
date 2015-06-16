@@ -1,5 +1,6 @@
-<!-- <div id="plat-main">
+<div id="plat-main">
   <div id="plat-side" class="left">
+
     <div id="plat-side-top">
       <a href="{{global.index}}" class="inline-block">
         <img src="assets/images/platform-logo.png" alt="LOGO">
@@ -7,6 +8,71 @@
       <div><img src="assets/images/oval.png" alt="LOGO"></div>
       <button class="large primary submit" disabled>更新数据</button>
     </div>
+
+    <div id="plat-side-content" ng-controller="ConditionCtrl as ccvm">
+      <accordion data="ccvm.condition.sequence">
+        <accordion-group
+          is-open="dim.code == ccvm.condition.selectedCode"
+          selected="ccvm.selected(code)"
+          ng-init="dim = ccvm.condition.dimensions[code]"
+          ng-repeat="code in ccvm.condition.sequence track by ccvm.byIndex(code)">
+          <accordion-heading>{{dim.name}}
+            <div class="icon-bar">
+              <i class="icon-btn"
+                ng-class="{'row':'icon-row', 'col':'icon-col'}[ccvm.condition.direction[code]]"
+                ng-click="ccvm.toggleDirective($event, code)"></i>
+            </div>
+          </accordion-heading>
+
+          <!--{{dim}} 根据不同特性引入不同的页面(注意通用性, 任何维度都可以有一下特性展现方式)-->
+          <!--注意:dim这个键对特性等控制器的影响-->
+          <div ng-if="dim.feature.indicator"
+                ng-include="'app/template/property/dimeitem.html'"></div>
+          <div ng-if="dim.feature.indicator"
+                ng-include="'app/template/property/addIndicatorBtn.html'"></div>
+          <div ng-if="dim.feature.indicator"
+                ng-include="'app/template/property/recommend.html'"></div>
+
+        </accordiong-group>
+      </accordion>
+    </div>
+  
+  </div>
+
+  <div id="plat-body">
+    <div id="plat-body-hander">
+      <button id="plat-body-hamburger"></button>
+      <coolmenu></coolmenu>
+      <div id="plat-body-userInfo" ng-controller="UserCtrl as ucvm">
+        {{ucvm.user.name}}
+      </div>
+      <toolbar></toolbar>
+    </div>
+
+    <div id="plat-body-info" class="right">
+      <button id="plat-info-sudo" class="right">收起</button>
+      <fiexible></fiexible>
+    </div>
+
+    <div id="plat-body-container">123</div>
+
+    <div id="plat-body-footer">
+      <span class="tabs-item fn-fonthid"
+        ng-repeat="sheet in wbvm.workBook.sheets"
+        ng-class="{'selected':wbvm.workBook.index==$index}"
+        ng-click="wbvm.selected($index)">
+        {{sheet.name}}
+        <i class="icon-btn icon-small-close"></i>
+      </span>
+      <i class="icon-btn icon-cross"></i>
+    </div>
+  </div>
+
+</div>
+
+<!-- <div id="plat-main">
+  <div id="plat-side" class="left">
+
     <div id="plat-side-content" ng-controller="ConditionCtrl as ccvm">
       <accordion data="ccvm.condition.sequence">
         <accordion-group
@@ -26,6 +92,8 @@
       </accordion>
     </div>
   </div>
+
+
   <div id="plat-body">
     <div id="plat-body-hander">
       <button id="plat-body-hamburger"></button>
@@ -35,20 +103,8 @@
       </div>
       <toolbar></toolbar>
     </div>
-    <div id="plat-body-info" class="right">
-      <button id="plat-info-sudo" class="right">收起</button>
-      <fiexible></fiexible>
-    </div>
-    <div id="plat-body-container">123</div>
-    <div id="plat-body-footer">
-      <span class="tabs-item fn-fonthid"
-        ng-repeat="sheet in wbvm.workBook.sheets"
-        ng-class="{'selected':wbvm.workBook.index==$index}"
-        ng-click="wbvm.selected($index)">
-        {{sheet.name}}
-        <i class="icon-btn icon-small-close"></i>
-      </span>
-      <i class="icon-btn icon-cross"></i>
-    </div>
+    
+    
+
   </div>
 </div> -->

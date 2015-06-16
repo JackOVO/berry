@@ -14,7 +14,8 @@
       loginUrl: 'http://localhost:3000/login.html',
       urlMap: {
         'userInfo': 'userInfo.do',
-        'workBook': 'jump.do'
+        'workBook': 'jump.do',
+        'recommend': 'recmd.do'
       },
       // 传播关键字
       spreadKey: {
@@ -22,14 +23,13 @@
         'userChange': 'uc',
         'tableChange': 'tc',
         'workBookChange': 'wbc',
-        'nowConditionChange': 'ncc',
-        'selectedSheetChange': 'ssc'
+        'conditionChange': 'nc',
+        'sheetChange': 'sc'
       },
       // 默认测试条件
       gundom: {
         'dims': [
-          {"codeName":"indicatorCode",
-              "codes": ["00010000000058", "00030000038935"]}
+          {'codeName':'indicatorCode', 'codes': ['00010000000058', '00030000038935', '00010000000059']}
         ],
         'productID': '00010000000000000000000000000001'
       }
