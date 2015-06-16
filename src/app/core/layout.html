@@ -1,5 +1,5 @@
 <div id="plat-main">
-  <div id="plat-side" class="left">
+  <div id="plat-side" class="left nonesel">
 
     <div id="plat-side-top">
       <a href="{{global.index}}" class="inline-block">
@@ -32,6 +32,8 @@
                 ng-include="'app/template/property/addIndicatorBtn.html'"></div>
           <div ng-if="dim.feature.indicator"
                 ng-include="'app/template/property/recommend.html'"></div>
+          <div ng-if="dim.feature.tree"
+                ng-include="'app/template/property/tree.html'"></div>
 
         </accordiong-group>
       </accordion>

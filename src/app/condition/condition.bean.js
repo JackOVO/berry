@@ -40,7 +40,7 @@
       var sequence = locate[0];
       var direction = locate[1];
       var dimensions = {}, dimSources = source.dimensionVOLst;
-      var selectedCode = sequence.length > 0 ? sequence[0] : null; // 默认选中
+      var selectedCode = sequence.length > 0 ? sequence[1] : null; // 默认选中
 
       for (var i = 0, ilen = dimSources.length; i < ilen; i++) {
         var dimItem = dimSources[i];

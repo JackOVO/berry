@@ -29,7 +29,6 @@
               recommends.push(recommend);
             });
             setRecommendChange(params.sheetId, type, recommends);
-            console.info(_recommendChange);
             return recommends;
           }
           return $q.reject('不识别的recommend源数据!' + source);
@@ -46,7 +45,7 @@
       if (feature.indicator === true) {
         type = 'indicator';
       }
-      return type;
+      return type; 
     }
 
     /**

@@ -5,8 +5,8 @@
     .module('platform.core')
     .factory('dataService', dataService);
 
-  dataService.$inject = ['$http', '$cookieStore', '$q', 'coreCF'];
-  function dataService($http, $cookieStore, $q, config) {
+  dataService.$inject = ['$http', '$q', 'coreCF'];
+  function dataService($http, $q, config) {
 
     var map = config.urlMap;
     return {

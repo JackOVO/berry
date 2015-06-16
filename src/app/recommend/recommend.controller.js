@@ -11,7 +11,10 @@
     var that = this;
     that.type = null;
     that.title = '指标推荐'; // 可以根据类型判读更改
+    that.checked = checked;
     that.recommends = null;
+
+    getRecommend(that.type);
 
     // 当前属性是根据控制器上下文获取的, 耦合较高, 为了在多个推荐的情况下可以区分
     if ($scope.dim && $scope.dim.feature) {
@@ -31,7 +34,11 @@ console.info('更新推荐:', recommends);
         });
     }
 
-    getRecommend(that.type);
+    // 选中通知接口
+    function checked(recommend) {
+      recommend.selected = !recommend.selected;
+    }
+
   }
 
 })();
