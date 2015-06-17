@@ -5,7 +5,7 @@
     .module('platform.recommend')
     .factory('recommendService', recommendService);
 
-  recommendService.$inject = ['$q', 'sheetService', 'recommendBean', 'dataService']
+  recommendService.$inject = ['$q', 'sheetService', 'recommendBean', 'dataService'];
   function recommendService($q, sheetService, recommendBean, dataService) {
     // 每一组选中的推荐都会根据当前的表以及类型存放在这里, 条件用
     var _checkedRecommendChange = {};

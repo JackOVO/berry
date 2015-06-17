@@ -24,7 +24,10 @@
         'tableChange': 'tc',
         'workBookChange': 'wbc',
         'conditionChange': 'nc',
-        'sheetChange': 'sc'
+        'sheetChange': 'sc',
+
+        'rightMenuDataChange': 'rmdc',
+        'rightMenuPropertyChange': 'rmrc',
       },
       // 默认测试条件
       gundom: {

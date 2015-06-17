@@ -15,7 +15,9 @@
     // 维度重复性判断, 指令切换时不重复dom的话, 无法计算高度?
     that.byIndex = function(code) { return code + after; };
     // 记录选中的code, 防止切换时丢失
-    that.selected = function(code) { return function(){ conditionService.selected(code); } };
+    that.selected = function(code) {
+      return function(){ conditionService.selected(code); };
+    };
 
     // 监听当前条件变更
     $scope.$on(spk.conditionChange, function(e, condition) {

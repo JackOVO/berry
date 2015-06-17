@@ -21,7 +21,7 @@
     function checkedNodeByDim(dimCode, node) {
       var code = node.code;
       var tree = conditionService.getTree(dimCode);
-      var node = tree.checkNode(code);
+      tree.checkNode(code);
     }
   }
 

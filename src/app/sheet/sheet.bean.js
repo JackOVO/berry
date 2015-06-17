@@ -3,7 +3,7 @@
 
   angular
     .module('platform.sheet')
-    .factory('sheetBean', sheetBean)
+    .factory('sheetBean', sheetBean);
 
   sheetBean.$inject = ['conditionBean', 'tableBean'];
   function sheetBean(conditionBean, tableBean) {
