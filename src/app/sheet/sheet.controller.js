@@ -8,7 +8,7 @@
   SheetCtrl.$inject = ['$scope', '$rootScope', 'sheetService', 'coreCF'];
   function SheetCtrl ($scope, $rootScope, sheetService, config) {
     var that = this;
-
+    that.sheet = null;
     var spk = config.spreadKey;
 
     // 模板渲染完成
@@ -18,6 +18,7 @@
 
     $scope.$on(spk.sheetChange, function(e, sheet) {
 console.info('接收到表:', sheet);
+      that.sheet = sheet;
       //sheetService.updateSheet(nowSheet);
       // var table = nowSheet.table;
       // var condition = nowSheet.condition;

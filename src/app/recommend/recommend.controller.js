@@ -12,17 +12,21 @@
     that.type = null;
     that.title = '指标推荐'; // 可以根据类型判读更改
     that.checked = checked;
+    that.checkedRecord = null; // 推荐选中记录
     that.recommends = null;
-
-    getRecommend(that.type);
 
     // 当前属性是根据控制器上下文获取的, 耦合较高, 为了在多个推荐的情况下可以区分
     if ($scope.dim && $scope.dim.feature) {
       var feature = $scope.dim.feature;
+      // 根据特性获取推荐类型
       that.type = recommendService.getType(feature);
+      // 获取指定类型推荐的选中记录
+      that.checkedRecord = recommendService.getCheckedRecord(that.type);
     } else {
-      console.error('推荐控制上下文特征不存在');
+      console.error('推荐控制器上下文特征不存在!');
     }
+
+    getRecommend(that.type);
 
     // 获取推荐封装
     function getRecommend(type) {
@@ -35,8 +39,9 @@ console.info('更新推荐:', recommends);
     }
 
     // 选中通知接口
-    function checked(recommend) {
-      recommend.selected = !recommend.selected;
+    function checked(type, recommend) {
+      recommend.checked = !recommend.checked;
+      recommendService.checked(type, recommend);
     }
 
   }

@@ -11,10 +11,10 @@
     };
     return service;
 
-    function Recommend(code, text, selected) {
+    function Recommend(code, text, checked) {
       this.code = code;
       this.text = text;
-      this.selected = selected || false;
+      this.checked = checked || false;
     }
 
     /**

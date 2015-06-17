@@ -2,5 +2,5 @@
   'use strict';
 
   angular
-    .module('platform.tree', []);
+    .module('platform.tree', ['platform.condition']);
 })();

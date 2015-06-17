@@ -2,6 +2,6 @@
   <span class="line-font-line">{{rcvm.title}}</span>
   <label class="checkbox fn-fonthid" title="{{item.text}}"
     ng-repeat="item in rcvm.recommends"
-    ng-class="{'selected': item.selected}"
-    ng-click="rcvm.checked(item)">{{item.text}}</label>
+    ng-class="{'selected': rcvm.checkedRecord[item.code]}"
+    ng-click="rcvm.checked(rcvm.type, item)">{{item.text}}</label>
 </div>

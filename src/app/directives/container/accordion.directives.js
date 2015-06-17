@@ -102,6 +102,10 @@
         };
       },
       link: function(scope, element, attrs, accordionCtrl) {
+
+        // 一次性上层不知道
+        scope.isOpen = attrs.attrOpen === 'false' ? false : true;
+
         var selectedEvent = scope.selected();
         accordionCtrl.addGroup(scope);
         accordionCtrl.addGroupHeight(element.height());

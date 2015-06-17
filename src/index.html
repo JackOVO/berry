@@ -24,7 +24,8 @@
     <!-- endbuild -->
 
   </head>
-  <body>
+  <body style="overflow: hidden;">
+
     <!--[if IE 9]>
         <script src="//cdn.rawgit.com/jpillora/xdomain/0.7.3/dist/xdomain.min.js" slave="http://localhost:5323/proxy.html"></script>
     <![endif]-->
@@ -39,6 +40,8 @@
 
 
     <div ui-view style="height:100%;" ng-controller="WorkBookCtrl as wbvm"></div>
+
+    <rightmenu></rightmenu>
 
     <!-- build:js(src) scripts/vendor.js -->
     <!-- bower:js -->

@@ -5,13 +5,15 @@
     .module('platform.recommend')
     .factory('recommendService', recommendService);
 
-  recommendService.$inject = ['sheetService', 'recommendBean', 'dataService']
-  function recommendService(sheetService, recommendBean, dataService) {
-    // 每一组推荐都会根据当前的表以及类型存放在这里, 条件用
-    var _recommendChange = {};
+  recommendService.$inject = ['$q', 'sheetService', 'recommendBean', 'dataService']
+  function recommendService($q, sheetService, recommendBean, dataService) {
+    // 每一组选中的推荐都会根据当前的表以及类型存放在这里, 条件用
+    var _checkedRecommendChange = {};
     var service = {
       'require': getRecommend,
-      'getType': getRecommendType
+      'getType': getRecommendType,
+      'checked': setCheckRecommend,
+      'getCheckedRecord': getCheckedRecord
     };
     return service;
 
@@ -28,7 +30,7 @@
               var recommend = recommendBean.parse(recommendSource, type);
               recommends.push(recommend);
             });
-            setRecommendChange(params.sheetId, type, recommends);
+//setRecommendChange(params.sheetId, type, recommends);
             return recommends;
           }
           return $q.reject('不识别的recommend源数据!' + source);
@@ -49,14 +51,29 @@
     }
 
     /**
-     * 缓存推荐信息, 以当前表以及推荐的类型区分
-     * @param {[type]} sheetId 当前表的id
-     * @param {[type]} type 推荐的类型
+     * 获取推荐选中记录
+     * @param  {String} type 推荐类型
+     * @return {Object} {code: true||false}
      */
-    function setRecommendChange(sheetId, type, recommends) {
-      if (!_recommendChange[sheetId]) { _recommendChange[sheetId] = {}; }
-      var sheetRecmd = _recommendChange[sheetId];
-      sheetRecmd[type] = recommends;
+    function getCheckedRecord(type) {
+      var sheetId = sheetService.getSheetId();
+      if (!_checkedRecommendChange[sheetId]) { _checkedRecommendChange[sheetId] = {}; }
+      var conditionCheckChange = _checkedRecommendChange[sheetId];
+      if (!conditionCheckChange[type]) { conditionCheckChange[type] = {}; }
+      var dimeCheckChange = conditionCheckChange[type];
+      return dimeCheckChange;
+    }
+
+    /**
+     * 缓存选中推荐信息, 以当前表以及推荐的类型区分
+     * @param {String} type 推荐的类型
+     * @param {Recommend} 推荐项目
+     */
+    function setCheckRecommend(type, recommend) {
+      var dimeCheckChange = getCheckedRecord(type);
+      dimeCheckChange[recommend.code] = recommend.checked;
+console.info(_checkedRecommendChange);
+      return dimeCheckChange;
     }
   }
 

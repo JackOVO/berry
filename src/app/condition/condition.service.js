@@ -18,7 +18,8 @@
         'initialize': initialize,
         'update': updateCondition,
         'selected': selectedDimension,
-        'serialization': serializationGundam
+        'serialization': serializationGundam,
+        'getTree': getTreeByDimeCode
       };
       return service;
 
@@ -47,6 +48,20 @@ console.info('当前条件:', condition);
        */
       function selectedDimension(code) {
         _condition.selectedDimension(code);
+      }
+
+      /**
+       * 获取指定维度的树
+       * @return {Tree}
+       */
+      function getTreeByDimeCode(code) {
+        if (!_condition.dimensions[code]) {
+          console.error('没有该维度信息', code);
+        } else if (!_condition.dimensions[code].tree) {
+          console.error('该维度没有树属性', code);
+        } else {
+          return _condition.dimensions[code].tree;
+        }
       }
 
       /**

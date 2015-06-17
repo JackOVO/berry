@@ -9,18 +9,19 @@
     var service = {
       'parse': parseTree
     };
+    Tree.prototype.checkNode = checkNode;
     return service;
 
     function Tree(childs) {
       this.childs = childs;
     }
 
-    function Node(code, name, childs, disabled, selected) {
+    function Node(code, name, childs, checked, disabled) {
       this.code = code;
       this.name = name;
       this.childs = childs;
+      this.checked = checked || false;
       this.disabled = disabled || false;
-      this.selected = selected || false;
     }
 
     /**
@@ -48,9 +49,9 @@
     function parseNode(source) {
       var code = source.entity.code;
       var name = source.entity.name;
+      var checked = source.entity.selected;
       var disabled = source.entity.disabled;
-      var selected = source.entity.selected;
-      return new Node(code, name, [], disabled, selected);
+      return new Node(code, name, [], checked, disabled);
     }
 
     /**
@@ -71,6 +72,32 @@
         }
       }
       return fater;
+    }
+
+    /**
+     * 查找一个节点
+     * @param  {Array} array 节点数组
+     * @param  {String} code 节点代码
+     * @return {Object} node 节点
+     */
+    function queryNode(array, code) {
+      if (!array.length) { return null; }
+      var notFindAry = [];
+      for (var i = 0, ilen = array.length; i < ilen; i++) {
+        var node = array[i];
+        if (node.code === code) {
+          return node;
+        } else if (node.childs.length) {
+          notFindAry = notFindAry.concat(node.childs);
+        }
+      }
+      return queryNode(notFindAry, code);
+    }
+
+    function checkNode(code, checked) {
+      var node = queryNode(this.childs, code);
+      if (node) { node.checked = checked === undefined ? !node.checked : checked; }
+      return node;
     }
   }
 })();

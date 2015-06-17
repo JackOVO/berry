@@ -8,11 +8,11 @@
       <div><img src="assets/images/oval.png" alt="LOGO"></div>
       <button class="large primary submit" disabled>更新数据</button>
     </div>
-
+<!-- is-open="dim.code == ccvm.condition.selectedCode" -->
     <div id="plat-side-content" ng-controller="ConditionCtrl as ccvm">
       <accordion data="ccvm.condition.sequence">
         <accordion-group
-          is-open="dim.code == ccvm.condition.selectedCode"
+          attr-open="{{dim.code == ccvm.condition.selectedCode}}"
           selected="ccvm.selected(code)"
           ng-init="dim = ccvm.condition.dimensions[code]"
           ng-repeat="code in ccvm.condition.sequence track by ccvm.byIndex(code)">
