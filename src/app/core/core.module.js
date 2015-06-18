@@ -13,9 +13,10 @@
       baseUrl: 'http://localhost:5323/platform/',
       loginUrl: 'http://localhost:3000/login.html',
       urlMap: {
-        'userInfo': 'userInfo.do',
+        'search': 'search.do',
         'workBook': 'jump.do',
-        'recommend': 'recmd.do'
+        'recommend': 'recmd.do',
+        'userInfo': 'userInfo.do'
       },
       // 传播关键字
       spreadKey: {

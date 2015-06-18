@@ -2,5 +2,10 @@
   'use strict';
 
   angular
-    .module('platform.condition', ['platform.dimension', 'platform.recommend']);
+    .module('platform.condition', [
+      'ui.sortable', // 排序拖动指令
+      'platform.dimension',
+      'platform.recommend',
+      'platform.search'
+    ]);
 })();

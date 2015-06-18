@@ -10,6 +10,12 @@
     var spk = config.spreadKey;
     var that = this, after = '';
     that.condition = null;
+    that.accSortableOptions = {
+      axis: 'y',
+      handle: '.hander',
+      tolerance: 'pointer',
+      containment: 'parent',
+    };
 
     that.toggleDirective = toggleDirective;
     // 维度重复性判断, 指令切换时不重复dom的话, 无法计算高度?
@@ -32,6 +38,28 @@ console.info('接收到条件:', that.condition);
       that.condition.direction[code] = direction === 'col' ? 'row' : 'col';
       e.stopPropagation();
     }
+
+//     $scope.sortableOptions = {
+
+//       
+//       
+//       
+//       activate: function (event, ui) {
+//         var header = ui.item.children('.acc-header')[0];
+//         var accHeaderScope = angular.element(header).scope();
+//         var isOpen = accHeaderScope.isOpen;
+//         //if (isOpen) {
+//         // 高度问题无法正常运行
+//         // accHeaderScope.toggleOpen();
+//         // accHeaderScope.$apply();
+//         //}
+//       },
+//       update: function(event, ui) {
+//         $timeout(function () {
+//           $scope.$emit('dimensionStatusChange');
+//         });
+//       }
+//     };
   }
 
 })();

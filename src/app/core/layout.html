@@ -8,37 +8,43 @@
       <div><img src="assets/images/oval.png" alt="LOGO"></div>
       <button class="large primary submit" disabled>更新数据</button>
     </div>
-<!-- is-open="dim.code == ccvm.condition.selectedCode" -->
+
     <div id="plat-side-content" ng-controller="ConditionCtrl as ccvm">
       <accordion data="ccvm.condition.sequence">
-        <accordion-group
-          attr-open="{{dim.code == ccvm.condition.selectedCode}}"
-          selected="ccvm.selected(code)"
-          ng-init="dim = ccvm.condition.dimensions[code]"
-          ng-repeat="code in ccvm.condition.sequence track by ccvm.byIndex(code)">
-          <accordion-heading>{{dim.name}}
-            <div class="icon-bar">
-              <i class="icon-btn"
-                ng-class="{'row':'icon-row', 'col':'icon-col'}[ccvm.condition.direction[code]]"
-                ng-click="ccvm.toggleDirective($event, code)"></i>
-            </div>
-          </accordion-heading>
+        <div ui-sortable="ccvm.accSortableOptions" style="height:100%">
+          <accordion-group
+            attr-open="{{dim.code == ccvm.condition.selectedCode}}"
+            selected="ccvm.selected(code)"
+            ng-init="dim = ccvm.condition.dimensions[code]"
+            ng-repeat="code in ccvm.condition.sequence track by ccvm.byIndex(code)">
+            <accordion-heading>{{dim.name}}
+              <div class="icon-bar">
+                <i class="icon-btn"
+                  ng-class="{'row':'icon-row', 'col':'icon-col'}[ccvm.condition.direction[code]]"
+                  ng-click="ccvm.toggleDirective($event, code)"></i>
+              </div>
+            </accordion-heading>
 
-          <!--{{dim}} 根据不同特性引入不同的页面(注意通用性, 任何维度都可以有一下特性展现方式)-->
-          <!--注意:dim这个键对特性等控制器的影响-->
-          <div ng-if="dim.feature.indicator"
-                ng-include="'app/template/property/dimeitem.html'"></div>
-          <div ng-if="dim.feature.indicator"
-                ng-include="'app/template/property/addIndicatorBtn.html'"></div>
-          <div ng-if="dim.feature.indicator"
-                ng-include="'app/template/property/recommend.html'"></div>
-          <div ng-if="dim.feature.tree"
-                ng-include="'app/template/property/tree.html'"></div>
+            <!--{{dim}} 根据不同特性引入不同的页面(注意通用性, 任何维度都可以有特性展现方式)-->
+            <!--注意:dim这个键对特性等控制器的影响-->
+            <!--注意:以下控制器多都需要上下文dim的数据,耦合较高,可以想方法从服务获取-->
+            <scrollbar>
+              <div ng-if="dim.feature.indicator"
+                    ng-include="'app/template/property/dimeitem.html'"></div>
+              <div ng-if="dim.feature.indicator"
+                    ng-include="'app/template/property/addIndicatorBtn.html'"></div>
+              <div ng-if="dim.feature.indicator"
+                    ng-include="'app/template/property/recommend.html'"></div>
+              <div ng-if="dim.feature.search"
+                    ng-include="'app/template/property/search.html'"></div>
+              <div ng-if="dim.feature.tree"
+                    ng-include="'app/template/property/tree.html'"></div>
+            </scrollbar>
 
-        </accordiong-group>
+          </accordiong-group>
+        </div>
       </accordion>
     </div>
-  
   </div>
 
   <div id="plat-body">
@@ -71,42 +77,3 @@
   </div>
 
 </div>
-
-<!-- <div id="plat-main">
-  <div id="plat-side" class="left">
-
-    <div id="plat-side-content" ng-controller="ConditionCtrl as ccvm">
-      <accordion data="ccvm.condition.sequence">
-        <accordion-group
-          is-open="dim.code == ccvm.condition.selectedCode"
-          selected="ccvm.selected(code)"
-          ng-init="dim = ccvm.condition.dimensions[code]"
-          ng-repeat="code in ccvm.condition.sequence track by ccvm.byIndex(code)">
-          <accordion-heading>{{dim.name}}
-            <div class="icon-bar">
-              <i class="icon-btn"
-                ng-class="{'row':'icon-row', 'col':'icon-col'}[ccvm.condition.direction[code]]"
-                ng-click="ccvm.toggleDirective($event, code)"></i>
-            </div>
-          </accordion-heading>
-          {{dim}}
-        </accordiong-group>
-      </accordion>
-    </div>
-  </div>
-
-
-  <div id="plat-body">
-    <div id="plat-body-hander">
-      <button id="plat-body-hamburger"></button>
-      <coolmenu></coolmenu>
-      <div id="plat-body-userInfo" ng-controller="UserController as usvm">
-        {{usvm.user.name}}
-      </div>
-      <toolbar></toolbar>
-    </div>
-    
-    
-
-  </div>
-</div> -->
