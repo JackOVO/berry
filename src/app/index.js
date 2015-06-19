@@ -1,6 +1,6 @@
 (function() {
   'use strict';
-
+// 纵观全局
   angular
     .module('platform', [
       'ui.router',
