@@ -45,7 +45,7 @@
     function getRecommendType(feature) {
       var type = null;
       if (feature.indicator === true) {
-        type = 'indicator';
+        type = 'indicatorCode';
       }
       return type; 
     }
@@ -72,7 +72,6 @@
     function setCheckRecommend(type, recommend) {
       var dimeCheckChange = getCheckedRecord(type);
       dimeCheckChange[recommend.code] = recommend.checked;
-console.info(_checkedRecommendChange);
       return dimeCheckChange;
     }
   }

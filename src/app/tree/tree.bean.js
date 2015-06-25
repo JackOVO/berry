@@ -10,6 +10,8 @@
       'parse': parseTree
     };
     Tree.prototype.checkNode = checkNode;
+    Tree.prototype.getAllSel = getAllSelected;
+    Tree.prototype.getAllSelCode = getAllSelectedCode;
     return service;
 
     function Tree(childs) {
@@ -94,10 +96,52 @@
       return queryNode(notFindAry, code);
     }
 
+    /**
+     * 查找指定的属性指定值的所有节点
+     * !该方法用户获取选中的节点, 效率好低, 可不可以直接在checkNode中写入节点选中的监听
+     * @param  {String} attrName 属性名
+     * @param  {Object} attrValue 属性值
+     * @return {Array} 符号条件的所有节点
+     */
+    function queryNodeByAttr(tree, attrName, attrValue) {
+      var list = tree.childs, result = [];
+      recursiveTree(list, 'childs', null, function(node) {
+        if (node[attrName] === attrValue) {
+          result.push(node);
+        }
+      });
+      return result;
+    }
+
+    /**
+     * 为指定节点设置选中属性
+     * @param  {String} code 节点code
+     * @param  {Boolean} checked 是否
+     * @return {Node} 得到的节点
+     */
     function checkNode(code, checked) {
       var node = queryNode(this.childs, code);
       if (node) { node.checked = checked === undefined ? !node.checked : checked; }
       return node;
     }
+
+    // 获取所有选中的节点
+    function getAllSelected() {
+      var tree = this;
+      var selectedNodes = queryNodeByAttr(tree, 'checked', true);
+      return selectedNodes;
+    }
+
+    // 获取全部选中节点的code
+    function getAllSelectedCode() {
+      var codes = [];
+      var selectedNodes = this.getAllSel();
+      angular.forEach(selectedNodes, function(node, index) {
+        codes.push(node.code);
+      });
+      return codes;
+    }
+
   }
+
 })();

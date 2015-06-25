@@ -10,6 +10,7 @@
     var service = {
       'parse': parse
     };
+    Dimension.prototype.flow = flow;
     return service;
 
     function Dimension (code, name, tree, feature) {
@@ -56,5 +57,15 @@
       }
       return feature;
     }
+
+    // 序列化(供提交用)
+    function flow() {
+      var selCodes = this.tree.getAllSelCode();
+      return {
+        'codeName': this.code,
+        'codes': selCodes
+      };
+    }
   }
+
 })();

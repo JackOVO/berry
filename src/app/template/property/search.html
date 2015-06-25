@@ -7,7 +7,8 @@
     input-style="width:100%;">
   <label class="checkbox break q fn-fonthid"
     title="{{item.name}}"
-    ng-class="{'selected': false}"
-    ng-repeat="item in lvscvm.data">{{item.name}}</label>
+    ng-class="{'selected': item.isSelected}"
+    ng-repeat="item in lvscvm.data"
+    ng-click="lvscvm.selected(item)">{{item.name}}</label>
   </proposal>
 </div>

@@ -27,6 +27,11 @@
         'conditionChange': 'nc',
         'sheetChange': 'sc',
 
+        'syncSearchSelectNode': 'sssn', // 同步搜索结果中选中的node
+        'syncSearchSelectNodeEmit': 'sssne', // 向上, 同级通信
+        'recommendCheckedChange': 'rcc', // 推荐选中变成, 向上通知
+        'syncSubmitChange': 'ssc',
+
         'rightMenuDataChange': 'rmdc',
         'rightMenuPropertyChange': 'rmrc',
       },

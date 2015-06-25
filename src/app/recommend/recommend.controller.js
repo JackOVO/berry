@@ -6,14 +6,16 @@
     .controller('LeftRecommendCtrl', LeftRecommendCtrl);
 
   // 考虑多种推荐问题, 不采用广播的方式绑定数据, 而从承诺中直接获取
-  LeftRecommendCtrl.$inject = ['$scope', 'recommendService'];
-  function LeftRecommendCtrl($scope, recommendService) {
+  LeftRecommendCtrl.$inject = ['$scope', 'recommendService', 'coreCF'];
+  function LeftRecommendCtrl($scope, recommendService, config) {
     var that = this;
     that.type = null;
     that.title = '指标推荐'; // 可以根据类型判读更改
     that.checked = checked;
     that.checkedRecord = null; // 推荐选中记录
     that.recommends = null;
+
+    var spk = config.spreadKey;
 
     // 当前属性是根据控制器上下文获取的, 耦合较高, 为了在多个推荐的情况下可以区分
     if ($scope.dim && $scope.dim.feature) {
@@ -42,6 +44,7 @@ console.info('更新推荐:', recommends);
     function checked(type, recommend) {
       recommend.checked = !recommend.checked;
       recommendService.checked(type, recommend);
+      $scope.$emit(spk.recommendCheckedChange);
     }
 
   }

@@ -17,9 +17,9 @@
       var service = {
         'initialize': initialize,
         'update': updateCondition,
+        'getTree': getTreeByDimeCode,
         'selected': selectedDimension,
-        'serialization': serializationGundam,
-        'getTree': getTreeByDimeCode
+        'serialization': serializationGundam
       };
       return service;
 
@@ -39,6 +39,7 @@
         _condition = condition;
 console.info('当前条件:', condition);
         $rootScope.$broadcast(spk.conditionChange, _condition);
+_condition.flow();
         return _condition;
       }
 

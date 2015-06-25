@@ -54,8 +54,8 @@
     }
   };
 
-  treeDirective.$inject = ['rightMenuService'];
-  function treeDirective(rightMenuService) {
+  treeDirective.$inject = ['rightMenuService', 'coreCF'];
+  function treeDirective(rightMenuService, config) {
     return {
       replace: true,
       scope: {'data': '=', 'oncheck': '&'},
@@ -64,6 +64,7 @@
         var Id = 'zt' + attr.mark; // 区分多个树
         var statusKey = attr.statuskey; // 区分多个表的状态保存
         var onCheckFn = scope.oncheck();
+        var spk = config.spreadKey;
 
         var setting = {
           view: {showIcon:false, showTitle: false},
@@ -105,12 +106,20 @@
           var exNode = ztree.getNodeByTId(expandAry[i]);
           ztree.expandNode(exNode);
         }
+
+        // 搜索选中后同步选中监听
+        scope.$on(spk.syncSearchSelectNode, function(e, code) {
+          var node = ztree.getNodeByParam('code', code);
+          console.info(node);
+          // 选中不会触发回调
+          ztree.checkNode(node, !node.checked, true, false);
+        });
       }
     };
   }
 
   /**
-   * 获取指定表下指定类型的书
+   * 获取指定表下指定类型的树
    * @param {String} sk  SheetId
    * @param {String} type DimeCode
    * @return {Object} 存放

@@ -14,13 +14,17 @@
     };
 
     // 记录选中code, 切换sheet恢复选中
+    Condition.prototype.flow = flow;
     Condition.prototype.selectedDimension = selectedDimension;
+    Condition.prototype.setCurrent = function(current) { this.current = current; };
     return service;
 
     function Condition(sequence, direction, dimensions, selectedCode) {
       this.sequence = sequence;
       this.direction = direction; // 各个维度方向
       this.dimensions = dimensions;
+
+      this.current = null; // 当前条件序列化的值, 判断同步用
       this.selectedCode = selectedCode;
     }
 
@@ -47,12 +51,10 @@
         var dimension = dimensionBean.parse(dimItem);
         dimensions[dimension.code] = dimension;
       }
+      var condition = new Condition(sequence, direction, dimensions, selectedCode);
+      condition.current = condition.flow(); // 同步判断用
 
-      return new Condition(sequence, direction, dimensions, selectedCode);
-    }
-
-    function selectedDimension(code) {
-      this.selectedCode = code;
+      return condition;
     }
 
     /**
@@ -85,6 +87,42 @@
         });
       }
       return [sequence, direction];
+    }
+
+    function selectedDimension(code) {
+      this.selectedCode = code;
+    }
+
+    // 序列化(供提交用)
+    function flow() {
+      var sequence = this.sequence,
+          direction = this.direction,
+          dimensions = this.dimensions;
+      var result = {};
+      var dims = [], metaColumns = [], metaRows = [];
+
+      //按顺序来
+      angular.forEach(sequence, function(key, index) {
+        var dim = dimensions[key].flow();
+        dims.push(dim);
+      });
+      result.dims = dims;
+
+      // 按顺序来
+      angular.forEach(sequence, function(code, index) {
+        var status = direction[code];
+        if (status === _directionMap['metaColumn']) {
+          metaColumns.push(code);
+        } else if (status === _directionMap['metaRow']) {
+          metaRows.push(code)
+        } else {
+          console.error('条件方向序列化失败', code, status);
+        }
+      });
+      result.metaRow = metaRows.join('-');
+      result.metaColumn = metaColumns.join('-');
+
+      return result;
     }
   }
 

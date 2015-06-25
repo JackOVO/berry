@@ -6,12 +6,15 @@
         <img src="assets/images/platform-logo.png" alt="LOGO">
       </a>
       <div><img src="assets/images/oval.png" alt="LOGO"></div>
-      <button class="large primary submit" disabled>更新数据</button>
+      <button class="large primary submit"
+        ng-class="{'disabled': scvm.disabled}">更新数据</button>
     </div>
 
     <div id="plat-side-content" ng-controller="ConditionCtrl as ccvm">
       <accordion data="ccvm.condition.sequence">
-        <div ui-sortable="ccvm.accSortableOptions" style="height:100%">
+        <div 
+          ng-model="ccvm.condition.sequence"
+          ui-sortable="ccvm.accSortableOptions" style="height:100%">
           <accordion-group
             attr-open="{{dim.code == ccvm.condition.selectedCode}}"
             selected="ccvm.selected(code)"
@@ -28,7 +31,7 @@
             <!--{{dim}} 根据不同特性引入不同的页面(注意通用性, 任何维度都可以有特性展现方式)-->
             <!--注意:dim这个键对特性等控制器的影响-->
             <!--注意:以下控制器多都需要上下文dim的数据,耦合较高,可以想方法从服务获取-->
-            <scrollbar>
+            <scrollbar ng-controller="txCtrl">
               <div ng-if="dim.feature.indicator"
                     ng-include="'app/template/property/dimeitem.html'"></div>
               <div ng-if="dim.feature.indicator"

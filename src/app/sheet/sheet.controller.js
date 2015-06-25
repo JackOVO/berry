@@ -9,6 +9,7 @@
   function SheetCtrl ($scope, $rootScope, sheetService, config) {
     var that = this;
     that.sheet = null;
+    that.disabled = true;
     var spk = config.spreadKey;
 
     // 模板渲染完成
@@ -25,6 +26,11 @@ console.info('接收到表:', sheet);
 
       // $scope.$broadcast(spk.tableChange, table);
       // $scope.$broadcast(spk.conditionChange, condition);
+    });
+
+    // 提交同步问题
+    $scope.$on(spk.syncSubmitChange, function(e, isSSS) {
+      that.disabled = isSSS;
     });
   }
 

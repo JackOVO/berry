@@ -21,6 +21,7 @@
     that.onCheck = function(node) {
       // 同步选中数据
       treeService.checked(_dimeCode, node);
+      $scope.$apply(); // 条件控制器上层监听听不到
     };
   }
 
