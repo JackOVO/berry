@@ -7,46 +7,50 @@
       </a>
       <div><img src="assets/images/oval.png" alt="LOGO"></div>
       <button class="large primary submit"
-        ng-class="{'disabled': scvm.disabled}">更新数据</button>
+        ng-class="{'disabled': wbvm.isSync}"
+        ng-click="wbvm.sync();">更新数据</button>
     </div>
 
     <div id="plat-side-content" ng-controller="ConditionCtrl as ccvm">
-      <accordion data="ccvm.condition.sequence">
-        <div 
-          ng-model="ccvm.condition.sequence"
-          ui-sortable="ccvm.accSortableOptions" style="height:100%">
-          <accordion-group
-            attr-open="{{dim.code == ccvm.condition.selectedCode}}"
-            selected="ccvm.selected(code)"
-            ng-init="dim = ccvm.condition.dimensions[code]"
-            ng-repeat="code in ccvm.condition.sequence track by ccvm.byIndex(code)">
-            <accordion-heading>{{dim.name}}
-              <div class="icon-bar">
-                <i class="icon-btn"
-                  ng-class="{'row':'icon-row', 'col':'icon-col'}[ccvm.condition.direction[code]]"
-                  ng-click="ccvm.toggleDirective($event, code)"></i>
-              </div>
-            </accordion-heading>
-
-            <!--{{dim}} 根据不同特性引入不同的页面(注意通用性, 任何维度都可以有特性展现方式)-->
-            <!--注意:dim这个键对特性等控制器的影响-->
-            <!--注意:以下控制器多都需要上下文dim的数据,耦合较高,可以想方法从服务获取-->
-            <scrollbar ng-controller="txCtrl">
-              <div ng-if="dim.feature.indicator"
-                    ng-include="'app/template/property/dimeitem.html'"></div>
-              <div ng-if="dim.feature.indicator"
-                    ng-include="'app/template/property/addIndicatorBtn.html'"></div>
-              <div ng-if="dim.feature.indicator"
-                    ng-include="'app/template/property/recommend.html'"></div>
-              <div ng-if="dim.feature.search"
-                    ng-include="'app/template/property/search.html'"></div>
-              <div ng-if="dim.feature.tree"
-                    ng-include="'app/template/property/tree.html'"></div>
-            </scrollbar>
-
-          </accordiong-group>
-        </div>
-      </accordion>
+<!--       <div ng-repeat="code in ccvm.condition.sequence track by ccvm.byIndex(code)">
+  {{code}}
+</div> -->
+    <accordion data="ccvm.condition.sequence">
+      <div 
+        ng-model="ccvm.condition.sequence"
+        ui-sortable="ccvm.accSortableOptions" style="height:100%">
+        <accordion-group
+          attr-open="{{dim.code == ccvm.condition.selectedCode}}"
+          selected="ccvm.selected(code)"
+          ng-init="dim = ccvm.condition.dimensions[code]"
+          ng-repeat="code in ccvm.condition.sequence track by ccvm.byIndex(code)">
+          <accordion-heading>{{dim.name}}
+            <div class="icon-bar">
+              <i class="icon-btn"
+                ng-class="{'row':'icon-row', 'col':'icon-col'}[ccvm.condition.direction[code]]"
+                ng-click="ccvm.toggleDirective($event, code)"></i>
+            </div>
+          </accordion-heading>
+    
+          <!-- {{dim}} 根据不同特性引入不同的页面(注意通用性, 任何维度都可以有特性展现方式) -->
+          <!-- 注意:dim这个键对特性等控制器的影响 -->
+          <!-- 注意:以下控制器多都需要上下文dim的数据,耦合较高,可以想方法从服务获取 -->
+          <scrollbar ng-controller="txCtrl">
+            <div ng-if="dim.feature.indicator"
+                  ng-include="'app/template/property/dimeitem.html'"></div>
+            <div ng-if="dim.feature.indicator"
+                  ng-include="'app/template/property/addIndicatorBtn.html'"></div>
+            <div ng-if="dim.feature.indicator"
+                  ng-include="'app/template/property/recommend.html'"></div>
+            <div ng-if="dim.feature.search"
+                  ng-include="'app/template/property/search.html'"></div>
+            <div ng-if="dim.feature.tree"
+                  ng-include="'app/template/property/tree.html'"></div>
+          </scrollbar>
+    
+        </accordiong-group>
+      </div>
+    </accordion>
     </div>
   </div>
 
@@ -65,7 +69,7 @@
       <fiexible></fiexible>
     </div>
 
-    <div id="plat-body-container">123</div>
+    <div id="plat-body-container">{{scvm.sheet.table}}</div>
 
     <div id="plat-body-footer">
       <span class="tabs-item fn-fonthid"

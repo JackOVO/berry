@@ -6,6 +6,7 @@
       'ui.sortable', // 排序拖动指令
       'platform.dimension',
       'platform.recommend',
-      'platform.search'
+      'platform.search',
+      'platform.indicator'
     ]);
 })();

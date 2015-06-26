@@ -25,6 +25,7 @@
 
     // 监听切换重置参数
     $scope.$watch('data', function(t) {
+console.info('---------------------------------------------------');
       that.groups = [];
       nowOpenGroup = null;
       groupsHeight = 0;
@@ -33,6 +34,7 @@
     // 关闭其他组
     function closeOthers(openGroup) {
       if (openGroup) {
+console.error(that.groups.length);
         angular.forEach(that.groups, function(group) {
           if (group !== openGroup) {
             group.height = 1;

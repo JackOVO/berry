@@ -5,7 +5,12 @@
     .module('platform.condition')
     .factory('conditionService', conditionService);
 
-    conditionService.$inject = ['$rootScope', 'conditionBean', 'dataService', 'coreCF'];
+    conditionService.$inject = [
+      '$rootScope',
+      'conditionBean',
+      'dataService', 
+      'coreCF'
+    ];
     function conditionService($rootScope, conditionBean, dataService, config) {
       var _gundam = null;
       var _condition = null;
@@ -19,7 +24,11 @@
         'update': updateCondition,
         'getTree': getTreeByDimeCode,
         'selected': selectedDimension,
-        'serialization': serializationGundam
+        'serialization': serializationGundam,
+
+        'fff': getAttachCheckedRecomd,
+        'getGundam': function(attach) { return _condition.getGundam(attach); },
+        'setGundam': function(gundam) { _condition.setGundam(gundam); }
       };
       return service;
 
@@ -39,7 +48,6 @@
         _condition = condition;
 console.info('当前条件:', condition);
         $rootScope.$broadcast(spk.conditionChange, _condition);
-_condition.flow();
         return _condition;
       }
 
@@ -50,7 +58,7 @@ _condition.flow();
       function selectedDimension(code) {
         _condition.selectedDimension(code);
       }
-
+ 
       /**
        * 获取指定维度的树
        * @return {Tree}
@@ -66,6 +74,26 @@ _condition.flow();
       }
 
       /**
+       * 得出选中的推荐节点, 转化成判断同步的附属对象
+       * 不知道为什么recommendService注入不进来
+       * @return {attach} 同步附属
+       */
+      function getAttachCheckedRecomd(recommendService) {
+        var attach = {}; // {codeName:codes, codeName:codes}
+        var gundam = _condition.extractGundam();
+
+        angular.forEach(gundam.dims, function(dim, index) {
+          var type = dim.codeName, ckcodes = [];
+          var reCheck = recommendService.getCheckedRecord(type);
+          angular.forEach(reCheck, function(bol, code) {
+            if (bol === true) { ckcodes.push(code); }
+          });
+          attach[type] = ckcodes;
+        });
+        return attach;
+      }
+
+      /**
        * 序列化传输条件对象, 供提交用
        * @param  {Gundam} gundam 传递用的用户对象
        * @return {Object} 提交的条件参数
@@ -73,6 +101,10 @@ _condition.flow();
       function serializationGundam(gundam) {
         var result = {};
         result.dims = angular.toJson(gundam.dims);
+
+        if (gundam.sheetId) { result.sheetId = gundam.sheetId; }
+        if (gundam.metaRow) { result.metaRow = gundam.metaRow.join('-'); }
+        if (gundam.metaColumn) { result.metaColumn = gundam.metaColumn.join('-'); }
         if (gundam.productID) { result.productID = gundam.productID; }
         return result;
       }

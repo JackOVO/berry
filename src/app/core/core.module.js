@@ -13,6 +13,7 @@
       baseUrl: 'http://localhost:5323/platform/',
       loginUrl: 'http://localhost:3000/login.html',
       urlMap: {
+        'sync': 'dim.do',
         'search': 'search.do',
         'workBook': 'jump.do',
         'recommend': 'recmd.do',

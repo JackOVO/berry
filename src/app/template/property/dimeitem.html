@@ -1,5 +1,11 @@
-<div class="item"
-  ng-repeat="node in dim.tree.childs">
-  <span class="fn-fonthid" title="{{node.name}}">{{node.name}}</span>
-  <div class="icon-bar"><i class="icon-btn icon-del"></i></div>
+<div ng-controller="IndicatorCtrl as icvm">
+  <div class="item" ng-show="node.checked == true"
+    ng-repeat="node in dim.tree.childs">
+    <span class="fn-fonthid" title="{{node.name}}">{{node.name}}</span>
+    <div class="icon-bar">
+      <i class="icon-btn icon-del"
+        ng-show="dim.tree.childs.length > 1"
+        ng-click="icvm.remove(node.code)"></i>
+    </div>
+  </div>
 </div>

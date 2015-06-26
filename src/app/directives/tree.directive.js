@@ -102,6 +102,7 @@
         var ztree = $.fn.zTree.init(element, setting, scope.data);
         // 获取展开记录, 并展开节点
         var expandAry = getStatus(statusKey, attr.mark);
+        //ztree.setting.expandSpeed = ''; 关闭展开动画
         for (var i = 0, ilen = expandAry.length; i < ilen; i++) {
           var exNode = ztree.getNodeByTId(expandAry[i]);
           ztree.expandNode(exNode);

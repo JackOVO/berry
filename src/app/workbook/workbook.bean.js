@@ -10,8 +10,9 @@
     var service = {
       'parse': parse
     };
-    WorkBook.prototype.selected = selected;
     WorkBook.prototype.toString = toString;
+    WorkBook.prototype.selected = selected;
+    WorkBook.prototype.concatSheet = concatSheet;
     return service;
 
     function WorkBook(index, sheets) {
@@ -49,6 +50,38 @@
       }
       this.index = index;
       return this.sheets[this.index];
+    }
+
+    /**
+     * 合并两个工作簿里的表, 根据sheetId作为唯一判断
+     * 如果原工作簿中不存在该表, 就新增一个
+     * @param  {WorkBook} workBook 覆盖的工作簿
+     * @return {Number} 返回最后一个变更表的index
+     */
+    function concatSheet(workBook) {
+      var selIndex = 0;
+      var ts = this.sheets; // 当前表
+      var cs = workBook.sheets; // 覆盖表
+
+      angular.forEach(cs, function(sheet, index) {
+        var isExist = sheetExist(sheet, ts);
+        if (isExist !== false) { // 已存在的表
+          sheet.condition.sequence.push('a');
+          ts[isExist] = sheet; // 替换
+          selIndex = isExist;
+        } else {
+          ts.push(sheet);
+          selIndex = ts.length - 1;
+        }
+      });
+
+      function sheetExist(sheet, array) {
+        for (var i = 0, ilen = array.length; i < ilen; i++) {
+          if (array[i].id === sheet.id) { return i; }// 已存在
+        }
+        return false;
+      }
+      return selIndex;
     }
 
     /**

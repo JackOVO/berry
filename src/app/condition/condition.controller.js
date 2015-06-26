@@ -19,7 +19,10 @@
 
     that.toggleDirective = toggleDirective;
     // 维度重复性判断, 指令切换时不重复dom的话, 无法计算高度?
-    that.byIndex = function(code) { return code + after; };
+    that.byIndex = function(code) {
+      console.info('----------------------------~!!!');
+      return code + after;
+    };
     // 记录选中的code, 防止切换时丢失
     that.selected = function(code) {
       return function(){ conditionService.selected(code); };
@@ -32,39 +35,19 @@ console.info('接收到条件:', that.condition);
       after = new Date().getTime();
     });
 
-
+    // 监听条件相关变更通知
     $scope.$on(spk.recommendCheckedChange, conditionChange);
     $scope.$watch('ccvm.condition.sequence', conditionChange, true);
     $scope.$watch('ccvm.condition.direction', conditionChange, true);
     $scope.$watch('ccvm.condition.dimensions', conditionChange, true);
-    //$scope.$watch('ccvm.condition', conditionChange, true);
     function conditionChange() {
       var condition = that.condition;
       if (!condition) { return; }
-      var cus = angular.toJson(condition.current); // 当前数据对应的序列条件对象
-      var tcus = angular.toJson(getNowFlow(condition)); // 未提交的序列条件对象
-
-      // 同步状态
-      $scope.$emit(spk.syncSubmitChange, cus === tcus);
-      
-      // console.info(cus);
-      // console.log(cus === tcus);
-
-//console.info('11111111111111111111111111111111');
-    }
-
-    // 得出当前的条件
-    function getNowFlow(condition) {
-      var flow = condition.flow();
-      angular.forEach(flow.dims, function(dim, index) {
-        var type = dim.codeName;
-        var reCheck = recommendService.getCheckedRecord(type);
-        
-        angular.forEach(reCheck, function(bol, code) {
-          if (bol === true) { dim.codes.push(code); }
-        });
-      });
-      return flow;
+      // 当需要判断的选中不在条件对象中时, 需要在外部传入进去, 判断是否同步
+      var attach = conditionService.fff(recommendService);
+      var isSync = condition.isSync(attach);
+      // 数据与条件同步状态通知, 向上
+      $scope.$emit(spk.syncSubmitChange, isSync);
     }
 
     // 切换维度的方向

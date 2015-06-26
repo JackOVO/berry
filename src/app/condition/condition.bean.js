@@ -14,9 +14,14 @@
     };
 
     // 记录选中code, 切换sheet恢复选中
-    Condition.prototype.flow = flow;
+    //Condition.prototype.flow = flow;
     Condition.prototype.selectedDimension = selectedDimension;
-    Condition.prototype.setCurrent = function(current) { this.current = current; };
+    Condition.prototype.extractGundam = extractGundam;
+    Condition.prototype.getGundam = getGundam;
+    Condition.prototype.setGundam = setGundam;
+    Condition.prototype.isSync = isSync;
+
+    Gundam.prototype.setSheetId = function(id) { this.sheetId = id; };
     return service;
 
     function Condition(sequence, direction, dimensions, selectedCode) {
@@ -24,13 +29,16 @@
       this.direction = direction; // 各个维度方向
       this.dimensions = dimensions;
 
-      this.current = null; // 当前条件序列化的值, 判断同步用
+      this.gundam = null; // 当前条件序列化的值, 判断同步用
       this.selectedCode = selectedCode;
     }
 
     // 选中维度对象(提交的条件?, 传输条件对象)
-    function Gundam(dims, productId) {
+    function Gundam(dims, metaRow, metaColumn, sheetId, productId) {
       this.dims = dims;
+      this.metaRow = metaRow;
+      this.metaColumn = metaColumn;
+      this.sheetId = sheetId;
       this.productId = productId;
     }
 
@@ -52,7 +60,7 @@
         dimensions[dimension.code] = dimension;
       }
       var condition = new Condition(sequence, direction, dimensions, selectedCode);
-      condition.current = condition.flow(); // 同步判断用
+      condition.gundam = condition.extractGundam(); // 同步判断用
 
       return condition;
     }
@@ -64,9 +72,9 @@
      */
     function parseGundam(source) {
       var dims = {}; // {code: [id, id, ...]}
-      var array = source.dim; 
+      var dims = source.dim; 
       var productId = source.productId;
-      return new Gundam(array, productId);
+      return new Gundam(dims, null, null, null, productId);
     }
 
     /**
@@ -89,24 +97,64 @@
       return [sequence, direction];
     }
 
+    // 保存打开代码, 切换回来显示
     function selectedDimension(code) {
       this.selectedCode = code;
     }
 
-    // 序列化(供提交用)
-    function flow() {
+    // 判断条件对象是否变更
+    function isSync(attach) {
+      var gundam = this.gundam;
+      var nowGundam = this.getGundam(attach);
+
+      var s1 = angular.toJson(gundam);
+      var s2 = angular.toJson(nowGundam);
+
+      if (s1 === s2) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    /**
+     * 获取可以带附属的gd
+     * @param  {Object} attach 添加附属信息
+     * @return {[type]}        [description]
+     */
+    function getGundam(attach) {
+      var gundam = this.extractGundam();
+
+      // 附属添加code, 比方说选中的推荐
+      if (attach) {
+        angular.forEach(gundam.dims, function(dim, index) {
+          if (attach[dim.codeName]) {
+            dim.codes = dim.codes.concat(attach[dim.codeName]);
+          }
+        });
+      }
+      return gundam;
+    }
+
+    function setGundam(gundam) {
+      this.gundam = gundam;
+    }
+
+    /**
+     * 通过条件对象提取出通信的条件对象(钢弹)
+     * 提交条件前传输用
+     * @return {Gundam}
+     */
+    function extractGundam() {
       var sequence = this.sequence,
           direction = this.direction,
           dimensions = this.dimensions;
-      var result = {};
-      var dims = [], metaColumns = [], metaRows = [];
+      var dims = [], metaRows = [], metaColumns = [];
 
-      //按顺序来
       angular.forEach(sequence, function(key, index) {
-        var dim = dimensions[key].flow();
+        var dim = dimensions[key].flow(); // 维度流化, 提取
         dims.push(dim);
       });
-      result.dims = dims;
 
       // 按顺序来
       angular.forEach(sequence, function(code, index) {
@@ -119,10 +167,8 @@
           console.error('条件方向序列化失败', code, status);
         }
       });
-      result.metaRow = metaRows.join('-');
-      result.metaColumn = metaColumns.join('-');
 
-      return result;
+      return new Gundam(dims, metaRows, metaColumns, '');
     }
   }
 

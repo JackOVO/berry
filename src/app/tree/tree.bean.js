@@ -51,7 +51,7 @@
     function parseNode(source) {
       var code = source.entity.code;
       var name = source.entity.name;
-      var checked = source.entity.selected;
+      var checked = source.entity.isSelected;
       var disabled = source.entity.disabled;
       return new Node(code, name, [], checked, disabled);
     }
