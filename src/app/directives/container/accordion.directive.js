@@ -1,5 +1,6 @@
 (function() {
   'use strict';
+
   angular
     .module('platform.directive')
     .controller('AccordionController', AccordionController)
