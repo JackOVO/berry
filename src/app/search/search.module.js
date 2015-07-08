@@ -1,7 +1,8 @@
 (function() {
   'use strict';
+  // 搜索模块
 
   angular
-    .module('platform.search', ['platform.core', 'platform.sheet', 'platform.tree']);
+    .module('platform.search', ['platform.sheet']);
 
 })();

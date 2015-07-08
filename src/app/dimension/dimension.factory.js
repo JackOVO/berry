@@ -3,17 +3,17 @@
 
   angular
     .module('platform.dimension')
-    .factory('dimensionBean', dimensionBean);
-
-  dimensionBean.$inject = ['treeBean'];
-  function dimensionBean (treeBean) {
+    .factory('dimensionFactory', dimensionFactory);
+  dimensionFactory.$inject = ['treeFactory'];
+  function dimensionFactory(treeFactory) {
     var service = {
       'parse': parse
     };
-    Dimension.prototype.flow = flow;
+    Dimension.prototype.press = press;
     return service;
 
-    function Dimension (code, name, tree, feature) {
+    // 维度对象
+    function Dimension(code, name, tree, feature) {
       this.code = code;
       this.name = name;
       this.tree = tree;
@@ -22,25 +22,30 @@
 
     /**
      * 由后台源解析成前台实体
-     * @param  {Object} source 后台源数据
+     * @param  {Object} dimensionSource 后台源数据
      * @return {Object} 解析后的实体
      */
-    function parse(source) {
-      var code = source.codeName;
-      var name = source.showName;
-      var tree = treeBean.parse(source);
+    function parse(dimensionSource) {
+      var code = dimensionSource.codeName;
+      var name = dimensionSource.showName;
+      var tree = treeFactory.parse(dimensionSource);
+      var feature = extractFeature(dimensionSource);
 
-      // 由于指标传过来都不是选中的, 要做一下特殊处理, 囧rz.
-      if (code === 'indicatorCode') {
-        // 指标只有一层
-        angular.forEach(tree.childs, function(node) {
-          node.checked = true;
-        });
-      }
-
-      var feature = extractFeature(source);
-
+// 由于指标传过来都不是选中的, 要做一下特殊处理, 囧rz.
+if (code === 'indicatorCode') {
+  // 指标只有一层
+  angular.forEach(tree.childs, function(node) { node.checked = true; });
+}
       return new Dimension(code, name, tree, feature);
+    }
+
+    /**
+     * 提取选中
+     * @return {Object} [description]
+     */
+    function press() {
+      var selCodes = this.tree.getSelectedIds();
+      return {'codeName': this.code, 'codes': selCodes};
     }
 
     /**
@@ -65,15 +70,6 @@
         }
       }
       return feature;
-    }
-
-    // 序列化(供提交用)
-    function flow() {
-      var selCodes = this.tree.getAllSelCode();
-      return {
-        'codeName': this.code,
-        'codes': selCodes
-      };
     }
   }
 

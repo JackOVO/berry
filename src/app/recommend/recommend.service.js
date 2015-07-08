@@ -1,78 +1,75 @@
 (function() {
   'use strict';
+  // 推荐类型的扩展
 
   angular
     .module('platform.recommend')
     .factory('recommendService', recommendService);
 
-  recommendService.$inject = ['$q', 'sheetService', 'recommendBean', 'dataService'];
-  function recommendService($q, sheetService, recommendBean, dataService) {
-    // 每一组选中的推荐都会根据当前的表以及类型存放在这里, 条件用
-    var _checkedRecommendChange = {};
+  recommendService.$inject = ['dataService', 'sheetService'];
+  function recommendService(dataService, sheetService) {
+    var _recommendChange = {}; // 缓存
     var service = {
-      'require': getRecommend,
-      'getType': getRecommendType,
-      'checked': setCheckRecommend,
-      'getCheckedRecord': getCheckedRecord
+      'getRecommend': getRecommend,
+      'getSelectRecord': getSelectRecord,
+      'requireRecommend': requireRecommend,
+      'clearSelectRecord': clearSelectRecord,
+      'selectedRecommend': selectedRecommend
     };
     return service;
 
+    // 返回缓存
     function getRecommend(type) {
-      var params = {};
-      params.sheetId = sheetService.getSheetId();
-      // 根据type可以获取不同的推荐
+      var sheetId = sheetService.getSheetId();
+      return _recommendChange[sheetId];
+    }
+
+    /**
+     * 请求推荐内容
+     * @param  {String} type 推荐类型(扩展用?)
+     * @return {Promise} 承诺
+     */
+    function requireRecommend(type) {
+      var sheetId = sheetService.getSheetId();
+      var params = {'sheetId': sheetId};
 
       return dataService.get('recommend', params)
-        .then(function(source) {
-          if (source.length) {
-            var recommends = [];
-            angular.forEach(source, function(recommendSource, index) {
-              var recommend = recommendBean.parse(recommendSource, type);
-              recommends.push(recommend);
-            });
-//setRecommendChange(params.sheetId, type, recommends);
-            return recommends;
-          }
-          return $q.reject('不识别的recommend源数据!' + source);
+        .then(function(recommendSource) {
+          _recommendChange[sheetId] = recommendSource;
+          return recommendSource; // 没做格式化处理, 由上层请求决定, 自行处理
         });
     }
 
     /**
-     * 根据维度的特征得到需要的推荐类型
-     * @param  {Object} feature 特性, 由条件模块抽取
-     * @return {String} 一种类型
+     * 记录选中的记录
+     * @param  {String} code 选中的代码
+     * @return {Object} 全部选中项
      */
-    function getRecommendType(feature) {
-      var type = null;
-      if (feature.indicator === true) {
-        type = 'indicatorCode';
-      }
-      return type; 
+    function selectedRecommend(code) {
+      var record = getSelectRecord();
+      record[code] = !record[code];
+      sheetService.addRecord('selectedR', record);
     }
 
     /**
-     * 获取推荐选中记录
-     * @param  {String} type 推荐类型
-     * @return {Object} {code: true||false}
+     * 返回选择记录, 如果没有会初始化一个
+     * @return {Object} 选中的对象合集
      */
-    function getCheckedRecord(type) {
-      var sheetId = sheetService.getSheetId();
-      if (!_checkedRecommendChange[sheetId]) { _checkedRecommendChange[sheetId] = {}; }
-      var conditionCheckChange = _checkedRecommendChange[sheetId];
-      if (!conditionCheckChange[type]) { conditionCheckChange[type] = {}; }
-      var dimeCheckChange = conditionCheckChange[type];
-      return dimeCheckChange;
+    function getSelectRecord() {
+      var record = sheetService.getRecord('selectedR');
+      if (!record) { record = {}; }
+      sheetService.addRecord('selectedR', record);
+      return record;
     }
 
     /**
-     * 缓存选中推荐信息, 以当前表以及推荐的类型区分
-     * @param {String} type 推荐的类型
-     * @param {Recommend} 推荐项目
+     * 清空选中记录(同步数据后要做清空处理, 防止重复添加推荐选中)
+     * @return {[type]} [description]
      */
-    function setCheckRecommend(type, recommend) {
-      var dimeCheckChange = getCheckedRecord(type);
-      dimeCheckChange[recommend.code] = recommend.checked;
-      return dimeCheckChange;
+    function clearSelectRecord() {
+      sheetService.addRecord('selectedR', {});
+      var record = sheetService.getRecord('selectedR');
+      return record;
     }
   }
 

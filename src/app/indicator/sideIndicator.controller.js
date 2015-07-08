@@ -3,13 +3,15 @@
 
   angular
     .module('platform.indicator')
-    .controller('IndicatorCtrl', IndicatorCtrl);
+    .controller('sideIndicatorCtrl', sideIndicatorCtrl);
 
-  // 耦合控制指标
-  IndicatorCtrl.$inject = ['$scope'];
-  function IndicatorCtrl($scope) {
+  // 侧板栏耦合指标控制器
+  sideIndicatorCtrl.$inject = ['$scope'];
+  function sideIndicatorCtrl($scope) {
     var tree = $scope.dim.tree;
     var that = this;
+
+    // 删除一项指标
     that.remove = function(code) {
       for (var i = 0, ilen = tree.childs.length; i < ilen; i++) {
         var node = tree.childs[i];

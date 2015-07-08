@@ -3,39 +3,37 @@
 
   angular
     .module('platform.table')
-    .factory('tableBean', tableBean);
+    .factory('tableFactory', tableFactory);
 
-  tableBean.$inject = ['$q'];
-  function tableBean($q) {
+  function tableFactory() {
     var service = {
       'parse': parse
     };
     return service;
 
-    function Table(data, fxcl, fxrt, mergeCells) {
+    // hansontalbe封装?
+    function Table(data, mergeCells, fixedRowsTop, fixedColumnsLeft) {
       this.data = data;
-
-      this.fixedColumnsLeft = fxcl;
-      this.fixedRowsTop = fxrt;
       this.mergeCells = mergeCells;
+      this.fixedRowsTop = fixedRowsTop;
+      this.fixedColumnsLeft = fixedColumnsLeft;
     }
 
-     /**
-     * 由后台源解析成前台实体
-     * @param  {Object} source 后台源数据
-     * @return {Object} 解析后的实体
+    /**
+     * 解析成表格对象
+     * @param  {Object} tableSouce 源数据
+     * @return {Table}
      */
-    function parse (source) {
-      var data = [];
-      var merges = [];
-      var values = source.values;
-      var fixedRowsTop = source.fixedRowsTop;
-      var fixedColumnsLeft = source.fixedColumnsLeft;
+    function parse(tableSouce) {
+      var data = [], merges = [];
+      var values = tableSouce.values;
+      var fixedRowsTop = tableSouce.fixedRowsTop;
+      var fixedColumnsLeft = tableSouce.fixedColumnsLeft;
 
-      var extract = extractValues(values);
-      data = extract.data;
-      merges = extract.merges;
-      return new Table(data, fixedRowsTop, fixedColumnsLeft, merges);
+      var kbo = extract(values);
+      data = kbo.data;
+      merges = kbo.merges;
+      return new Table(data, merges, fixedRowsTop, fixedColumnsLeft);
     }
 
     // 表格值格式化
@@ -58,11 +56,8 @@
      * @param  {Array} values 源表格值
      * @return {Object} ()
      */
-    function extractValues (values) {
-      var result = {
-        'data': [],
-        'merges': []
-      };
+    function extract(values) {
+      var result = { 'data': [], 'merges': [] };
 
       var row = [];
       traverseTwoDimeArray(
@@ -87,7 +82,7 @@
      * @param  {Function} colProcess 读列的回调(列号, 列数据)
      * @param  {Function} rowAfterProcess 改行读完后(列号, 列数据)
      */
-    function traverseTwoDimeArray (twoArray, rowProcess, colProcess, rowAfterProcess) {
+    function traverseTwoDimeArray(twoArray, rowProcess, colProcess, rowAfterProcess) {
       for (var r = 0, rlen = twoArray.length; r < rlen; r++) {
         var rowData = twoArray[r];
         if (rowProcess) { rowProcess(r, rowData); }
@@ -98,6 +93,6 @@
         if (rowAfterProcess) { rowAfterProcess(r, rowData); }
       }
     }
-
   }
+
 })();

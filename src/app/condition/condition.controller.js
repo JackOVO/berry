@@ -5,57 +5,77 @@
     .module('platform.condition')
     .controller('ConditionCtrl', ConditionCtrl);
 
-  ConditionCtrl.$inject = ['$scope', 'conditionService', 'recommendService', 'coreCF'];
-  function ConditionCtrl($scope, conditionService, recommendService, config) {
-    var spk = config.spreadKey;
-    var that = this, after = '';
+  ConditionCtrl.$inject = ['$scope', '$timeout', 'conditionService', 'sheetService', 'coreCF'];
+  function ConditionCtrl($scope, $timeout, conditionService, sheetService, config) {
+    var _spk = config.spreadKey;
+    var _after = null; // 为了区分不同维度key的后缀
+    var that = this;
     that.condition = null;
+    that.selectedDimCode = null; // 选中的维度代码, 记录打开的手风琴项目
     that.accSortableOptions = {
       axis: 'y',
       handle: '.hander',
       tolerance: 'pointer',
-      containment: 'parent',
+      containment: 'parent'
     };
 
-    that.toggleDirective = toggleDirective;
-    // 维度重复性判断, 指令切换时不重复dom的话, 无法计算高度?
     that.byIndex = function(code) {
-      console.info('----------------------------~!!!');
-      return code + after;
+      return code + _after;
     };
-    // 记录选中的code, 防止切换时丢失
-    that.selected = function(code) {
-      return function(){ conditionService.selected(code); };
+    that.rSelectedFn = function(code) {
+      return function(){ sheetService.addRecord('dimCode', code); };
+    };
+    that.toggleDirection = function(e, dCode) {
+      conditionService.toggleDirection(dCode);
+      e.stopPropagation();
     };
 
-    // 监听当前条件变更
-    $scope.$on(spk.conditionChange, function(e, condition) {
-      that.condition = condition;
-console.info('接收到条件:', that.condition);
-      after = new Date().getTime();
+    // 监听条件改变
+    $scope.$watch('ccvm.condition', function(n, o) {
+      if (!that.condition) { return; }
+      var gundam = that.condition.press();
+      var isSync = gundam.equal(that.condition.current);
+      $scope.$emit(_spk.syncStatusChange, isSync);
+    }, true);
+
+    // 附加选中变更后, 添加选中后, 重新判断同步
+    $scope.$on(_spk.dimSelectedChange, function(e, selected) {
+      var gundam = that.condition.press();
+      // 从推荐中添加选中的指标
+      gundam.addSlectedCode('indicatorCode', selected);
+      var isSync = gundam.equal(that.condition.current);
+      $scope.$emit(_spk.syncStatusChange, isSync);
     });
 
-    // 监听条件相关变更通知
-    $scope.$on(spk.recommendCheckedChange, conditionChange);
-    $scope.$watch('ccvm.condition.sequence', conditionChange, true);
-    $scope.$watch('ccvm.condition.direction', conditionChange, true);
-    $scope.$watch('ccvm.condition.dimensions', conditionChange, true);
-    function conditionChange() {
-      var condition = that.condition;
-      if (!condition) { return; }
-      // 当需要判断的选中不在条件对象中时, 需要在外部传入进去, 判断是否同步
-      var attach = conditionService.fff(recommendService);
-      var isSync = condition.isSync(attach);
-      // 数据与条件同步状态通知, 向上
-      $scope.$emit(spk.syncSubmitChange, isSync);
-    }
+    // 监听当前条件变更
+    $scope.$on(_spk.conditionChange, function(e, condition) {
+      // 由于条件排序数组不会更新, 所以只能强制刷新
+      that.condition = null;
+      $timeout(function() {
+        _after = new Date().getTime(); // 创建一个新后缀
+        that.condition = condition;
+        // 得到打开的维度
+        that.selectedDimCode = sheetService.getRecord('dimCode') || config.openDimCode;
+console.warn('C条件', that.condition);
+      }, 1);
+    });
 
-    // 切换维度的方向
-    function toggleDirective(e, code) {
-      var direction = that.condition.direction[code];
-      that.condition.direction[code] = direction === 'col' ? 'row' : 'col';
-      e.stopPropagation();
-    }
+    // 监听是否刷新推荐询问
+    $scope.$on(_spk.askRecommendRefresh, function(e, type) {
+      if (type === 'indicator') { // 只有指标, 类型扩展用
+        var indicatorSelectedSize = that.condition.dimensions.indicatorCode.tree.childs.length;
+        var size = sheetService.getRecord('iss');
+        sheetService.addRecord('iss', indicatorSelectedSize);
+        if (size !== indicatorSelectedSize) {
+          $scope.$broadcast(_spk.refreshRecommend, type);
+        } else {
+          $scope.$broadcast(_spk.getRecommend, type);
+        }
+      }
+    });
+
+    // 由于是引入的页面, 可能会存在服务广播时, 控制器未加载完成导致无法得到数据
+    // if(!that.condition) { conditionService.again(); }
   }
 
 })();

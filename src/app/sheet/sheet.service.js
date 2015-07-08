@@ -5,38 +5,58 @@
     .module('platform.sheet')
     .factory('sheetService', sheetService);
 
-  sheetService.$inject = ['$rootScope', 'conditionService', 'coreCF'];
-  function sheetService($rootScope, conditionService, config) {
+  sheetService.$inject = ['$rootScope', 'conditionService', 'dataService', 'coreCF'];
+  function sheetService($rootScope, conditionService, dataService, config) {
     var _sheet = null;
-    var service = {
-      'update': updateSheet,
-      'getSheetId': getSheetId
+    var _spk = config.spreadKey, _notice = {};
+    _notice.sheetChange = function() {
+      $rootScope.$broadcast(_spk.sheetChange, _sheet);
     };
-    var spk = config.spreadKey;
+
+    var service = {
+      'updateSheet': updateSheet,
+      'getSheetId': function() { return _sheet.id; },
+      'addRecord': addRecordBySheet,
+      'getRecord': getRecordBySheet,
+      'delRecord': function(){ console.error('剔除没用的记录!'); }
+    };
     return service;
 
-    function initialize() {}
-
     /**
-     * 更新选中的工作表
-     * @param  {Sheet} sheet 工作表
-     * @return {Sheet}
+     * 更新当前维护的表, 会广播变更
+     * @param  {Sheet} Sheet 传入项
      */
-    function updateSheet(sheet) {
-      _sheet = sheet;
-      var condition = _sheet.condition;
-      var table = _sheet.table;
-console.info('当前表为:', _sheet);
-      $rootScope.$broadcast(spk.sheetChange, _sheet);
+    function updateSheet(Sheet) {
+      _sheet = Sheet;
+      _notice.sheetChange(); // 変更通知
 
-      conditionService.update(condition);
-      //$rootScope.$broadcast(spk.nowTableChange, nowTable);
-      return _sheet;
+      var condition = _sheet.condition;
+      conditionService.updateCondition(condition);
     }
 
-    // 返回当期表Id
-    function getSheetId () {
-      return _sheet.id;
+    /**
+     * 以表为键添加一条记录, 存在session中
+     * @param {String} key
+     * @param {Object} value
+     * @param {Object} 返回表所有记录
+     */
+    function addRecordBySheet(key, value) {
+      var sheetId = _sheet.id;
+      var sheetRecord = dataService.getSessionItem(sheetId);
+      sheetRecord[key] = value;
+      dataService.setSessionItem(sheetId, sheetRecord);
+      return sheetRecord;
+    }
+
+    /**
+     * 获取指定表记录, 存在session中
+     * @param  {String} key 储存标志
+     * @return {Object} 对应的值
+     */
+    function getRecordBySheet(key) {
+      var sheetId = _sheet.id;
+      var sheetRecord = dataService.getSessionItem(sheetId);
+      return sheetRecord[key];
     }
   }
 

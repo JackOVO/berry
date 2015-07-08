@@ -1,11 +1,8 @@
 (function() {
-  'use strict';
+  'use strcit';
+  // 工作簿模块
 
   angular
-    .module('platform.workbook', [
-      'platform.core',
-      'platform.user',
-      'platform.sheet',
-      'platform.condition'
-    ]);
+    .module('platform.workbook', ['platform.condition', 'platform.sheet']);
+
 })();

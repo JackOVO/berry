@@ -3,20 +3,21 @@
 
   angular
     .module('platform.user')
-    .factory('userBean', userBean);
+    .factory('userFactory', userFactory);
 
-  function userBean () {
+  function userFactory() {
     var service = {
       'parse': parse
     };
-    // 方便其他模块读取数据
-    User.prototype.setStatus = function(status){ this.status = status; };
+    User.prototype.addRecord = function(key, value) { this.record[key] = value; };
     return service;
 
-    function User(id, name, group) {
+    // 前台用户类
+    function User(id, type, name, record) {
       this.id = id;
+      this.type = type;
       this.name = name;
-      this.group = group;
+      this.record = record;
     }
 
     /**
@@ -27,9 +28,11 @@
     function parse(source) {
       var id = source.userID;
       var name = source.userName;
-      var group = source.userType;
+      var type = source.userType;
+      var record = {};
 
-      return new User(id, name, group);
+      return new User(id, name, type, record);
     }
   }
+
 })();

@@ -7,36 +7,24 @@
 
   dataService.$inject = ['$http', '$q', 'coreCF'];
   function dataService($http, $q, config) {
-
-    var map = config.urlMap;
-    return {
+    var _map = config.urlMap; // 请求地址映射
+    var service = {
       'get': get,
       'post': post,
       'getItem': getItem,
       'setItem': setItem,
       'getCookieObj': getCookieObj,
-      'putCookieObj': putCookieObj
+      'putCookieObj': putCookieObj,
+      'getSessionItem': getSessionItem,
+      'setSessionItem': setSessionItem
     };
-
-    /**
-     * 根据配置创建请求地址
-     * @param  {String} name key
-     * @return {String} 最后得出的请求地址
-     */
-    function createRepeatUrl(name) {
-      var mapObject = map[name];
-      if (angular.isString(mapObject)) {
-        return config.baseUrl + mapObject;
-      } else {
-        return mapObject.base + mapObject.action;
-      }
-    }
+    return service;
 
     /**
      * 指定action名获取数据
-     * @param  {String} name   action映射名称
+     * @param  {String} name action映射名称
      * @param  {Object} params 对应参数
-     * @return {Promise}       承诺
+     * @return {Promise} 承诺
      */
     function get(name, params) {
       var url = createRepeatUrl(name);
@@ -82,17 +70,41 @@
       }
       return window.localStorage.setItem(key, value);
     }
-
     function getItem(key) {
       var value = {};
       var string = window.localStorage.getItem(key);
       if (string) { value = angular.fromJson(string); }
       return value;
     }
+    function setSessionItem(key, value) {
+      if (!angular.isString(value)) {
+        value = angular.toJson(value);
+      }
+      return window.sessionStorage.setItem(key, value);
+    }
+    function getSessionItem(key) {
+      var value = {};
+      var string = window.sessionStorage.getItem(key);
+      if (string) { value = angular.fromJson(string); }
+      return value;
+    }
     // html5本地储存
 
+    /**
+     * 根据配置创建请求地址
+     * @param  {String} name key
+     * @return {String} 返回实际请求地址
+     */
+    function createRepeatUrl(name) {
+      var mapObject = _map[name];
+      if (angular.isString(mapObject)) {
+        return config.baseUrl + mapObject;
+      } else {
+        return mapObject.base + mapObject.action;
+      }
+    }
 
-    // 完成后的回调
+    // 完成后回调
     function completeCallBack(response) {
     // 错误处理问题
 console.log(new Date().getTime(), response.data);
@@ -118,7 +130,6 @@ console.log(new Date().getTime(), response.data);
 
       return $q.reject('数据获取异常!'); // 返回前台错误对象?
     }
-
   }
+
 })();
-  

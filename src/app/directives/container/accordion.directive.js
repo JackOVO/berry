@@ -25,7 +25,7 @@
 
     // 监听切换重置参数
     $scope.$watch('data', function(t) {
-console.info('---------------------------------------------------');
+//console.info('-----------', '重置!');
       that.groups = [];
       nowOpenGroup = null;
       groupsHeight = 0;
@@ -34,7 +34,6 @@ console.info('---------------------------------------------------');
     // 关闭其他组
     function closeOthers(openGroup) {
       if (openGroup) {
-console.error(that.groups.length);
         angular.forEach(that.groups, function(group) {
           if (group !== openGroup) {
             group.height = 1;
@@ -44,6 +43,7 @@ console.error(that.groups.length);
         openGroup.height = totalHeight - groupsHeight;
         nowOpenGroup = openGroup;
       }
+//console.error(that.groups.length);
     }
 
     // 添加组的作用域

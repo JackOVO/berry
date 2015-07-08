@@ -5,27 +5,19 @@
     .module('platform.sheet')
     .controller('SheetCtrl', SheetCtrl);
 
-  SheetCtrl.$inject = ['$scope', '$rootScope', 'sheetService', 'coreCF'];
-  function SheetCtrl ($scope, $rootScope, sheetService, config) {
+  SheetCtrl.$inject = ['$scope', 'coreCF'];
+  function SheetCtrl($scope, config) {
+    var _spk = config.spreadKey;
     var that = this;
     that.sheet = null;
-    var spk = config.spreadKey;
 
-    // 模板渲染完成
-    $scope.$on('$viewContentLoaded', function() {
-      $rootScope.$broadcast(spk.go); // 可以启动
-    });
-
-    $scope.$on(spk.sheetChange, function(e, sheet) {
-console.info('接收到表:', sheet);
+    $scope.$on(_spk.sheetChange, function(e, sheet) {
       that.sheet = sheet;
-      //sheetService.updateSheet(nowSheet);
-      // var table = nowSheet.table;
-      // var condition = nowSheet.condition;
-
-      // $scope.$broadcast(spk.tableChange, table);
-      // $scope.$broadcast(spk.conditionChange, condition);
+console.warn('C工作表', that.sheet);
     });
+
+    // 加载到表控制器
+    $scope.$emit(_spk.sheetCtrlLoadComplete, 'xdd');
   }
 
 })();

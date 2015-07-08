@@ -1,93 +1,83 @@
 (function() {
-  'use strict';
+  'use strcit';
 
   angular
     .module('platform.workbook')
     .factory('workBookService', workBookService);
 
   workBookService.$inject = [
-    '$q',
-    '$rootScope',
-    'userService',
-    'dataService',
-    'conditionService',
-    'sheetService',
-    'workBookBean',
-    'coreCF'
-  ];
-  function workBookService($q, $rootScope, userService, dataService, conditionService, sheetService, workBookBean, config) {
+    '$rootScope', 'dataService',
+    'conditionService', 'workBookFactory', 
+    'sheetService', 'coreCF'];
+  function workBookService($rootScope, dataService, conditionService, workBookFactory, sheetService, config) {
+    var _pid = null;
+    var _workBook = null; // 工作簿维护
+    var _spk = config.spreadKey, _notice = {};
+    _notice.workBookChange = function() {
+      $rootScope.$broadcast(_spk.workBookChange, _workBook);
+    };
 
-    var _workBook = null;
-    var spk = config.spreadKey;
     var service = {
-      'sync': syncWorkBookSource,
+      'syncSheet': syncSheet,
       'initialize': initialize,
-      'selected': selectSheetByIndex
+      'selectSheet': selectSheet
     };
     return service;
 
-    // 启动逻辑
-    function initialize () {
-      // 得到初始化对象
-      var gundam = conditionService.initialize();
-      return getWorkBookSource(gundam);
+    function initialize(gundam) {
+      _pid = gundam.productID; // 产品线id?
+      return requireWorkBook(gundam)
+        .then(function(workBook) {
+console.warn('R工作簿', workBook);
+          _workBook = workBook;
+          _notice.workBookChange(); // 通知工作簿変更
+          return _workBook;
+        });
     }
 
     /**
-     * 初始工作簿源数据
-     * @param  {gundam} gundam 传输条件对象
+     * 同步一个表
+     * @return {[type]} [description]
+     */
+    function syncSheet(dimCode, codes) {
+      var sheetId = sheetService.getSheetId();
+      var conditoin = conditionService.getNowNowNow();
+      var gundam = conditoin.press();
+
+      // 添加额外指标
+      if (dimCode) { gundam.addSlectedCode(dimCode, codes); }
+
+      gundam.sheetId = sheetId; // 还要带上它
+      gundam.productID = _pid; // 还要带上它
+
+      return requireWorkBook(gundam).then(function(workBook) {
+          var selectIndex = _workBook.merger(workBook);
+          _notice.workBookChange(); // 通知工作簿変更
+          return selectIndex;
+        });
+    }
+
+    /**
+     * 请求工作簿信息, 得到解析后的工作簿
+     * @param  {Gundam} gundam 条件传输对象
      * @return {Promise}
      */
-    function getWorkBookSource(gundam) {
-      var params = conditionService.serialization(gundam);
+    function requireWorkBook(gundam) {
+      var params = conditionService.serializationGundam(gundam);
       return dataService.get('workBook', params)
-        .then(function(source) {
-          if (source.length) {
-            _workBook = workBookBean.parse(source);
-            workBookChange(_workBook);
-            return _workBook;
-          }
-          return $q.reject('不识别的sheet源数据!' + source);
+        .then(function(workBookSource) {
+          var workBook = workBookFactory.parse(workBookSource);
+          return workBook;
         });
     }
 
     /**
-     * 同步工作簿源数据
-     * @param  {Gundam} gundam [description]
-     * @return {Promise}
+     * 选中一个表, 并変更工作表
+     * @param {Number} index 表下标
      */
-    function syncWorkBookSource(gundam) {
-      var params = conditionService.serialization(gundam);
-      return dataService.get('sync', params)
-        .then(function(source) {
-          if (source.length) {
-            var syWorkBook = workBookBean.parse(source);
-            //_workBook.sheets = [{}];
-            var selIndex = _workBook.concatSheet(syWorkBook); // 合并表
-            workBookChange(_workBook);
-// console.info(selIndex);
-            selectSheetByIndex(0);
-            $rootScope.$apply();
-            return _workBook;
-          }
-          return $q.reject('不识别的sheet源数据!!' + source);
-        });
-    }
-
-    // 选中一个表并广播通知
-    function selectSheetByIndex(sheetIndex) {
-      var sheet = _workBook.selected(sheetIndex);
-      if (sheet) {
-        sheetService.update(sheet);
-        // userService.setStatus('sheetIndex', sheetIndex); 保存状态?
-      } else {
-        console.error('无法选择有效的表.');
-      }
-    }
-
-    // 实体变化处理方法
-    function workBookChange(newData) {
-      $rootScope.$broadcast(spk.workBookChange, newData);
+    function selectSheet(index) {
+      var selectedSheet = _workBook.selectSheet(index);
+      sheetService.updateSheet(selectedSheet);
     }
   }
 

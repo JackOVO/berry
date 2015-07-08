@@ -130,6 +130,7 @@ $plat-body-footer-bg-color: #f0f0f0;
       padding: 0 0 0 20px;
       border-top: 1px solid $plat-body-footer-border-color;
       background-color: $plat-body-footer-bg-color;
+      @extend .nonesel;
 
       > .icon-btn {
         margin-left: 10px;

@@ -41,7 +41,7 @@
         case 'unsel-perr':
           var pnode = node.getParentNode();
           if (pnode === null) { nodes = ztree.getNodes(); }
-           else { nodes = pnode.childs }
+           else { nodes = pnode.childs; }
           break;
         case 'sel-son':
         case 'unsel-son':
@@ -51,7 +51,7 @@
           break;
       }
       toggle(nodes, key);
-    }
+    };
   };
 
   treeDirective.$inject = ['rightMenuService', 'coreCF'];
@@ -109,9 +109,8 @@
         }
 
         // 搜索选中后同步选中监听
-        scope.$on(spk.syncSearchSelectNode, function(e, code) {
-          var node = ztree.getNodeByParam('code', code);
-          console.info(node);
+        scope.$on(spk.searchSelectNodeChange, function(e, id) {
+          var node = ztree.getNodeByParam('id', id);
           // 选中不会触发回调
           ztree.checkNode(node, !node.checked, true, false);
         });

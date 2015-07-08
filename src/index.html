@@ -1,63 +1,62 @@
-<!doctype html>
+<!DOCTYPE html>
 <html ng-app="platform">
-  <head ng-controller="HeadCtrl as head">
-    <meta charset="UTF-8">
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="edge">
+<head>
+  <meta charset="UTF-8">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="edge">
 
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
-    <title ng-bind="head.title"></title>
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-    <!-- build:css({.tmp/serve,src}) styles/vendor.css -->
-    <link rel="stylesheet" href="app/vendor.css">
-    <!-- bower:css -->
-    <!-- run `gulp inject` to automatically populate bower styles dependencies -->
-    <!-- endbower -->
-    <!-- endbuild -->
+  <!-- build:css({.tmp/serve,src}) styles/vendor.css -->
+  <link rel="stylesheet" href="app/vendor.css">
+  <!-- bower:css -->
+  <!-- run `gulp inject` to automatically populate bower styles dependencies -->
+  <!-- endbower -->
+  <!-- endbuild -->
 
-    <!-- build:css({.tmp/serve,src}) styles/app.css -->
-    <!-- inject:css -->
-    <!-- css files will be automatically insert here -->
-    <!-- endinject -->
-    <!-- endbuild -->
+  <!-- build:css({.tmp/serve,src}) styles/app.css -->
+  <!-- inject:css -->
+  <!-- css files will be automatically insert here -->
+  <!-- endinject -->
+  <!-- endbuild -->
 
-  </head>
-  <body style="overflow: hidden;">
+  <title>囧rz</title>
+</head>
+<body style="overflow: hidden;">
 
-    <!--[if IE 9]>
-        <script src="//cdn.rawgit.com/jpillora/xdomain/0.7.3/dist/xdomain.min.js" slave="http://localhost:5323/proxy.html"></script>
-    <![endif]-->
+  <!--[if IE 9]>
+      <script src="//cdn.rawgit.com/jpillora/xdomain/0.7.3/dist/xdomain.min.js" slave="http://localhost:5323/proxy.html"></script>
+  <![endif]-->
 
-    <!--[if lt IE 9]>
-        <script>
-        window.document.write('<p>您使用的是<strong>过时的</strong>浏览器。请<a href="http://browsehappy.com/">升级您的浏览器</a>，以提高你浏览体验。</p>');
-        window.alert('您使用的是过时的浏览器。请升级您的浏览器，以提高你浏览体验。');
-        var scripts = window.document.getElementsByTagName('script');
-        </script>
-    <![endif]-->
+  <!--[if lt IE 9]>
+      <script>
+      window.document.write('<p>您使用的是<strong>过时的</strong>浏览器。请<a href="http://browsehappy.com/">升级您的浏览器</a>，以提高你浏览体验。</p>');
+      window.alert('您使用的是过时的浏览器。请升级您的浏览器，以提高你浏览体验。');
+      var scripts = window.document.getElementsByTagName('script');
+      </script>
+  <![endif]-->
 
+  <div ui-view style="height:100%;" ng-controller="WorkBookCtrl as wbvm"></div>
 
-    <div ui-view style="height:100%;" ng-controller="WorkBookCtrl as wbvm"></div>
+  <rightmenu></rightmenu>
 
-    <rightmenu></rightmenu>
+  <!-- build:js(src) scripts/vendor.js -->
+  <!-- bower:js -->
+  <!-- run `gulp inject` to automatically populate bower script dependencies -->
+  <!-- endbower -->
+  <!-- endbuild -->
 
-    <!-- build:js(src) scripts/vendor.js -->
-    <!-- bower:js -->
-    <!-- run `gulp inject` to automatically populate bower script dependencies -->
-    <!-- endbower -->
-    <!-- endbuild -->
+  <!-- build:js({.tmp/serve,.tmp/partials,src}) scripts/app.js -->
+  <!-- inject:js -->
+  <!-- js files will be automatically insert here -->
+  <!-- endinject -->
 
-    <!-- build:js({.tmp/serve,.tmp/partials,src}) scripts/app.js -->
-    <!-- inject:js -->
-    <!-- js files will be automatically insert here -->
-    <!-- endinject -->
+  <!-- inject:partials -->
+  <!-- angular templates will be automatically converted in js and inserted here -->
+  <!-- endinject -->
+  <!-- endbuild -->
 
-    <!-- inject:partials -->
-    <!-- angular templates will be automatically converted in js and inserted here -->
-    <!-- endinject -->
-    <!-- endbuild -->
-
-  </body>
+</body>
 </html>

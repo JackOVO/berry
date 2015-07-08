@@ -1,86 +1,48 @@
 <div id="plat-main">
-  <div id="plat-side" class="left nonesel">
 
+  <div id="plat-side" class="left nonesel">
     <div id="plat-side-top">
-      <a href="{{global.index}}" class="inline-block">
+      <a href="http://www.dfinder.cn" class="inline-block">
         <img src="assets/images/platform-logo.png" alt="LOGO">
       </a>
       <div><img src="assets/images/oval.png" alt="LOGO"></div>
       <button class="large primary submit"
         ng-class="{'disabled': wbvm.isSync}"
-        ng-click="wbvm.sync();">更新数据</button>
-    </div>
-
-    <div id="plat-side-content" ng-controller="ConditionCtrl as ccvm">
-<!--       <div ng-repeat="code in ccvm.condition.sequence track by ccvm.byIndex(code)">
-  {{code}}
-</div> -->
-    <accordion data="ccvm.condition.sequence">
-      <div 
-        ng-model="ccvm.condition.sequence"
-        ui-sortable="ccvm.accSortableOptions" style="height:100%">
-        <accordion-group
-          attr-open="{{dim.code == ccvm.condition.selectedCode}}"
-          selected="ccvm.selected(code)"
-          ng-init="dim = ccvm.condition.dimensions[code]"
-          ng-repeat="code in ccvm.condition.sequence track by ccvm.byIndex(code)">
-          <accordion-heading>{{dim.name}}
-            <div class="icon-bar">
-              <i class="icon-btn"
-                ng-class="{'row':'icon-row', 'col':'icon-col'}[ccvm.condition.direction[code]]"
-                ng-click="ccvm.toggleDirective($event, code)"></i>
-            </div>
-          </accordion-heading>
-    
-          <!-- {{dim}} 根据不同特性引入不同的页面(注意通用性, 任何维度都可以有特性展现方式) -->
-          <!-- 注意:dim这个键对特性等控制器的影响 -->
-          <!-- 注意:以下控制器多都需要上下文dim的数据,耦合较高,可以想方法从服务获取 -->
-          <scrollbar ng-controller="txCtrl">
-            <div ng-if="dim.feature.indicator"
-                  ng-include="'app/template/property/dimeitem.html'"></div>
-            <div ng-if="dim.feature.indicator"
-                  ng-include="'app/template/property/addIndicatorBtn.html'"></div>
-            <div ng-if="dim.feature.indicator"
-                  ng-include="'app/template/property/recommend.html'"></div>
-            <div ng-if="dim.feature.search"
-                  ng-include="'app/template/property/search.html'"></div>
-            <div ng-if="dim.feature.tree"
-                  ng-include="'app/template/property/tree.html'"></div>
-          </scrollbar>
-    
-        </accordiong-group>
-      </div>
-    </accordion>
-    </div>
-  </div>
+        ng-click="wbvm.sync();">同步数据</button>
+    </div><!-- 侧边头结束 -->
+    <div id="plat-side-content" ng-controller="ConditionCtrl as ccvm"
+      ng-include="'app/core/accordion.html'">
+    </div><!-- 侧边内容结束 -->
+  </div><!-- 侧边结束 -->
 
   <div id="plat-body">
     <div id="plat-body-hander">
       <button id="plat-body-hamburger"></button>
       <coolmenu></coolmenu>
-      <div id="plat-body-userInfo" ng-controller="UserCtrl as ucvm">
-        {{ucvm.user.name}}
-      </div>
+      <div id="plat-body-userInfo">{{ucvm.user.name}}</div>
       <toolbar></toolbar>
-    </div>
+    </div><!-- 头结束 -->
 
     <div id="plat-body-info" class="right">
       <button id="plat-info-sudo" class="right">收起</button>
       <fiexible></fiexible>
-    </div>
+    </div><!-- 附属信息结束 -->
 
-    <div id="plat-body-container">{{scvm.sheet.table}}</div>
+    <div id="plat-body-container">
+     <!--  {{scvm.sheet.table}} -->
+    </div><!-- 内容容器结束 -->
 
     <div id="plat-body-footer">
       <span class="tabs-item fn-fonthid"
         ng-repeat="sheet in wbvm.workBook.sheets"
-        ng-class="{'selected':wbvm.workBook.index==$index}"
-        ng-click="wbvm.selected($index)">
+        ng-class="{'selected':wbvm.workBook.selectedIndex==$index}"
+        ng-click="wbvm.selectSheet($index)">
         {{sheet.name}}
         <i class="icon-btn icon-small-close"></i>
       </span>
       <i class="icon-btn icon-cross"></i>
-    </div>
-  </div>
+    </div><!-- 选项卡结束 -->
+
+  </div><!-- 主体结束 -->
 
 </div>

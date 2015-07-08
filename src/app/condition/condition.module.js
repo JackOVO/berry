@@ -1,12 +1,12 @@
 (function() {
   'use strict';
+  // 条件模块
 
   angular
     .module('platform.condition', [
-      'ui.sortable', // 排序拖动指令
-      'platform.dimension',
-      'platform.recommend',
-      'platform.search',
-      'platform.indicator'
+      'ui.sortable',
+      'platform.dimension', 'platform.sheet',
+      'platform.indicator', 'platform.search'
     ]);
+
 })();

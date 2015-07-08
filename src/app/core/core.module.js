@@ -1,11 +1,13 @@
 (function() {
   'use strict';
+  // 核心模块, 提供基础功能
 
   angular
-    .module('platform.core', ['platform.error'])
+    .module('platform.core', [])
     .constant('coreCF', {
+      openDimCode: 'indicatorCode',
       // 本地存储key
-      statusKey: 'status',
+      record: 'record',
       userCookieKey: 'userData',
       globalGundomKey: 'gundom',
       // 地址映射
@@ -27,19 +29,25 @@
         'workBookChange': 'wbc',
         'conditionChange': 'nc',
         'sheetChange': 'sc',
+        'sheetCtrlLoadComplete': 'sclc',
 
-        'syncSearchSelectNode': 'sssn', // 同步搜索结果中选中的node
-        'syncSearchSelectNodeEmit': 'sssne', // 向上, 同级通信
-        'recommendCheckedChange': 'rcc', // 推荐选中变成, 向上通知
-        'syncSubmitChange': 'ssc',
+        'accContentBridge': 'acb', // 手风琴内容控制器转播监听
+        'searchSelectNodeChange': 'ssnc', // 搜索选中变更
+        'dimSelectedChange': 'dsc', // 维度选中变成, 向上通知变更条件和同步状态
+        'syncStatusChange': 'ssc', // 同步状态变更
 
         'rightMenuDataChange': 'rmdc',
         'rightMenuPropertyChange': 'rmrc',
+        // 动作通知
+        'getRecommend': 'gr',
+        'refreshRecommend': 'rir',
+        'askRecommendRefresh': 'arr'
       },
-      // 默认测试条件
+      // 测试钢弹
       gundom: {
         'dims': [
-          {'codeName':'indicatorCode', 'codes': ['00010000000058', '00030000038935', '00010000000059']}
+          {'codeName':'indicatorCode',
+           'codes': ['00010000000058', '00030000038935', '00010000000059']}
         ],
         'productID': '00010000000000000000000000000001'
       }

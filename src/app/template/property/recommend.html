@@ -1,7 +1,7 @@
-<div class="recommend-container" ng-controller="LeftRecommendCtrl as rcvm">
-  <span class="line-font-line">{{rcvm.title}}</span>
+<div class="recommend-container" ng-controller="indicatorRecommend as irvm">
+  <span class="line-font-line">{{irvm.title}}</span>
   <label class="checkbox fn-fonthid" title="{{item.text}}"
-    ng-repeat="item in rcvm.recommends"
-    ng-class="{'selected': rcvm.checkedRecord[item.code]}"
-    ng-click="rcvm.checked(rcvm.type, item)">{{item.text}}</label>
+    ng-repeat="item in irvm.recommends"
+    ng-class="{'selected': irvm.selectRecord[item.indicatorCode]}"
+    ng-click="irvm.selected(item)">{{item.indicatorName}}</label>
 </div>

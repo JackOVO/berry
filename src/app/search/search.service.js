@@ -5,13 +5,19 @@
     .module('platform.search')
     .factory('searchService', searchService);
 
-  searchService.$inject = ['dataService', 'sheetService', 'treeBean'];
-  function searchService(dataService, sheetService, treeBean) {
+  searchService.$inject = ['dataService', 'sheetService'];
+  function searchService(dataService, sheetService) {
     var service = {
-      'require': getSearchData
+      'search': getSearchData
     };
     return service;
 
+    /**
+     * 简单表内节点搜索, 带个类型
+     * @param  {String} type 搜索区分
+     * @param  {String} keywords 搜索关键字
+     * @return {promise}
+     */
     function getSearchData(type, keywords) {
       var sheetId = sheetService.getSheetId();
       var params = {

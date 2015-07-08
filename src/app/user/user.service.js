@@ -5,83 +5,87 @@
     .module('platform.user')
     .factory('userService', userService);
 
-  userService.$inject = ['$rootScope', 'userBean', 'dataService', 'coreCF'];
-  function userService($rootScope, userBean, dataService, config) {
-    var _user = null;
+  userService.$inject = ['$q', 'dataService', 'userFactory', 'coreCF'];
+  function userService($q, dataService, userFactory, config) {
+    var _user = null; // 维护用户
     var service = {
-      'initialize': initialize
+      'initialize': initialize,
+      'getUserInfo': getUserInfo,
+      'addRecord': setUserLocalRecord,
+      'getRecord': function(key){ return getUserLocalRecord(_user.id)[key]; }
     };
-
-    var spk = config.spreadKey;
     return service;
 
-    // 初始化服务
-    function initialize () {
-      var key = config.userCookieKey, params = {};
-      var current = getUserCurrentByCookie(key); // 格式化后
-
-      // 免登陆用户信息匹配
-      if (current.uid) { params.uid = current.uid; }
-      if (current.secretKey) { params.secretKey = current.secretKey; }
+    function initialize() {
+      var params = {};
 
       return getUserInfo(params)
         .then(function(user) {
-          if(user) {
-            var key = config.statusKey + user.id;
-            var status = dataService.getItem(key);
-            user.setStatus(status);
-          } else {
-            console.error('没有用户, 考虑处理放在那里?');
-          }
-          return user;
+console.warn('R用户:', user);
+          _user = user;
+          // 获取cookie中的条件或测试条件
+          var gundam = getGundamByCookie() || config.gundom;
+          setUserLocalRecord('gundam', gundam); // 同步
+          _user.record = getUserLocalRecord(_user.id);
+          return _user;
+        })
+        .catch(function(message) { // 无法获取到用户的情况下
+          // 可以抽取到错误或登录模块处理
+          window.location.href = 'login.html';
         });
     }
 
-    /** 
-     * set一个用户的状态
-     * @param {String} key
-     * @param {Object} value
-     */
-    function setStatus(key, value) {
-      var skey = config.statusKey + _user.id;
-      var status = dataService.getItem(skey);
-      status[key] = value;
-      _user.setStatus(status); // 同步一下
-      dataService.setItem(skey, status);
-      return status;
-    }
-
     /**
-     * 获取用户信息并set到服务中(注销, 在登录)
-     * @param  {Object} params 特定用户查询参数
-     * @return {Promise} 
+     * 根据session获取用户信息
+     * @param  {Object} params 附带参数, 特殊用户, 保存密码等
+     * @return {Promise} 承诺, 用户为空时会拒绝
      */
     function getUserInfo(params) {
       return dataService.post('userInfo', params)
         .then(function(userSource) {
-          if(userSource) {
-            _user = userBean.parse(userSource);
-            $rootScope.$broadcast(spk.userChange, _user);
-          }
-          return _user;
+          if (userSource === null) { return $q.reject('用户信息为空!'); }
+          var user = userFactory.parse(userSource);
+          return user;
         });
     }
 
     /**
-     * 从cookie获取用户通行证并格式化(特殊免登陆用户)
-     * @param  {String} key cookie key
-     * @return {Object} 格式化后的对象 || {}
+     * 覆盖用户本机记录
+     * @param {String]} key
+     * @param {Object} value
+     * @return {Object} 当前用户的记录
      */
-    function getUserCurrentByCookie(key) {
-      var crrent = {};
-      var ckobj = dataService.getCookieObj(key);
-      if (ckobj && ckobj.dims) {
-        if (ckobj.dims.uid) { crrent.uid = ckobj.dims.uid; }
-        if (ckobj.dims.secretKey) { crrent.secretKey = ckobj.dims.secretKey; }
-      }
-      return crrent;
+    function setUserLocalRecord(key, value) {
+      var rkey = config.record + _user.id;
+      var record = dataService.getItem(rkey);
+      record[key] = value;
+      dataService.setItem(rkey, record);
+      angular.forEach(record, function(value, key) {
+        _user.addRecord(key, value);
+      });
+      return _user.record;
     }
 
+    /**
+     * 获取指定用户的本地记录数据
+     * @param  {String} userId
+     * @return {Object} 用户记录
+     */
+    function getUserLocalRecord(userId) {
+      var key = config.record + userId;
+      var record = dataService.getItem(key);
+      return record;
+    }
+
+    /**
+     * 获取搜索平台传入的条件并转成gundam
+     * @return {Gundam} 钢弹
+     */
+    function getGundamByCookie() {
+      var ckString = dataService.getCookieObj(config.userCookieKey);
+      var deformity = angular.fromJson(ckString);
+      return deformity && {'dims': deformity.dims.dim, 'productID': deformity.dims.productID};
+    }
   }
 
 })();
