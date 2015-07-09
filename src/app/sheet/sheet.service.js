@@ -27,6 +27,7 @@
      * @param  {Sheet} Sheet 传入项
      */
     function updateSheet(Sheet) {
+console.warn('R工作表', Sheet);
       _sheet = Sheet;
       _notice.sheetChange(); // 変更通知
 

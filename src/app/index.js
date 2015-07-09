@@ -39,6 +39,7 @@
       // 初始化用户
       userService.initialize().then(function(user) {
         var gundam = user.record['gundam'];
+gundam = config.gundom; // 测试
         // 初始化工作簿
         workBookService.initialize(gundam).then(function(workBook) {
           // 选择一个表
