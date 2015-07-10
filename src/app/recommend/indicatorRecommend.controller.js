@@ -31,7 +31,7 @@
             that.selectRecord = recommendService.getSelectRecord();
             that.title = '指标推荐';
           } else {
-            that.title = '没有推荐';
+            that.title = '无相关推荐';
             console.info('后台不给推荐, 你让我上哪给你搞去~');
           }
         });
@@ -40,6 +40,7 @@
     // 获取缓存推荐
     $scope.$on(_spk.getRecommend, function(e, type) {
       that.recommends = recommendService.getRecommend();
+      if (!that.recommends.length) { that.title = '无相关推荐'; }
     })
 
     // 第一次加载询问是否加载推荐信息(注意注册顺序问题)

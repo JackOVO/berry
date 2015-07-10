@@ -12,8 +12,9 @@
     return service;
 
     // hansontalbe封装?
-    function Table(data, mergeCells, fixedRowsTop, fixedColumnsLeft) {
+    function Table(data, special, mergeCells, fixedRowsTop, fixedColumnsLeft) {
       this.data = data;
+      this.special = special;
       this.mergeCells = mergeCells;
       this.fixedRowsTop = fixedRowsTop;
       this.fixedColumnsLeft = fixedColumnsLeft;
@@ -27,18 +28,20 @@
     function parse(tableSouce) {
       var data = [], merges = [];
       var values = tableSouce.values;
+      var special = tableSouce.infoIconPosLst;
       var fixedRowsTop = tableSouce.fixedRowsTop;
       var fixedColumnsLeft = tableSouce.fixedColumnsLeft;
 
       var kbo = extract(values);
       data = kbo.data;
       merges = kbo.merges;
-      return new Table(data, merges, fixedRowsTop, fixedColumnsLeft);
+      special = extractSpecial(special);
+      return new Table(data, special, merges, fixedRowsTop, fixedColumnsLeft);
     }
 
     // 表格值格式化
     function cellFormat(cell) {
-      return cell.value || 'Orz';
+      return cell.value || '';
     }
     // 提取生成合并值
     function cellMerge(r, c, cell) {
@@ -73,6 +76,24 @@
         },
         function(r, rdata) { result.data.push(row); });
       return result;
+    }
+
+    /**
+     * 提取特殊的单元格属性
+     * @param  {xia} source 
+     * @return {rnum:{cnum:{}}}
+     */
+    function extractSpecial(source) {
+      var special = {};
+      angular.forEach(source, function(sok, index) {
+        if (!special[sok.x]) { special[sok.x] = {} };
+        if (!special[sok.x][sok.y]) { special[sok.x][sok.y] = {}; }
+        var cols = special[sok.x][sok.y];
+
+        cols.code = sok.code;
+        cols.type = sok.type;
+      });
+      return special;
     }
 
     /**

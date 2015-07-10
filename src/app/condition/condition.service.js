@@ -32,7 +32,6 @@
      * @return {Object} 提交的条件参数
      */
     function serializationGundam(gundam) {
-      console.info(gundam);
       var result = {};
       result.dims = angular.toJson(gundam.dims);
 

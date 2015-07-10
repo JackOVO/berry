@@ -41,18 +41,20 @@
         // 动作通知
         'getRecommend': 'gr',
         'refreshRecommend': 'rir',
-        'askRecommendRefresh': 'arr'
+        'askRecommendRefresh': 'arr',
+        'containerSizeChange': 'csc' // 容器大小变更
       },
       // 测试钢弹
       gundom: {
         'dims': [
           {
             'codeName':'indicatorCode',
-            'codes': ['00010000624458', '00030000036343', '00010000107190']
+            'codes': ['00030000039266']
           }
         ],
         'productID': '00010000000000000000000000000001'
       }
     });
-
+// 00030000039266 GDP
+// '00010000624458', '00030000036343', '00010000107190'
 })();

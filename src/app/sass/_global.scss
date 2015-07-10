@@ -309,5 +309,8 @@ $xxlarge-range: (120.063em, 99999999em) !default;
       -khtml-user-select: none; /*早期浏览器*/
       user-select: none;
     }
+    .width-transition {
+      @include single-transition(width);
+    }
   }
 }

@@ -17,53 +17,22 @@
       <!-- {{dim}} 根据不同特性引入不同的页面(注意通用性, 任何维度都可以有特性展现方式) -->
       <!-- 注意: dim这个键对特性等控制器的影响 -->
       <!-- 注意: 以下控制器多都需要上下文dim的数据,耦合较高,可以想方法从服务获取 -->
-      <scrollbar ng-controller="AccContentCtrl">
-        <div ng-if="dim.feature.indicator"
-          ng-include="'app/template/property/dimeitem.html'"></div>
-        <div ng-if="dim.feature.indicator"
-          ng-include="'app/template/property/addIndicatorBtn.html'"></div>
-        <div ng-if="dim.feature.indicator"
-          ng-include="'app/template/property/recommend.html'"></div>
+      <div ng-controller="AccContentCtrl" style="height:100%;padding-bottom:30px;">
         <div ng-if="dim.feature.search"
           ng-include="'app/template/property/search.html'"></div>
-        <div ng-if="dim.feature.tree"
-          ng-include="'app/template/property/tree.html'"></div>
-      </scrollbar>
+
+        <scrollbar>
+          <div ng-if="dim.feature.indicator"
+            ng-include="'app/template/property/dimeitem.html'"></div>
+          <div ng-if="dim.feature.indicator"
+            ng-include="'app/template/property/addIndicatorBtn.html'"></div>
+          <div ng-if="dim.feature.indicator"
+            ng-include="'app/template/property/recommend.html'"></div>
+          <div ng-if="dim.feature.tree"
+            ng-include="'app/template/property/tree.html'"></div>
+        </scrollbar>
+      </div>
 
     </accordion-group>
   </div>
 </accordion> 
-
-<!-- <accordion data="ccvm.condition.sequence">
-  <div 
-    ng-model="ccvm.condition.sequence"
-    ui-sortable="ccvm.accSortableOptions" style="height:100%">
-    <accordion-group
-      attr-open="{{dim.code == ccvm.condition.selectedCode}}"
-      selected="ccvm.selected(code)"
-      ng-init="dim = ccvm.condition.dimensions[code]"
-      ng-repeat="code in ccvm.condition.sequence track by ccvm.byIndex(code)">
-      <accordion-heading>{{dim.name}}
-        <div class="icon-bar">
-          <i class="icon-btn"
-            ng-class="{'row':'icon-row', 'col':'icon-col'}[ccvm.condition.direction[code]]"
-            ng-click="ccvm.toggleDirective($event, code)"></i>
-        </div>
-      </accordion-heading>
-
-      
-      <scrollbar ng-controller="txCtrl">
-        <div ng-if="dim.feature.indicator"
-              ng-include="'app/template/property/dimeitem.html'"></div>
-        <div ng-if="dim.feature.indicator"
-              ng-include="'app/template/property/addIndicatorBtn.html'"></div>
-        <div ng-if="dim.feature.indicator"
-              ng-include="'app/template/property/recommend.html'"></div>
-        
-        <div ng-if="dim.feature.tree"
-              ng-include="'app/template/property/tree.html'"></div>
-      </scrollbar>
-
-    </accordiong-group>
-  </div>
-</accordion> -->

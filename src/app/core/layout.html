@@ -23,16 +23,16 @@
       <toolbar></toolbar>
     </div><!-- 头结束 -->
 
-    <!-- <div id="plat-body-info" class="right">
-      <button id="plat-info-sudo" class="right">收起</button>
-      <fiexible></fiexible>
-    </div> --><!-- 附属信息结束 -->
+    <div id="plat-body-info" class="right width-transition"
+      ng-controller="IndicatorCtrl as icvm" ng-style="icvm.infoStyle">
+      <button id="plat-info-sudo" class="right" ng-click="icvm.toggle()">收起</button>
+      <scrollbar>
+        <div ng-include="'app/template/fiexible.html'"></div>
+      </scrollbar>
+    </div><!-- 附属信息结束 -->
 
     <div id="plat-body-container">
       <handsontable table="scvm.sheet.table"></handsontable>
-      <!-- 宽度自适应 -->
-      <!-- <handsontable></handsontable> <scrollbar style="padding-top:10px;"> -->
-     <!--  {{scvm.sheet.table}} -->
     </div><!-- 内容容器结束 -->
 
   <div id="plat-body-footer">
