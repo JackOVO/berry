@@ -5,8 +5,8 @@
     .module('platform.directive')
     .directive('handsontable', handsontableDirective);
 
-  handsontableDirective.$inject = ['handsontableService'];
-  function handsontableDirective(handsontableService) {
+  handsontableDirective.$inject = ['handsontableService', 'coreCF'];
+  function handsontableDirective(handsontableService, config) {
     return {
       replace: true,
       template: '<div style="width:100%;height:100%;padding-top:10px;">'+
@@ -15,6 +15,7 @@
       scope: {'table': '='},
       link: function(scope, element, attrs) {
         var _handsontable = null;
+        var _spk = config.spreadKey;
         var _container = element.children('#x');
 
         scope.$watch('table', function(table) {
@@ -33,17 +34,20 @@ console.info(table);
           _handsontable = new Handsontable(_container[0], settings);
         });
 
-        $(window).resize(function() {
+        function resizeTB() {
           var width = element.width(), height = element.height();
           _handsontable.updateSettings({
             width: width,
-            height: height,
-//             colWidths: function(col){
-// console.info(col);
-//               return 100;
-//             }
+            height: height
           });
+        }
+
+        // 监听容器变更
+        scope.$on(_spk.containerSizeChange, function(){
+          setTimeout(function(){ resizeTB(); }, 300);
         });
+        $(window).resize(function() { resizeTB(); });
+
       }
     };
   }

@@ -62,6 +62,7 @@
       // td.style.verticalAlign = 'middle';
 
       var icon = $('<i class="icon-btn icon-info"></i>');
+      icon.click();
       if (!$(td).children('.icon-btn').length) {
         $(td).append(icon);
       }
