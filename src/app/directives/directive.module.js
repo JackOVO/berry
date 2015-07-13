@@ -3,6 +3,6 @@
 
   // 指令模块
   angular
-    .module('platform.directive', []);
+    .module('platform.directive', ['platform.indicator']);
 
 })();

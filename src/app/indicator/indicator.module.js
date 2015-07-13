@@ -3,6 +3,6 @@
   // 指标模块
 
   angular
-    .module('platform.indicator', ['platform.recommend']);
+    .module('platform.indicator', ['platform.core', 'platform.recommend']);
 
 })();

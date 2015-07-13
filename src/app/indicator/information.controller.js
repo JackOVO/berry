@@ -5,22 +5,33 @@
     .module('platform.indicator')
     .controller('IndicatorCtrl', IndicatorCtrl);
 
-  IndicatorCtrl.$inject = ['$rootScope', 'coreCF'];
-  function IndicatorCtrl($rootScope, config) {
+  IndicatorCtrl.$inject = ['$scope', '$rootScope', 'informationService', 'coreCF'];
+  function IndicatorCtrl($scope, $rootScope, informationService, config) {
     var _spk = config.spreadKey;
     var that = this;
-    that.infoStyle = null;
+    that.style = null;
     that.toggle = toggle;
+    that.infomation = null;
+
+    // 数据更新
+    $scope.$on(_spk.infomationChange, function(e, infomation) {
+      that.infomation = infomation;
+    });
+    
+    // 开关监听
+    $scope.$on(_spk.rightInfoIsOpenChange, function(e, isOpen) {
+      $scope.isOpen = isOpen;
+    });
+
+    $scope.$watch('isOpen', function(isOpen) {
+      if (isOpen === true) { that.style = {'display':'block'};
+      } else { that.style = {'width':0,'padding':0,'display':'block'}; }
+      $rootScope.$broadcast(_spk.containerSizeChange);
+    });
 
     // 切换开关, 还是用Service控制
     function toggle() {
-      if (!that.infoStyle) {
-        that.infoStyle = {'width': 0, 'padding': 0};
-      } else {
-        that.infoStyle = null;
-      }
-      // 容器大小变更通知
-      $rootScope.$broadcast(_spk.containerSizeChange);
+      informationService.toggle();
     }
   }
 

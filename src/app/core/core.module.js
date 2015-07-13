@@ -19,7 +19,8 @@
         'search': 'search.do',
         'workBook': 'jump.do',
         'recommend': 'recmd.do',
-        'userInfo': 'userInfo.do'
+        'userInfo': 'userInfo.do',
+        'information': 'info.do'
       },
       // 传播关键字
       spreadKey: {
@@ -30,6 +31,7 @@
         'conditionChange': 'nc',
         'sheetChange': 'sc',
         'sheetCtrlLoadComplete': 'sclc',
+        'infomationChange': 'ic',
 
         'accContentBridge': 'acb', // 手风琴内容控制器转播监听
         'searchSelectNodeChange': 'ssnc', // 搜索选中变更
@@ -42,7 +44,8 @@
         'getRecommend': 'gr',
         'refreshRecommend': 'rir',
         'askRecommendRefresh': 'arr',
-        'containerSizeChange': 'csc' // 容器大小变更
+        'containerSizeChange': 'csc', // 容器大小变更
+        'rightInfoIsOpenChange': 'rioc' // 右信息开关通知
       },
       // 测试钢弹
       gundom: {

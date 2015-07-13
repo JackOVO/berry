@@ -5,7 +5,8 @@
     .module('platform.directive')
     .factory('handsontableService', handsontableService);
 
-  function handsontableService() {
+  handsontableService.$inject = ['$rootScope', 'informationService'];
+  function handsontableService($rootScope, informationService) {
     var _table = {}; // 操作的table
     var _settings = {
       rowHeaders: true,
@@ -40,6 +41,7 @@
       return angular.extend(_settings, settings);
     }
 
+    // 统一渲染
     function PolicemenRenderer(instance, td, row, col, prop, value) {
       var that = this;
       RowRenderer.apply(this, arguments);
@@ -49,22 +51,27 @@
         var colSpecial = _table.special[row][col];
         switch(colSpecial.type) {
           case 'indicator':
+            $(td).data(colSpecial); // 存
             IndicatorRenderer.apply(that, arguments);
             break;
         }
       }
     };
+    // 行渲染
     function RowRenderer(instance, td, row) {
       if (row % 2 !== 0) { td.style.backgroundColor = '#F9F9F9'; }
-    };
+    }; 
+    // 指标渲染
     function IndicatorRenderer(instance, td) {
       Handsontable.renderers.HtmlRenderer.apply(this, arguments);
-      // td.style.verticalAlign = 'middle';
-
       var icon = $('<i class="icon-btn icon-info"></i>');
-      icon.click();
+
       if (!$(td).children('.icon-btn').length) {
-        $(td).append(icon);
+        icon.appendTo($(td)).click(function() {
+          var inId = $(td).data().code;
+          informationService.updateInfomation(inId);
+          $rootScope.$apply();
+        });
       }
     }
   }

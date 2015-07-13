@@ -23,8 +23,8 @@
       <toolbar></toolbar>
     </div><!-- 头结束 -->
 
-    <div id="plat-body-info" class="right width-transition"
-      ng-controller="IndicatorCtrl as icvm" ng-style="icvm.infoStyle">
+    <div id="plat-body-info" style="display:none;" class="right width-transition"
+      ng-controller="IndicatorCtrl as icvm" ng-style="icvm.style">
       <button id="plat-info-sudo" class="right" ng-click="icvm.toggle()">收起</button>
       <scrollbar>
         <div ng-include="'app/template/fiexible.html'"></div>

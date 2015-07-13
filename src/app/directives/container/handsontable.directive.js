@@ -9,7 +9,7 @@
   function handsontableDirective(handsontableService, config) {
     return {
       replace: true,
-      template: '<div style="width:100%;height:100%;padding-top:10px;">'+
+      template: '<div style="width:99%;height:99%;overflow:auto;padding-top:10px;">'+
                   '<div id="x" style="font-size:14px;"></div>'
                 +'</div>',
       scope: {'table': '='},
@@ -22,7 +22,7 @@
           if (!table) { return; }
           handsontableService.setTable(table);
 
-          var width = element.width(), height = element.height();
+          var width = element.width() - 20, height = element.height() - 20;
           var settings = angular.extend({
             width: width,
             height: height
@@ -35,18 +35,21 @@ console.info(table);
         });
 
         function resizeTB() {
-          var width = element.width(), height = element.height();
-          _handsontable.updateSettings({
-            width: width,
-            height: height
-          });
+          // console.info('RS');
+          // var width = element.width(), height = element.height();
+          // _handsontable.updateSettings({
+          //   width: width,
+          //   height: height
+          // });
         }
 
         // 监听容器变更
         scope.$on(_spk.containerSizeChange, function(){
-          setTimeout(function(){ resizeTB(); }, 300);
+          setTimeout(function(){
+            resizeTB();
+          }, 301);
         });
-        $(window).resize(function() { resizeTB(); });
+        //$(window).resize(function() { resizeTB(); });
 
       }
     };
