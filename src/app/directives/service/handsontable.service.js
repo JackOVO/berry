@@ -62,9 +62,7 @@
       if (row % 2 !== 0) { td.style.backgroundColor = '#F9F9F9'; }
     }; 
     // 指标渲染
-    var _hoverIcon = null;
     function IndicatorRenderer(instance, td) {
-      // td.style.textAlign = 'center';
       Handsontable.renderers.HtmlRenderer.apply(this, arguments);
 
       // 保证唯一?
@@ -74,22 +72,12 @@
       var indicatorId = informationService.getNowId();
       var icon = $('<i class="icon-btn icon-info"></i>');
 
-      if (code === indicatorId) { icon.addClass('hover'); _hoverIcon = icon;}
+      if (code === indicatorId) { icon.addClass('hover'); }
         else { icon.removeClass('hover'); }
 
-      // 小icon点击和阻止选中单元格
       icon.appendTo($(td)).click(function(e) {
         informationService.toggleInfomation(code);
-        indicatorId = informationService.getNowId(); // 做个样子获取一下
-        $rootScope.$apply(); // 效率?
-
-        if (indicatorId === code) {
-          icon.addClass('hover');
-          if (_hoverIcon) {
-            _hoverIcon.removeClass('hover');
-            _hoverIcon = icon;
-          }
-        }
+        $rootScope.$apply();
       }).mousedown(function(e) { e.stopPropagation(); }); // 阻止选中单元格
       
     }

@@ -41,6 +41,8 @@
         'rightMenuDataChange': 'rmdc',
         'rightMenuPropertyChange': 'rmrc',
         // 动作通知
+        'syncWorkBook': 'swb',
+        'requireInfomation': 'ri',
         'getRecommend': 'gr',
         'refreshRecommend': 'rir',
         'askRecommendRefresh': 'arr',
@@ -52,7 +54,7 @@
         'dims': [
           {
             'codeName':'indicatorCode',
-            'codes': ['00030000039266']
+            'codes': ['00010000624458', '00030000039266', '00010000000058','00010000000066','00010000000739','00010000001732','00010000001735','00010000001737']
           }
         ],
         'productID': '00010000000000000000000000000001'
@@ -61,3 +63,4 @@
 // 00030000039266 GDP
 // '00010000624458', '00030000036343', '00010000107190'
 })();
+

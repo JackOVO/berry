@@ -7,6 +7,7 @@
 
   IndicatorCtrl.$inject = ['$scope', '$rootScope', 'informationService', 'coreCF'];
   function IndicatorCtrl($scope, $rootScope, informationService, config) {
+    $scope.infomationLD = false;
     var _spk = config.spreadKey;
     var that = this;
     that.style = null;
@@ -16,6 +17,12 @@
     // 数据更新
     $scope.$on(_spk.infomationChange, function(e, infomation) {
       that.infomation = infomation;
+      $scope.infomationLD = false;
+    });
+
+    // 请求监听听
+    $scope.$on(_spk.requireInfomation, function(e) {
+      $scope.infomationLD = true;
     });
     
     // 开关监听
@@ -24,6 +31,7 @@
     });
 
     $scope.$watch('isOpen', function(isOpen) {
+      if (isOpen === undefined) { return; }
       if (isOpen === true) { that.style = {'display':'block'};
       } else { that.style = {'width':0,'padding':0,'display':'block'}; }
       $rootScope.$broadcast(_spk.containerSizeChange);

@@ -16,6 +16,9 @@
     _notice.workBookChange = function() {
       $rootScope.$broadcast(_spk.workBookChange, _workBook);
     };
+    _notice.syncWorkBook = function() {
+      $rootScope.$broadcast(_spk.syncWorkBook);
+    };
 
     var service = {
       'syncSheet': syncSheet,
@@ -50,6 +53,7 @@ console.warn('R工作簿', workBook);
       gundam.sheetId = sheetId; // 还要带上它
       gundam.productID = _pid; // 还要带上它
 
+      _notice.syncWorkBook(); // 状态通知
       return requireWorkBook(gundam).then(function(workBook) {
           var selectIndex = _workBook.merger(workBook);
           _notice.workBookChange(); // 通知工作簿変更

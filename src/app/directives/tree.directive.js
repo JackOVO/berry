@@ -21,9 +21,10 @@
 
     // 根据操作类型, 对节点数组做全选/反选操作
     function toggle(nodes, oper) {
+      var ary = ['sel', 'sel-peer', 'sel-son'];
       for (var i = 0, ilen = nodes.length; i < ilen; i++) {
         var node = nodes[i];
-        var checked = (oper === 'sel' ? true : !node.checked);
+        var checked = (ary.indexOf(oper) !==-1 ? true : !node.checked);
          // 挨个选中, 触发事件, 同步选中属性
         ztree.checkNode(node, checked, true, true);
       }

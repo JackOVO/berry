@@ -13,14 +13,20 @@
     that.isSync = true; // 同步状态
     that.workBook = null; // 工作簿
     that.selectSheet = workBookService.selectSheet;
+    $scope.workbookLD = false; // 加载状态
 
 
     $scope.$on(_spk.syncStatusChange, function(e, isSync) {
       that.isSync = isSync;
     });
 
+    $scope.$on(_spk.syncWorkBook, function(e) {
+      $scope.workbookLD = true;
+    });
+
     $scope.$on(_spk.workBookChange, function(e, workBook) {
       that.workBook = workBook;
+      $scope.workbookLD = false;
 console.warn('C工作簿', that.workBook);
     });
 
@@ -36,21 +42,6 @@ console.warn('C工作簿', that.workBook);
           workBookService.selectSheet(selectIndex);
       });
     }
-
-    // $scope.array = {'ary': ['1', '2', '3']};
-    // $scope.$watch('array.ary', function(n, c){
-    //   console.info(n,'?',c);
-    // });
-    // $scope.index = function(n) {
-    //   console.info('----');
-    //   return n;
-    // };
-
-    // setTimeout(function() {
-    //   $scope.array = {'ary': ['1', '2', '3']};
-    //   $scope.$apply();
-    //   console.info('----');
-    // }, 1000);
   }
 
 })();

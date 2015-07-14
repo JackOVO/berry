@@ -17,7 +17,8 @@
       <!-- {{dim}} 根据不同特性引入不同的页面(注意通用性, 任何维度都可以有特性展现方式) -->
       <!-- 注意: dim这个键对特性等控制器的影响 -->
       <!-- 注意: 以下控制器多都需要上下文dim的数据,耦合较高,可以想方法从服务获取 -->
-      <div ng-controller="AccContentCtrl" style="height:100%;padding-bottom:30px;">
+      <div ng-controller="AccContentCtrl" ng-init="pb=dim.feature.search?30:0;"
+        style="height:100%;padding-bottom:{{pb}}px;">
         <div ng-if="dim.feature.search"
           ng-include="'app/template/property/search.html'"></div>
 

@@ -9,8 +9,11 @@
   function handsontableDirective(handsontableService, config) {
     return {
       replace: true,
-      template: '<div style="width:99%;height:99%;overflow:auto;padding-top:10px;">'+
-                  '<div id="x" style="font-size:14px;"></div>'
+      template: '<div style="width:99%;height:99%;'+
+                            'overflow:hidden;'+
+                            'padding-top:10px;'+
+                            'outline:1px solid red;">'+
+                  '<div id="x" style="font-size:14px;outline:1px solid black;"></div>'
                 +'</div>',
       scope: {'table': '='},
       link: function(scope, element, attrs) {
@@ -22,8 +25,9 @@
           if (!table) { return; }
           handsontableService.setTable(table);
 
-          var width = element.width() - 20, height = element.height() - 20;
+          var width = element.width(), height = element.height();
           var settings = angular.extend({
+            //stretchH: 'all',
             width: width,
             height: height
           }, handsontableService.settings());
@@ -35,21 +39,21 @@ console.info(table);
         });
 
         function resizeTB() {
-          // console.info('RS');
-          // var width = element.width(), height = element.height();
-          // _handsontable.updateSettings({
-          //   width: width,
-          //   height: height
-          // });
+          var width = element.width(), height = element.height();
+          _handsontable.updateSettings({
+            width: width - 20,
+            height: height - 20
+          });
         }
 
         // 监听容器变更
         scope.$on(_spk.containerSizeChange, function(){
           setTimeout(function(){
             resizeTB();
+            _handsontable.render();
           }, 301);
         });
-        //$(window).resize(function() { resizeTB(); });
+        $(window).resize(function() { resizeTB(); });
 
       }
     };
