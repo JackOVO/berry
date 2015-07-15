@@ -3,6 +3,7 @@
 
   angular
     .module('platform', [
+      'ngDialog',
       'ui.router',
       'ngResource',
       'ngSanitize',

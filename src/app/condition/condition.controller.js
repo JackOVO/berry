@@ -5,8 +5,8 @@
     .module('platform.condition')
     .controller('ConditionCtrl', ConditionCtrl);
 
-  ConditionCtrl.$inject = ['$scope', '$timeout', 'conditionService', 'sheetService', 'coreCF'];
-  function ConditionCtrl($scope, $timeout, conditionService, sheetService, config) {
+  ConditionCtrl.$inject = ['$scope', '$timeout', 'ngDialog', 'conditionService', 'sheetService', 'coreCF'];
+  function ConditionCtrl($scope, $timeout, ngDialog, conditionService, sheetService, config) {
     var _spk = config.spreadKey;
     var _after = null; // 为了区分不同维度key的后缀
     var that = this;
@@ -29,6 +29,7 @@
       conditionService.toggleDirection(dCode);
       e.stopPropagation();
     };
+    that.openAddIndicator = openAddIndicatorDialog;
 
     // 监听条件改变
     $scope.$watch('ccvm.condition', function(n, o) {
@@ -76,6 +77,15 @@ console.warn('C条件', that.condition);
 
     // 由于是引入的页面, 可能会存在服务广播时, 控制器未加载完成导致无法得到数据
     // if(!that.condition) { conditionService.again(); }
+    
+    // 打开添加指标对话框
+    function openAddIndicatorDialog() {
+      ngDialog.open({
+        template: 'app/template/addIndicator.html',
+        controller: 'AddIndicatorCtrl',
+        controllerAs: 'aivm'
+      });
+    }
   }
 
 })();

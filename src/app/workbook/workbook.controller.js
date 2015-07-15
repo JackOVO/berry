@@ -31,7 +31,7 @@ console.warn('C工作簿', that.workBook);
     });
 
     // 同步表
-    function sync() {
+    function sync() { 
       //that.isSync = false;
       var recommendSelectedCodes = recommendService.getSelectRecord();
       workBookService.syncSheet('indicatorCode', recommendSelectedCodes)

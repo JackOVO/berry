@@ -10,7 +10,7 @@
     return {
       replace: true,
       template: '<div style="width:99%;height:99%;'+
-                            'overflow:hidden;'+
+                            'overflow:auto;'+
                             'padding-top:10px;'+
                             'outline:1px solid red;">'+
                   '<div id="x" style="font-size:14px;outline:1px solid black;"></div>'
@@ -25,7 +25,7 @@
           if (!table) { return; }
           handsontableService.setTable(table);
 
-          var width = element.width(), height = element.height();
+          var width = element.width() - 20, height = element.height() - 20;
           var settings = angular.extend({
             //stretchH: 'all',
             width: width,

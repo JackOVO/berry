@@ -11,8 +11,11 @@
       transclude: true,
       template: '<div ng-transclude></div>',
       link: function(scope, element, attr) {
-        $(element).css({'position': 'relative', 'height': '100%'});
-        $(element).perfectScrollbar();
+        window.setTimeout(function() {
+          $(element).css({'position': 'relative', 'height': '100%'});
+          $(element).perfectScrollbar();
+        }, 1);
+        
 
         $(element).bind('mouseenter click', function(e){
           window.setTimeout(function() {
