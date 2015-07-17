@@ -20,7 +20,8 @@
         'workBook': 'jump.do',
         'recommend': 'recmd.do',
         'userInfo': 'userInfo.do',
-        'information': 'info.do'
+        'information': 'info.do',
+        'signUp': 'login.do'
       },
       // 传播关键字
       spreadKey: {

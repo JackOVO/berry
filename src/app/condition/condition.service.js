@@ -17,6 +17,7 @@
       'initialize': initialize,
       'getNowNowNow': function(){ return _conditoin; },
       'serializationGundam': serializationGundam,
+      'serializationAloneDim': serializationAloneDim,
       'updateCondition': updateCondition,
       'toggleDirection': toggleDirection
     };
@@ -39,6 +40,21 @@
       if (gundam.metaRow) { result.metaRows = gundam.metaRow.join('-'); }
       if (gundam.metaColumn) { result.metaColumns = gundam.metaColumn.join('-'); }
       if (gundam.productID) { result.productID = gundam.productID; }
+      return result;
+    }
+
+    /**
+     * 序列化单个维度条件对象, 添加新表用
+     * @param  {String} dimCode 维度代码
+     * @param  {Array} codes 选中代码
+     * @return {Object} 提交对象
+     */
+    function serializationAloneDim(dimCode, codes) {
+      var result = {}, selCodes = [];
+      angular.forEach(codes, function(bl, code) {
+        selCodes.push(code);
+      });
+      result.dims = [{'codeName': dimCode, 'codes': selCodes}];
       return result;
     }
 

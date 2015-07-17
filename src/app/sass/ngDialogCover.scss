@@ -89,6 +89,32 @@ $dialog-z-index: 501;
     right: 6px;
   }
 
+  .ngDialog-login-theme .ngdialog-content {
+    position: relative;
+    width: 300px;
+    height: 282px;
+    margin: 78px auto 0;
+    z-index: 1;
+    border-radius: 4px;
+  }
+
+  .ngDialog-login-theme .ngdialog-close {
+    position: absolute;
+    top: -12px;
+    right: -8px;
+
+    &::before {
+      display: inline-block;
+      padding-left: 3px;
+      width: 15px;
+      height: 15px;
+      line-height: 15px;
+      border-radius: 30px;
+      color: white;
+      background-color: black;
+    }
+  }
+
   // 
   // 
   // border-radius: $dialog-border-radius;

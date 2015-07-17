@@ -164,6 +164,24 @@ $plat-body-footer-bg-color: #f0f0f0;
   100% { @include rotate2d(360deg); }
 }
 
+.login-container {
+  width: 300px;
+  height: 282px;
+  padding: 30px 15px 0 15px;
+  background-color: #f5f5f5;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .5);
+  border-radius: 4px;
+
+  .tr-gap td {
+    padding-top: 12px;
+  }
+
+  button.expand {
+    line-height: 38px;
+    font-size: 18px;
+  }
+}
+
 .loading::before {
   content: "";
   width: 57px;

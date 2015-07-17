@@ -12,8 +12,8 @@
       template: '<div style="width:99%;height:99%;'+
                             'overflow:auto;'+
                             'padding-top:10px;'+
-                            'outline:1px solid red;">'+
-                  '<div id="x" style="font-size:14px;outline:1px solid black;"></div>'
+                            '">'+
+                  '<div id="x" style="font-size:14px;"></div>'
                 +'</div>',
       scope: {'table': '='},
       link: function(scope, element, attrs) {

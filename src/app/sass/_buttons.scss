@@ -225,5 +225,13 @@ $button-disabled-border-color: #4a4a4a;
           $border-color: $button-confirm-border-color);
       }
     }
+
+    &.disabled-f {
+      &.primary {
+        @include button-style(
+          $disabled: true,
+          $color: rgba($button-font-color, .6));
+      }
+    }
   }
 }

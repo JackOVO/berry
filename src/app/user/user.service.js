@@ -5,10 +5,11 @@
     .module('platform.user')
     .factory('userService', userService);
 
-  userService.$inject = ['$q', 'dataService', 'userFactory', 'coreCF'];
-  function userService($q, dataService, userFactory, config) {
+  userService.$inject = ['$q', 'ngDialog', 'dataService', 'userFactory', 'coreCF'];
+  function userService($q, ngDialog, dataService, userFactory, config) {
     var _user = null; // 维护用户
     var service = {
+      'signup': signup,
       'initialize': initialize,
       'getUserInfo': getUserInfo,
       'addRecord': setUserLocalRecord,
@@ -31,7 +32,12 @@ console.warn('R用户:', user);
         })
         .catch(function(message) { // 无法获取到用户的情况下
           // 可以抽取到错误或登录模块处理
-          window.location.href = 'login.html';
+          ngDialog.open({
+            template: 'app/template/login.html',
+            className: 'ngDialog-login-theme',
+            controller: 'SignCtrl'
+          });
+          // window.location.href = 'login.html';
         });
     }
 
@@ -46,6 +52,20 @@ console.warn('R用户:', user);
           if (userSource === null) { return $q.reject('用户信息为空!'); }
           var user = userFactory.parse(userSource);
           return user;
+        });
+    }
+
+    /**
+     * 用户登录
+     * @param  {Object} signUpInfo 阿拉蕾
+     * @return {[type]}       [description]
+     */
+    function signup(signUpInfo) {
+      var params = signUpInfo;
+
+      return dataService.post('signUp', params)
+        .then(function(message) {
+          return message;
         });
     }
 

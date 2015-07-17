@@ -11,7 +11,7 @@
       <input class="expand-input" ng-model="keyword" type="text" placeholder="请输入关键字" value="">
     </td></tr>
     <tr><td colspan="2" style="padding:0;">
-      <div class="highlight" style="height:276px;width:100%;">
+      <div class="highlight" style="height:276px;width:420px;">
         <scrollbar>
           <div ng-repeat="indic in aivm.searchList" style="line-height:1.4;"
                ng-if="aivm.searchList.length">
@@ -30,5 +30,7 @@
 </div>
 <div class="dialog-bottom">
   <button class="tiny cancel" ng-click="closeThisDialog();">取消</button>
-  <button class="small confirm disabled">添加</button>
+  <button class="small confirm"
+    ng-class="{'disabled':aivm.disabled}"
+    ng-click="aivm.addIndicator();">添加</button>
 </div>

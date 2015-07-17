@@ -21,6 +21,7 @@
     };
 
     var service = {
+      'addSheet':addSheet,
       'syncSheet': syncSheet,
       'initialize': initialize,
       'selectSheet': selectSheet
@@ -39,7 +40,9 @@ console.warn('R工作簿', workBook);
     }
 
     /**
-     * 同步一个表
+     * 同步一个表, 不同sheetId会新增表
+     * @param {Stirng} dimCode 额外添加选中的code
+     * @param {Array} codes 选中的code
      * @return {[type]} [description]
      */
     function syncSheet(dimCode, codes) {
@@ -50,11 +53,29 @@ console.warn('R工作簿', workBook);
       // 添加额外指标
       if (dimCode) { gundam.addSlectedCode(dimCode, codes); }
 
-      gundam.sheetId = sheetId; // 还要带上它
-      gundam.productID = _pid; // 还要带上它
+      gundam.sheetId = sheetId; // 还要带上它, 新增表判断靠SheetId
+      gundam.productID = _pid; // 还要带上它, 产品线
 
       _notice.syncWorkBook(); // 状态通知
       return requireWorkBook(gundam).then(function(workBook) {
+          var selectIndex = _workBook.merger(workBook);
+          _notice.workBookChange(); // 通知工作簿変更
+          return selectIndex;
+        });
+    }
+
+    /**
+     * 添加单独的表, 指标维度
+     * @param {String} dimCode 指标Code
+     * @param {Array} codes 选中code
+     */
+    function addSheet(dimCode, codes) {
+      var aloneDim = conditionService.serializationAloneDim(dimCode, codes);
+console.info(aloneDim);
+      aloneDim.productID = _pid; // 还要带上它, 产品线
+
+      _notice.syncWorkBook(); // 状态通知
+      return requireWorkBook(aloneDim).then(function(workBook) {
           var selectIndex = _workBook.merger(workBook);
           _notice.workBookChange(); // 通知工作簿変更
           return selectIndex;

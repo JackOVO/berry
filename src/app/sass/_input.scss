@@ -18,6 +18,11 @@ $checkbox-break-box-bg-color: $white;
 $checkbox-break-box-border-color: #a3a4a5;
 $checkbox-break-box-selected-color: #64aff9;
 
+// 文本输入框
+$input-height: rem-calc(40);
+$input-padding-left: rem-calc(10);
+$input-border-color: #d3d8d9;
+
 // // 下拉框尺寸
 // $select-input-padding-top: 4px;
 // $select-input-padding-left: 10px;
@@ -108,10 +113,27 @@ $expand-input-font-size: rem-calc(16);
 
     &.q { color: gray; &.selected { color: gray; } }
   }
-//   .checkbox {
 
-//     
-//   }
+  .input {
+    height: $input-height;
+    line-height: $input-height;
+    padding-left: $input-padding-left;
+    border: 1px solid $input-border-color;
+    outline: 0;
+  }
+
+    // 占满input
+  .expand-input {
+    height: $expand-input-height;
+    width: $expand-input-width;
+    border: 1px solid $expand-input-border-color;
+    border-right: 0; border-left: 0;
+    font-size: $expand-input-font-size;
+    line-height: $expand-input-height;
+    outline: 0;
+  }
+
+  
 
 //   .radio {
 //     display: inline-block;
@@ -226,14 +248,4 @@ $expand-input-font-size: rem-calc(16);
 //     margin-left:$inline-input-item-gap;
 //   }
 
-  // 占满input
-  .expand-input {
-    height: $expand-input-height;
-    width: $expand-input-width;
-    border: 1px solid $expand-input-border-color;
-    border-right: 0; border-left: 0;
-    font-size: $expand-input-font-size;
-    line-height: $expand-input-height;
-    outline: 0;
-  }
 }
