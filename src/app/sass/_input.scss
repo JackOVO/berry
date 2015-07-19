@@ -14,9 +14,9 @@ $checkbox-box-border-color: #3f454c;
 $checkbox-box-selected-color: #64aff9;
 $checkbox-box-selected-bg-color: $white;
 
-// $checkbox-break-box-bg-color: $white;
-// $checkbox-break-box-border-color: #a3a4a5;
-// $checkbox-break-box-selected-color: #64aff9;
+$checkbox-break-box-bg-color: $white;
+$checkbox-break-box-border-color: #a3a4a5;
+$checkbox-break-box-selected-color: #64aff9;
 
 // // 下拉框尺寸
 // $select-input-padding-top: 4px;
@@ -93,20 +93,24 @@ $checkbox-box-selected-bg-color: $white;
                     inset -1px -1px 0 1px $checkbox-box-selected-bg-color;
       }
     }
+
+    &.break { // 换一个皮肤
+      color: $black;
+      &:before {
+        border-color: $checkbox-break-box-border-color;;
+        background-color:  $checkbox-break-box-bg-color;
+      }
+      &.selected {
+        color: $black;
+        &:before { background-color: $checkbox-break-box-selected-color; };
+      }
+    }
+
+    &.q { color: gray; &.selected { color: gray; } }
   }
 //   .checkbox {
 
-//     &.break { // 换一个皮肤
-//       color: $black;
-//       &:before {
-//         border-color: $checkbox-break-box-border-color;;
-//         background-color:  $checkbox-break-box-bg-color;
-//       }
-//       &.selected {
-//         color: $black;
-//         &:before { background-color: $checkbox-break-box-selected-color; };
-//       }
-//     }
+//     
 //   }
 
 //   .radio {

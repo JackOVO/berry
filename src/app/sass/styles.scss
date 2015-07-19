@@ -5,9 +5,15 @@
 @import "inline-style.scss";
 @import "input.scss";
 @import "accordion.scss";
+@import "menu.scss";
+@import "toolbar.scss";
+@import "tabs.scss";
+@import "fiexible.scss";
+
+@import "ztreeCover.scss";
 
 div {
-  //outline: 1px solid orange;
+  // outline: 1px solid orange;
 }
 
 // 布局变量
@@ -17,12 +23,25 @@ $plat-body-info-width: rem-calc(290);
 $plat-body-hander-height: rem-calc(78px);
 $plat-body-footer-height: rem-calc(32px);
 
+$plat-body-hamburger-width: rem-calc(40);
+$plat-body-hamburger-height: rem-calc(40);
+
 // 布局颜色
 $plat-side-bg-color: #5e636b;
+$plat-hamburger-bg-color: #ff8585;
+$plat-main-bg-color: #f5f7f9;
+$plat-body-info-border-color: #a3a4a5;
+$plat-body-info-bg-color: #fefefe;
+$plat-info-sudo-font-size: rem-calc(12);
+$plat-info-sudo-color: $white;
+$plat-info-sudo-bg-color: #87c4ff;
+$plat-body-footer-border-color: #d7dadc;
+$plat-body-footer-bg-color: #f0f0f0;
 
 #plat-main {
   height: 100%;
   padding-left: $plat-side-width;
+  background-color: $plat-main-bg-color;
 
   #plat-side {
     height: 100%;
@@ -38,7 +57,7 @@ $plat-side-bg-color: #5e636b;
       line-height: 0;
       text-align: center;
 
-      > div { margin-top: rem-calc(5);}
+      > div { margin: rem-calc(6) 0 rem-calc(1) 0;} // icon底线
     }
 
     #plat-side-content {
@@ -54,11 +73,52 @@ $plat-side-bg-color: #5e636b;
     #plat-body-hander {
       height: $plat-body-hander-height;
       margin-top: -$plat-body-hander-height;
+
+      .menu { display: inline-block; vertical-align: middle; }
+      .toolbar { padding-left: 52px; }
+    }
+    #plat-body-userInfo {
+      float: right;
+      display: inline-block;
+      padding-right: rem-calc(10);
+      line-height: $plat-body-hamburger-height;
+    }
+
+    #plat-body-hamburger {
+      position: relative;
+      width: $plat-body-hamburger-width;
+      height: $plat-body-hamburger-height;
+      margin-right: rem-calc(10);
+      background-color: $plat-hamburger-bg-color;
+      border-color: $plat-hamburger-bg-color;
+      vertical-align: middle;
+
+      @include hamburger(
+        $width:18px, $thickness:1px,
+        $top:12px, $left:10px,
+        $gap:6px, $color:$white,
+        $offcanvas:true);
     }
 
     #plat-body-info {
+      position: relative;
       height: 100%;
       width: $plat-body-info-width;
+      padding: 20px 0 0 10px;
+      border-left: 1px solid $plat-body-info-border-color;
+      background-color: $plat-body-info-bg-color;
+      overflow: hidden;
+
+      #plat-info-sudo {
+        position: absolute;
+        top: 5px;
+        right: 0;
+        font-size: $plat-info-sudo-font-size;
+        color: $plat-info-sudo-color;
+        background: $plat-info-sudo-bg-color;
+        border-color: $plat-info-sudo-bg-color;
+        border-radius: 4px;
+      }
     }
 
     #plat-body-container {
@@ -67,6 +127,14 @@ $plat-side-bg-color: #5e636b;
 
     #plat-body-footer {
       height: $plat-body-footer-height;
+      padding: 0 0 0 20px;
+      border-top: 1px solid $plat-body-footer-border-color;
+      background-color: $plat-body-footer-bg-color;
+
+      > .icon-btn {
+        margin-left: 10px;
+        vertical-align: middle;
+      }
     }
   }
 }

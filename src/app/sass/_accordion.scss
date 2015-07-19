@@ -84,6 +84,9 @@ $accordion-indicator-font-color: rgba($white, .8);;
 
         &.active { height: auto; }
         .fn-fonthid { width: 100%; }
+        // 下层容器同头对齐
+        .acc-c-container { padding-left: $accordion-padding-left; }
+
 
         .item {
           height: $accordion-content-item-height;
@@ -94,6 +97,8 @@ $accordion-indicator-font-color: rgba($white, .8);;
           color: $white;
           border-bottom: 1px solid $accordion-content-item-border-color;
           background-color: $accordion-content-item-bg-color;
+
+          @include icon-bar-posi(rem-calc(15), null, rem-calc(10));
         }
 
         .recommend-container {

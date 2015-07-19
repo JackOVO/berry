@@ -1,33 +1,23 @@
-'use strict';
+(function() {
+  'use strict';
+
   angular
-    .module('platform', [
-      'platform.core',
-      'platform.directive',
+    .module('pf', [
       'ui.router',
       'ngResource',
-      'ngSanitize'])
+      'ngSanitize'
+    ])
     .config(appConfig);
 
-  appConfig.$inject = ['$stateProvider', '$urlRouterProvider'];
-  function appConfig ($stateProvider, $urlRouterProvider) {
-    $stateProvider
-      .state('home', {
-        url: '/',
-        templateUrl: 'app/core/layout.html'
-      });
+    // 路由启动配置
+    appConfig.$inject = ['$stateProvider', '$urlRouterProvider'];
+    function appConfig($stateProvider, $urlRouterProvider) {
+      $stateProvider
+        .state('home', {
+          url: '/'
+        });
 
-    $urlRouterProvider.otherwise('/');
-  }
+      $urlRouterProvider.otherwise('/');
+    }
 
-// angular.module('berry', ['ngAnimate', 'ngCookies', 'ngSanitize', 'ngResource', 'ui.router'])
-//   .config(function ($stateProvider, $urlRouterProvider) {
-//     $stateProvider
-//       .state('home', {
-//         url: '/',
-//         templateUrl: 'app/main/main.html',
-//         controller: 'MainCtrl'
-//       });
-
-//     $urlRouterProvider.otherwise('/');
-//   })
-// ;
+})();

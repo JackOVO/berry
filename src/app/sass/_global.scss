@@ -155,6 +155,47 @@ $base-line-height: 1.5 !default;
   @if $c-right { right: $c-right; }
 }
 
+// 创建三行汉堡
+// $width - 汉堡的宽度
+// $left - 如果为false就居中显示 | 设置rem
+// $top - 如果为false就垂直居中 | 设置为rem
+// $thickness - 设置厚度的像素值
+// $gap - 行之间的像素间隔
+// $color - 图标颜色
+// $offcanvas - 设置是否画图
+@mixin hamburger ($width, $left, $top, $thickness, $gap, $color, $offcanvas) {
+
+  &::after {
+    content: "";
+    display: block;
+    width: $width;
+    position: absolute;
+
+    @if $offcanvas {
+      @if $top {
+        top: $top;
+      }@else {
+        top: 50%;
+        margin-top: (-$width / 2);
+      }
+      @if $left {
+        left: $left;
+      }@else {
+        left: $thickness;
+      }
+    }@else {
+      top: 50%;
+      margin-top: -($width/2);
+      left: $thickness;
+    }
+
+    box-shadow:
+      0 0 0 $thickness $color,
+      0 $gap + $thickness 0 $thickness $color,
+      0 (2 * $gap + 2 * $thickness) 0 $thickness $color;
+  }
+}
+
 $white         : #FFFFFF !default;
 $ghost         : #FAFAFA !default;
 $snow          : #F9F9F9 !default;
@@ -261,5 +302,12 @@ $xxlarge-range: (120.063em, 99999999em) !default;
     .invisible { visibility: hidden; }
     .inline-block { display: inline-block; }
     .lzero { line-height: 0; }
+    .nonesel {
+      -moz-user-select: none; /*火狐*/
+      -webkit-user-select: none;  /*webkit浏览器*/
+      -ms-user-select: none;   /*IE10*/
+      -khtml-user-select: none; /*早期浏览器*/
+      user-select: none;
+    }
   }
 }
