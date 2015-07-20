@@ -5,8 +5,8 @@
     .module('pf.user')
     .factory('userService', userService);
 
-  userService.$inject = ['dataService', 'userFactory'];
-  function userService(dataService, userFactory) {
+  userService.$inject = ['dataService', 'userFactory', 'errorService'];
+  function userService(dataService, userFactory, errorService) {
     var _user = null; // 会话用户
     var service = {
       'initialize': initialize,
@@ -21,6 +21,7 @@
     function initialize() {
       return getUser().then(function(user) {
         if (user) { _user = user; }
+        else { errorService.swallow(errorService.NotLoggedIn); }
         return _user;
       });
     }

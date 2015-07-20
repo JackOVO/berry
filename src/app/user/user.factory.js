@@ -33,8 +33,7 @@
     function rqUserInfo() {
       var param = {}; // 免登陆预留
 
-      return dataService.get('userInfo')
-        .then(function(userInfoSource) {
+      return dataService.post('userInfo').then(function(userInfoSource) {
           if (userInfoSource) {
             return parse(userInfoSource);
           } else {

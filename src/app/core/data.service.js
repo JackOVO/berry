@@ -90,13 +90,10 @@ console.info('DaTa', new Date().getTime(), data);
     function failedCallBack(error) {
       switch (error.status) {
         case 600: // 未登录
-console.warn('请登录后操作, 即将跳转!');
-          // window.setTimeout(function() {
-          //   window.location.href = config.loginUrl + '?url=' + location.href;
-          // }, 1000);
+          errorService.swallow(errorService.NotLoggedIn);
         break;
-        case 650: // 没权限
-          console.warn('你没有权限进行此项操作!');
+        case 650: // 无权限
+          errorService.swallow(errorService.NoPermission);
         break;
         default:
           console.error(error.status);
