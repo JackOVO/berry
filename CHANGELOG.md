@@ -23,13 +23,6 @@
   - 添加依赖模块ngDialog(对话框指令). 
 
 # v0.0.3 用户模块 2015/07/20
-## 【修改】
- - **错误模块:**
-  - 未登录错误时打开登录界面.
- - **用户模块:**
-  - 変更getUser方法为getSessionUser,即获取服务器会话用户.
-
-# v0.0.3 用户模块 2015/07/20
 ## 【增加】
  - **核心模块:**
   - 添加储存初始化维度数据的Cookie的key常量.
@@ -38,3 +31,10 @@
   - 为userService添加获取指定用户Local数据getLocalRecord(userId)方法.
   - 为userService添加设置指定用户Local数据setLocalRecord(k, v)方法.
   - 为User类添加新增记录项addRecordItem(k, v)方法.
+
+## 【修改】
+ - **错误模块:**
+  - 未登录错误时打开登录界面.
+ - **用户模块:**
+  - 変更getUser方法为getSessionUser,即获取服务器会话用户.
+
