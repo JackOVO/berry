@@ -1,20 +1,23 @@
 <div class="login-container" ng-controller="LoginCtrl as lcvm">
-  <p style="height:14px;margin:0;line-height:1;color:#f9a9a3;"></p>
+  <p style="height:14px;margin:0;line-height:.5;color:#f9a9a3;"
+    ng-bind="lcvm.msg"></p>
   <form name="form">
     <table style="width:100%;"><tbody>
       <tr><td colspan="2">
         <input name="name" type="text" class="input" placeholder="用户名"
-          ng-model="user.passName" required>
-        <input name="pwd"  type="passwrod" class="input" placeholder="密码"
-          ng-model="user.passWord" required style="margin-top:-1px;">
+          ng-model="user.name" required>
+        <input name="pwd"  type="password" class="input" placeholder="密码"
+          ng-model="user.password" required style="margin-top:-1px;">
       </td></tr>
       <tr class="tr-gap"><td>
-        <input name="var" type="text" class="input"  placeholder="请输入验证码"
-          ng-model="user.verifyCode" required style="width:169px;">
+        <input name="var" type="text" class="input" placeholder="请输入验证码"
+          ng-model="user.vercode" ng-class="{'error': lcvm.msg=='验证码错误'}"
+          required style="width:169px;">
         </td>
         <td style="text-align:right;">
-          <img style="width:90px;cursor:pointer;" src="http://localhost:5323/platform/code.do" 
-           onclick="this.src='http://localhost:5323/platform/code.do?tamp=' + new Date().getTime();">
+          <img style="width:90px;cursor:pointer;"
+            src="http://localhost:5323/platform/code.do?tamp={{lcvm.tamp}}"
+            ng-click="lcvm.upTamp()">
       </td></tr>
       <tr class="tr-gap">
         <td><label class="checkbox break" style="font-size:12px;">记住密码</label></td>
@@ -25,8 +28,10 @@
       <tr class="tr-gap"><td colspan="2">
         <button class="button expand primary"
           ng-class="{'disabled-f': form.$invalid}"
+          ng-click="lcvm.login(!form.$invalid)"
           >登录</button>
       </td></tr>
     </tbody></table>
   </form>
 </div>
+<!-- onclick="this.src='http://localhost:5323/platform/code.do?tamp=' + new Date().getTime();" -->

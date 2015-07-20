@@ -13,6 +13,7 @@
       loginUrl: 'http://localhost:3000/login.html',
       // 请求地址映射
       urlMap: {
+        'login': 'login.do',
         'userInfo': 'userInfo.do'
       }
     });
