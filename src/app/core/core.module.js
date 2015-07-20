@@ -6,7 +6,8 @@
     .module('pf.core', ['ngDialog'])
     .constant('coreCF', {
       // 本地存储KEY
-      recore: 'record', // 用户Local存储拼接
+      record: 'record', // 用户Local存储拼接
+      dimeKey: 'userData', // 维度
       // 基础链接
       domain: 'dfinder.cn',
       baseUrl: 'http://localhost:5323/platform/',

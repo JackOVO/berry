@@ -25,8 +25,8 @@
     // 启动逻辑
     startLogic.$inject = ['userService'];
     function startLogic(userService) {
-      userService.initialize().then(function() {
-
+      userService.initialize().then(function(user) {
+console.info(user);
       });
     }
 

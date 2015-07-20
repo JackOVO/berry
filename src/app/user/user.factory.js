@@ -10,6 +10,7 @@
     var service = {
       'rqUserInfo': rqUserInfo
     };
+    User.prototype.addRecordItem = function(key, val){ this.record[key] = val; };
     return service;
 
     /**
@@ -53,7 +54,7 @@
       var type = source.userType;
       var record = {};
 
-      return new User(id, name, type, record);
+      return new User(id, type, name, record);
     }
   }
 

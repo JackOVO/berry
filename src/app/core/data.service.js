@@ -14,6 +14,7 @@
       'post': post,
       'getItem': getItem,
       'setItem': setItem,
+      'removeCookie': removeCookie,
       'getCookieObj': getCookieObj,
       'putCookieObj': putCookieObj
     };
