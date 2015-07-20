@@ -3,7 +3,7 @@
   // 核心模块, 提供基础功能
 
   angular
-    .module('pf.core', [])
+    .module('pf.core', ['ngDialog'])
     .constant('coreCF', {
       // 本地存储KEY
       recore: 'record', // 用户Local存储拼接

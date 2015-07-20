@@ -44,8 +44,8 @@ $icon-container-width: rem-clac(16);
   }
 
   // /assets/images/
-  .icon-sprite, .icon-add-search, .icon-arrow, .icon-background, .icon-blod, .icon-broken, .icon-carry, .icon-color, .icon-column, .icon-cross, .icon-curve, .icon-del, .icon-down, .icon-e, .icon-fail, .icon-file, .icon-filter, .icon-format, .icon-italics, .icon-left, .icon-less, .icon-middle, .icon-percent, .icon-pie, .icon-refresh, .icon-right, .icon-row, .icon-small-arrow, .icon-small-close, .icon-strikethrough {
-    background-image: url('/assets/images/icon-s11f357442e.png');
+  .icon-sprite, .icon-add-search, .icon-arrow, .icon-background, .icon-blod, .icon-broken, .icon-carry, .icon-color, .icon-column, .icon-cross, .icon-curve, .icon-del, .icon-down, .icon-e, .icon-fail, .icon-file, .icon-filter, .icon-format, .icon-info, .icon-italics, .icon-left, .icon-less, .icon-middle, .icon-percent, .icon-pie, .icon-refresh, .icon-right, .icon-row, .icon-small-arrow, .icon-small-close, .icon-strikethrough {
+    background-image: url('/assets/images/icon-sc54e8b19ef.png');
     background-repeat: no-repeat;
   }
 
@@ -154,79 +154,86 @@ $icon-container-width: rem-clac(16);
     width: 16px;
   }
 
-  .icon-italics {
+  .icon-info {
     background-position: 0 -280px;
+    height: 18px;
+    width: 18px;
+  }
+
+  .icon-italics {
+    background-position: 0 -298px;
     height: 16px;
     width: 16px;
   }
 
   .icon-left {
-    background-position: 0 -296px;
+    background-position: 0 -314px;
     height: 16px;
     width: 16px;
   }
 
   .icon-less {
-    background-position: 0 -312px;
+    background-position: 0 -330px;
     height: 16px;
     width: 16px;
   }
 
   .icon-middle {
-    background-position: 0 -328px;
+    background-position: 0 -346px;
     height: 16px;
     width: 16px;
   }
 
   .icon-percent {
-    background-position: 0 -344px;
+    background-position: 0 -362px;
     height: 16px;
     width: 16px;
   }
 
   .icon-pie {
-    background-position: 0 -360px;
+    background-position: 0 -378px;
     height: 16px;
     width: 16px;
   }
 
   .icon-refresh {
-    background-position: 0 -376px;
+    background-position: 0 -394px;
     height: 16px;
     width: 16px;
   }
 
   .icon-right {
-    background-position: 0 -392px;
+    background-position: 0 -410px;
     height: 16px;
     width: 16px;
   }
 
   .icon-row {
-    background-position: 0 -420px;
+    background-position: 0 -438px;
     height: 12px;
     width: 12px;
   }
   .icon-row:hover, .icon-row.row-hover {
-    background-position: 0 -408px;
+    background-position: 0 -426px;
   }
 
   .icon-small-arrow {
-    background-position: 0 -432px;
+    background-position: 0 -450px;
     height: 3px;
     width: 5px;
   }
 
   .icon-small-close {
-    background-position: 0 -435px;
+    background-position: 0 -453px;
     height: 9px;
     width: 8px;
   }
 
   .icon-strikethrough {
-    background-position: 0 -444px;
+    background-position: 0 -462px;
     height: 16px;
     width: 16px;
   }
+
 
 }

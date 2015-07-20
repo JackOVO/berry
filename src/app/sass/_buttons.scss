@@ -208,7 +208,7 @@ $button-disabled-border-color: #4a4a4a;
     }
 
     // 禁用
-    &.disabled, &[disabled] {
+    &.disabled, &[disabled="true"] {
       &.primary {
         @include button-style(
           $disabled: true,
@@ -223,6 +223,14 @@ $button-disabled-border-color: #4a4a4a;
           $color: rgba($button-font-color, .5),
           $bg: $button-confirm-bg,
           $border-color: $button-confirm-border-color);
+      }
+    }
+
+    &.disabled-f {
+      &.primary {
+        @include button-style(
+          $disabled: true,
+          $color: rgba($button-font-color, .6));
       }
     }
   }

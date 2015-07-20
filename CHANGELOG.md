@@ -1,5 +1,4 @@
 # v0.0.2 八路 2015/07/20
-
 ## 【增加】
  - index.js 定义ui.router路由配置, 启动逻辑初始化userService.
  - **Sass:** 大部分样式[sass/*] 
@@ -10,3 +9,19 @@
  - **用户模块:** [user.module, user.service, user.factory]
   - userFactory 将源数据解析成用户对象.
   - userService 对获取用户方法封装, 和用户服务初始化.
+
+# v0.0.2 八路 2015/07/20
+## 【增加】
+ - bower.json 跟新至维度调整所需的所有依赖模块.
+ - **用户模块:**
+  - 添加登录页面login.html.
+  - 为userService添加登录方法.
+  - 添加LoginCtrl, 执行登录, 错误输出.
+ - **错误模块:**
+  - 添加依赖模块ngDialog(对话框指令). 
+
+## 【修改】
+ - **错误模块:**
+  - 未登录错误时打开登录界面.
+
+

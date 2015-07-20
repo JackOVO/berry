@@ -1,0 +1,14 @@
+@import "global";
+
+@include exports("hd") {
+  .handsontable .htDimmed {
+    color: #000;
+  }
+
+  .htDimmed i.icon-info {
+    margin-bottom: -4px;
+    opacity: .3;
+
+    &:hover, &.hover { opacity: 1; }
+  }
+}

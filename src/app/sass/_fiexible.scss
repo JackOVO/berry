@@ -9,7 +9,7 @@ $fiexible-item-margin-top: rem-calc(10);
 $fiexible-item-font-size: rem-calc(14);
 $fiexible-block-margin-top: rem-calc(15);
 
-$fiexible-block-font-color: #a2a3a4;
+$fiexible-block-font-color: #A2A3A4;;
 $fiexible-a-font-color: $black;
 
 @include exports("fiexible") {
@@ -23,7 +23,12 @@ $fiexible-a-font-color: $black;
 
       &.fiex-open, &.fiex-close {
         position: relative;
-        > span { width: 100%; display: inline-block; }
+        > span {
+          width: 100%;
+          display: inline-block;
+          color: $fiexible-block-font-color;
+          cursor: pointer;
+        }
       }
       &.fiex-open::before, &.fiex-close::before {
         content: "";
@@ -35,6 +40,7 @@ $fiexible-a-font-color: $black;
       &.fiex-close::before { @include rotate2d(-90deg); }
 
       > a {
+        font-size: 16px;
         text-decoration: none;
         color: $fiexible-a-font-color;
       }
