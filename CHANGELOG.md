@@ -38,3 +38,16 @@
  - **用户模块:**
   - 変更getUser方法为getSessionUser,即获取服务器会话用户.
 
+# v0.0.4 工作簿模块 2015/07/21
+## 【增加】
+ - **核心模块:** 
+  - 添加layout.html布局页面, 并绑定到home的路由页面.
+  - 在用户初始化之后, 根据记录初始化工作簿.
+ - **错误模块:**
+  - 对强制弹出登录对话框的关闭回调处理.
+ - **工作簿模块:**[workbook.module, workbook.service, workbook.factory]
+  - workbookFactory 源数据解析成工作簿对象, 其中工作表的解析由工作簿类工厂完成.
+  - workbookService 主要提供对工作表的操作, 同步, 新增, 关闭等.
+ - **条件模块:**[condition.module, gundam.factory]
+  - gundamFactory 可创建选中维度条件类, 供后台提供以及同步判断等.
+

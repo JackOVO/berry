@@ -6,7 +6,8 @@
       'ui.router',
       'ngResource',
       'ngSanitize',
-      'pf.user'
+      'pf.user',
+      'pf.workbook'
     ])
     .config(appConfig)
     .run(startLogic);
@@ -16,17 +17,26 @@
     function appConfig($stateProvider, $urlRouterProvider) {
       $stateProvider
         .state('home', {
-          url: '/'
+          url: '/',
+          templateUrl: 'app/core/layout.html'
         });
 
       $urlRouterProvider.otherwise('/');
     }
 
     // 启动逻辑
-    startLogic.$inject = ['userService'];
-    function startLogic(userService) {
+    startLogic.$inject = ['userService', 'workbookService'];
+    function startLogic(userService, workbookService) {
       userService.initialize().then(function(user) {
+        var dime = user.record.dime;
 console.info(user);
+        workbookService.getWorkBook(dime[0]).then(function(workbook) {
+console.info(workbook);
+        });
+        // angular.forEach(dime, function(dim, index) {
+        //   console.info(dim);
+        // });
+
       });
     }
 

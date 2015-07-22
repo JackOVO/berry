@@ -38,7 +38,13 @@ console.error(source);
       switch(status) {
         case 100: // 未登录
 console.warn('未登录!');
-          ngDialog.open({className:'ngDialog-login-theme', template: 'app/user/login.html'});
+          ngDialog.open({
+            className:'ngDialog-login-theme',
+            template: 'app/user/login.html',
+            preCloseCallback: function(value) {
+              return false; // 不可以关闭
+            }
+          });
           break;
         case 101: // 无权限
 console.warn('无权限!')

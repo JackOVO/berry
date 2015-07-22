@@ -14,6 +14,8 @@
       loginUrl: 'http://localhost:3000/login.html',
       // 请求地址映射
       urlMap: {
+        'sync': 'dim.do',
+        'initial': 'jump.do',
         'login': 'login.do',
         'userInfo': 'userInfo.do'
       }

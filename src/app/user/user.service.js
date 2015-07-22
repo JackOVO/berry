@@ -5,7 +5,13 @@
     .module('pf.user')
     .factory('userService', userService);
 
-  userService.$inject = ['$q', 'dataService', 'userFactory', 'errorService', 'coreCF'];
+  userService.$inject = [
+    '$q',
+    'dataService',
+    'userFactory',
+    'errorService',
+    'coreCF'];
+
   function userService($q, dataService, userFactory, errorService, config) {
     var _user = null; // 会话用户
     var service = {
