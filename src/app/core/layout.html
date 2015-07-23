@@ -7,7 +7,7 @@
       </a>
       <div><img src="assets/images/oval.png" alt="LOGO"></div>
       <button class="large primary submit"
-        ng-class="{'disabled': wbvm.isSync}"
+        ng-class="{'disabled': !wbvm.isSync}"
         ng-click="wbvm.sync();">同步数据</button>
     </div><!-- 侧边头结束 -->
 <!--     <div id="plat-side-content" ng-controller="ConditionCtrl as ccvm"
@@ -15,6 +15,23 @@
 </div> --><!-- 侧边内容结束 -->
   </div>
 
-  <div id="plat-body"></div>
+  <div id="plat-body">
+
+    <div id="plat-body-container">
+      container
+    </div><!-- 内容容器结束 -->
+
+    <div id="plat-body-footer">
+      <span class="tabs-item fn-fonthid"
+        ng-repeat="sheet in wbvm.workBook.sheets"
+        ng-class="{'selected':wbvm.workBook.selectedIndex==$index}"
+        ng-click="wbvm.selectSheet($index)">
+        {{sheet.name}}
+        <i class="icon-btn icon-small-close"></i>
+      </span>
+      <i class="icon-btn icon-cross" ng-click="wbvm.openAddSheetDialog()"></i>
+    </div><!-- 选项卡结束 -->
+
+  </div><!-- 主体结束 -->
 
 </div>

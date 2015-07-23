@@ -3,6 +3,6 @@
   // 工作簿模块
 
   angular
-    .module('pf.workbook', ['pf.core']);
+    .module('pf.workbook', ['pf.core', 'pf.sheet']);
 
 })();

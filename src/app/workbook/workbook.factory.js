@@ -5,8 +5,8 @@
     .module('pf.workbook')
     .factory('workbookFactory', workbookFactory);
 
-  workbookFactory.$inject = ['dataService', 'gundamFactory'];
-  function workbookFactory(dataService, gundamFactory) {
+  workbookFactory.$inject = ['dataService', 'gundamFactory', 'sheetFactory'];
+  function workbookFactory(dataService, gundamFactory, sheetFactory) {
     var service = {
       'rqWorkBook': rqWorkBook
     };
@@ -44,8 +44,9 @@
       var sheets = [];
 
       angular.forEach(source, function(sheetSource, index) {
-        // var sheet = sheetFactory.parse(sheetSource);
-        // sheets.push(sheet);
+        var sheet = sheetFactory.parse(sheetSource);
+        sheets.push(sheet);
+        // 
         // 默认选中
         // if (selectedIndex === null) { selectedIndex = 0; }
       });

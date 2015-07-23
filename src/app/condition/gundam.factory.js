@@ -53,7 +53,7 @@
       if (gundam.metaRow) { params.metaRows = gundam.metaRow.join('-'); }
       if (gundam.productID) { params.productID = gundam.productID; }
       if (gundam.metaColumn) { params.metaColumns = gundam.metaColumn.join('-'); }
-      console.info(params);
+
       return params;
     }
 
