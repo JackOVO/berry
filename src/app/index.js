@@ -30,8 +30,8 @@
       userService.initialize().then(function(user) {
         var dime = user.record.dime;
 console.info(user);
-        workbookService.getWorkBook(dime[0]).then(function(workbook) {
-console.info(workbook);
+        workbookService.initialize(dime).then(function(workbook) {
+
         });
         // angular.forEach(dime, function(dim, index) {
         //   console.info(dim);

@@ -18,6 +18,10 @@
         'initial': 'jump.do',
         'login': 'login.do',
         'userInfo': 'userInfo.do'
+      },
+      // 监听事件的关键字
+      spreadKey: {
+        'workbookChange': 'wc'
       }
     });
 

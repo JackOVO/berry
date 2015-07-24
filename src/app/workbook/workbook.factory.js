@@ -29,7 +29,7 @@
      */
     function rqWorkBook(gundom) {
       var params = gundom.sequence ? gundom.sequence() : gundamFactory.sequenceOXC(gundom);
-      return dataService.get('initial', params).then(function(workbookSource) {
+      return dataService.get('sync', params).then(function(workbookSource) {
         return parse(workbookSource);
       });
     }

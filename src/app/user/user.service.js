@@ -30,7 +30,7 @@
         if (user) {
           _user = user;
           if (_user.record.dime) { // 这是搜索系统存储的维度数据
-            setLocalRecord('dime', [_user.record.dime]); // 覆盖用户操作得出维度记录
+            setLocalRecord('dime', _user.record.dime); // 覆盖用户操作得出维度记录
           }
 
           var localDime = getLocalRecord(_user.id).dime;
