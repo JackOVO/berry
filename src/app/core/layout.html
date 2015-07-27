@@ -27,7 +27,9 @@
         ng-class="{'selected':wb.workbook.index==$index}"
         ng-click="wb.toggle($index)">
         {{sheet.name}}
-        <i class="icon-btn icon-small-close" ng-click="wb.remove($event, $index)"></i>
+        <i class="icon-btn icon-small-close"
+          ng-if="wb.workbook.sheets.length != 1"
+          ng-click="wb.remove($event, $index)"></i>
       </span>
       <i class="icon-btn icon-cross" ng-click="wbvm.openAddSheetDialog()"></i>
     </div><!-- 选项卡结束 -->

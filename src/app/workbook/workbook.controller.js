@@ -28,6 +28,8 @@ console.warn('C工作簿更新!', workbook);
 
     // 移除表接口
     function remove(e, index) {
+      var r = window.confirm('你确认关闭该表吗?');
+      if (r === false) { return; }
       workbookService.remove(index);
       e.stopPropagation();
     }

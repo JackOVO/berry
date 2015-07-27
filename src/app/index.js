@@ -18,7 +18,8 @@
       $stateProvider
         .state('home', {
           url: '/',
-          templateUrl: 'app/core/layout.html'
+          templateUrl: 'app/core/layout.html',
+          controller: 'SheetCtrl as sc'
         });
 
       $urlRouterProvider.otherwise('/');
