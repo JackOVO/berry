@@ -10,6 +10,7 @@
     var service = {
       'rqWorkBook': rqWorkBook
     };
+    WorkBook.prototype.remove = remove;
     WorkBook.prototype.selected = selected;
     return service;
 
@@ -44,6 +45,16 @@
       var sheet = this.sheets[index];
       if (sheet) { this.index = index; }
       return sheet;
+    }
+
+    /**
+     * 删除指定下标的表
+     * @param  {Number} index 下标
+     * @return {Array} 删除后的表数组
+     */
+    function remove(index) {
+      var sheets = this.sheets.splice(index, 1);
+      return sheets;
     }
 
     /**

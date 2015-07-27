@@ -6,12 +6,13 @@
     .module('pf.sheet')
     .factory('sheetService', sheetService);
 
-  sheetService.$inject = ['$rootScope', 'coreCF'];
-  function sheetService($rootScope, config) {
+  sheetService.$inject = ['$rootScope', 'sheetFactory', 'coreCF'];
+  function sheetService($rootScope, sheetFactory, config) {
     var _spk = config.spreadKey;
     var _sheet = null; // 维护的表
     var service = {
-      'update': sheetChange
+      'update': sheetChange,
+      'closeSheet': closeSheet
     };
     return service;
 
@@ -25,6 +26,16 @@
       $rootScope.$broadcast(_spk.sheetChange, _sheet);
       return _sheet;
     }
+
+    /**
+     * 对表类关闭表的接口
+     * @param  {String} id 预删除表的id
+     * @return {Promise}
+     */
+    function closeSheet(id) {
+      return sheetFactory.rqClose(id);
+    }
+
   }
 
 })();

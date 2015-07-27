@@ -13,6 +13,7 @@
     that.workbook = null;
 
     that.toggle = toggle;
+    that.remove = remove;
 
     // 变更监听
     $scope.$on(_spk.workbookChange, function(e, workbook) {
@@ -23,6 +24,12 @@ console.warn('C工作簿更新!', workbook);
     // 切换表接口
     function toggle(index) {
       workbookService.toggle(index);
+    }
+
+    // 移除表接口
+    function remove(e, index) {
+      workbookService.remove(index);
+      e.stopPropagation();
     }
   }
 

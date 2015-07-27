@@ -16,8 +16,9 @@
       // 请求地址映射
       urlMap: {
         'sync': 'dim.do',
-        'initial': 'jump.do',
         'login': 'login.do',
+        'sheet': 'sheet.do',
+        'initial': 'jump.do',
         'userInfo': 'userInfo.do'
       },
       // 监听事件的关键字

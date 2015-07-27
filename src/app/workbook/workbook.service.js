@@ -12,7 +12,8 @@
     var service = {
       'initialize': initialize,
       'getWorkBook': getWorkBook,
-      'toggle': toggleSheetByIndex
+      'remove': removeSheetByIndex,
+      'toggle': toggleSheetByIndex,
     };
     return service;
 
@@ -47,6 +48,26 @@
         return sheet;
       } else {
         return _workbook.sheets[nowIndex];
+      }
+    }
+
+    /**
+     * 删除一个表, 成功后做重新选中表处理
+     * @param  {Number} index 删除的下标
+     * @return {Sheet} 删除掉的表
+     */ 
+    function removeSheetByIndex(index) {
+      var sheets = _workbook.remove(index);
+      if (sheets.length === 1) { // 删除成功
+        sheetService.closeSheet(sheets[0].id);
+        // 删除选中项后重新选中, 更新数据
+        if (index === _workbook.index) {
+          if (index === _workbook.sheets.length) { index--; }
+          toggleSheetByIndex(index, true);
+        }
+        return sheets;
+      } else {
+        console.error('错误的下标', index);
       }
     }
 

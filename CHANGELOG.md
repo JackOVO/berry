@@ -51,7 +51,7 @@
  - **条件模块:**[condition.module, gundam.factory]
   - gundamFactory 可创建选中维度条件类, 供后台提供以及同步判断等.
 
-# v0.0.5 工作表模块 2015/07/23
+# v0.0.5 工作簿模块 2015/07/23
 ## 【增加】
  - **静态资源**
   - 添加合并的图标.
@@ -66,3 +66,12 @@
   - 在WorkBookCtrl中添加切换表接口toggle().
  - **用户模块**
   - 在用户服务初始化中, 拒绝空用户继续向上传递.
+
+# v0.0.6 工作簿模块 2015/0727
+## 【增加】
+  - **工作簿模块**
+   - WorkBook类中添加移除表方法remove(index);
+   - workbookService中包装remove方法, 并级联sheetService后台删除方法, 成功后重新选中表.
+   - WorkBookCtrl 中添加删除表接口.
+  - **工作表模块**
+   - sheetFactory中添加异步关闭表的方法close(id).

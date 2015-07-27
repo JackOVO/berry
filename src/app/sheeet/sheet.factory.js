@@ -5,9 +5,11 @@
     .module('pf.sheet')
     .factory('sheetFactory', sheetFactory);
 
-  function sheetFactory() {
+  sheetFactory.$inject = ['dataService'];
+  function sheetFactory(dataService) {
     var service = {
-      'parse': parse
+      'parse': parse,
+      'rqClose': rqClose
     };
     return service;
 
@@ -40,6 +42,18 @@
       // var table = tableFactory.parse(sheetSource.tableVO);
       // var condition = conditionFactory.parse(sheetSource.accordionVO);
       return new Sheet(id, name, null, null);
+    }
+
+    /**
+     * 通知后台关闭一个表
+     * @param  {String} id 删除表的id
+     * @return {Promise} 承诺
+     */
+    function rqClose(id) {
+      var params = {'action': 'closeSheet', 'sheetId': id};
+      return dataService.get('sheet', params).then(function(message) {
+        return message;
+      });
     }
 
   }
