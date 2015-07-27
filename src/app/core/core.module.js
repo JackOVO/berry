@@ -5,6 +5,7 @@
   angular
     .module('pf.core', ['ngDialog'])
     .constant('coreCF', {
+      debug: true,
       // 本地存储KEY
       record: 'record', // 用户Local存储拼接
       dimeKey: 'userData', // 维度
@@ -21,7 +22,17 @@
       },
       // 监听事件的关键字
       spreadKey: {
+        'sheetChange': 'sc',
         'workbookChange': 'wc'
+      },
+      dime: {
+        'dims': [
+          {
+            'codeName':'indicatorCode',
+            'codes': ['00010000624458', '00030000039266', '00010000000058','00010000000066','00010000000739','00010000001732','00010000001735','00010000001737']
+          }
+        ],
+        'productID': '00010000000000000000000000000001'
       }
     });
 

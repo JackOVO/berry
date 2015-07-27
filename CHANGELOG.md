@@ -57,7 +57,12 @@
   - 添加合并的图标.
  - **工作表模块**
   - sheetFactory 可将源数据解析成表对象, 记录工作表的记录.
-  - sheetService 维护选中工作表数据, 提供更新登操作, 服务初始化方法.
+  - sheetService 维护选中工作表数据, 提供更新表操作, 服务初始化方法.
  - **工作簿模块**
   - WorkBookCtrl 展现数据支持, 监听工作簿工作簿更新事件.
-  - 把WorkBookCtrl绑定到根元素上.
+  - 把WorkBookCtrl绑定到根元素上, 别名为wb.
+  - 在WorkBook类中添加选中表方法selected(index);
+  - 在workbookService中包装selected方法, 级联通知sheetService更新表.
+  - 在WorkBookCtrl中添加切换表接口toggle().
+ - **用户模块**
+  - 在用户服务初始化中, 拒绝空用户继续向上传递.

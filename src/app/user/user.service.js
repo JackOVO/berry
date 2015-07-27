@@ -35,9 +35,11 @@
 
           var localDime = getLocalRecord(_user.id).dime;
           _user.addRecordItem('dime', localDime);
+          return _user;
+        } else {
+          errorService.swallow(errorService.NotLoggedIn);
+          return $q.reject('未登录, 用户服务拒绝!');
         }
-        else { errorService.swallow(errorService.NotLoggedIn); }
-        return _user;
       });
     }
 

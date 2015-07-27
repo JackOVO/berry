@@ -5,13 +5,14 @@
     .module('pf.workbook')
     .factory('workbookService', workbookService);
 
-  workbookService.$inject = ['$rootScope', 'workbookFactory', 'coreCF'];
-  function workbookService($rootScope, workbookFactory, config) {
+  workbookService.$inject = ['$rootScope', 'workbookFactory', 'sheetService', 'coreCF'];
+  function workbookService($rootScope, workbookFactory, sheetService, config) {
     var _spk = config.spreadKey;
     var _workbook = null;
     var service = {
       'initialize': initialize,
-      'getWorkBook': getWorkBook
+      'getWorkBook': getWorkBook,
+      'toggle': toggleSheetByIndex
     };
     return service;
 
@@ -30,6 +31,23 @@
       return workbookFactory.rqWorkBook(gundam).then(function(workbook) {
         return workbook;
       });
+    }
+
+    /**
+     * 切换一个表的, 并通知表服务更新维护表
+     * @param  {Number}  index 预选中下标
+     * @param  {Boolean} isUpdate 强制通知更新表
+     * @return {Sheet} 当前选中的表
+     */
+    function toggleSheetByIndex(index, isUpdate) {
+      var nowIndex = _workbook.index;
+      if (nowIndex !== index || isUpdate === true) {
+        var sheet = _workbook.selected(index);
+        sheetService.update(sheet);
+        return sheet;
+      } else {
+        return _workbook.sheets[nowIndex];
+      }
     }
 
     /**

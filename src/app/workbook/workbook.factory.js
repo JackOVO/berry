@@ -10,6 +10,7 @@
     var service = {
       'rqWorkBook': rqWorkBook
     };
+    WorkBook.prototype.selected = selected;
     return service;
 
     /**
@@ -32,6 +33,17 @@
       return dataService.get('sync', params).then(function(workbookSource) {
         return parse(workbookSource);
       });
+    }
+
+    /**
+     * 根据下标选中一个表, 更新选中下标
+     * @param  {Number} index 预选中的下标
+     * @return {Sheet} 选中的表|undefined
+     */
+    function selected(index) {
+      var sheet = this.sheets[index];
+      if (sheet) { this.index = index; }
+      return sheet;
     }
 
     /**

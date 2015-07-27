@@ -23,9 +23,9 @@
 
     <div id="plat-body-footer">
       <span class="tabs-item fn-fonthid"
-        ng-repeat="sheet in wbvm.workBook.sheets"
-        ng-class="{'selected':wbvm.workBook.selectedIndex==$index}"
-        ng-click="wbvm.selectSheet($index)">
+        ng-repeat="sheet in wb.workbook.sheets"
+        ng-class="{'selected':wb.workbook.index==$index}"
+        ng-click="wb.toggle($index)">
         {{sheet.name}}
         <i class="icon-btn icon-small-close"></i>
       </span>
