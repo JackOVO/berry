@@ -23,6 +23,7 @@
       },
       // 监听事件的关键字
       spreadKey: {
+        // 变更通知
         'sheetChange': 'sc',
         'workbookChange': 'wc'
       },

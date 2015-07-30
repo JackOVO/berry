@@ -3,6 +3,6 @@
   // 工作表模块
 
   angular
-    .module('pf.sheet', ['pf.core']);
+    .module('pf.sheet', ['pf.core', 'pf.table']);
 
 })();

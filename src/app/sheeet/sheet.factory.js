@@ -5,8 +5,8 @@
     .module('pf.sheet')
     .factory('sheetFactory', sheetFactory);
 
-  sheetFactory.$inject = ['dataService'];
-  function sheetFactory(dataService) {
+  sheetFactory.$inject = ['dataService', 'tableFactory'];
+  function sheetFactory(dataService, tableFactory) {
     var service = {
       'parse': parse,
       'rqClose': rqClose
@@ -39,9 +39,9 @@
       //var freqId = sheetInfo.freqId;
       //var cubeId = sheetInfo.cubeId;
 
-      // var table = tableFactory.parse(sheetSource.tableVO);
+      var table = tableFactory.parse(source.tableVO);
       // var condition = conditionFactory.parse(sheetSource.accordionVO);
-      return new Sheet(id, name, null, null);
+      return new Sheet(id, name, table, null);
     }
 
     /**
