@@ -6,6 +6,7 @@
     .module('pf.core', ['ngDialog'])
     .constant('coreCF', {
       debug: true,
+      openDimCode: 'indicatorCode',
       // 本地存储KEY
       record: 'record', // 用户Local存储拼接
       dimeKey: 'userData', // 维度
@@ -25,7 +26,8 @@
       spreadKey: {
         // 变更通知
         'sheetChange': 'sc',
-        'workbookChange': 'wc'
+        'workbookChange': 'wc',
+        'conditionChange': 'cc'
       },
       dime: {
         'dims': [

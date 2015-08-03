@@ -6,12 +6,20 @@
     .module('pf.sheet')
     .factory('sheetService', sheetService);
 
-  sheetService.$inject = ['$rootScope', 'sheetFactory', 'coreCF'];
-  function sheetService($rootScope, sheetFactory, config) {
+  sheetService.$inject = [
+    '$rootScope',
+    'sheetFactory',
+    'conditionService',
+    'userService',
+    'coreCF'];
+
+  function sheetService($rootScope, sheetFactory, conditionService, userService, config) {
     var _spk = config.spreadKey;
     var _sheet = null; // 维护的表
     var service = {
       'update': sheetChange,
+      'setRecord': setRecord,
+      'getRecord': function(key){ return getRecord(_sheet.id)[key]; },
       'closeSheet': closeSheet
     };
     return service;
@@ -24,6 +32,8 @@
     function sheetChange(sheet) {
       _sheet = sheet;
       $rootScope.$broadcast(_spk.sheetChange, _sheet);
+      // 联动更新条件容器
+      conditionService.update(_sheet.condition);
       return _sheet;
     }
 
@@ -36,6 +46,27 @@
       return sheetFactory.rqClose(id);
     }
 
+    /**
+     * 以表为单位记录数据.
+     * @param {String} key 哪
+     * @param {Object} value 吒
+     */
+    function setRecord(key, value) {
+      var sRecord = getRecord(_sheet.id);
+      sRecord[key] = value;
+      userService.setRecord(_sheet.id, sRecord);
+      return getRecord(_sheet.id)[key];
+    }
+
+    /**
+     * 返回表记录根据id, 实际存在用户上
+     * @param  {String} sheetId 表id
+     * @return {Object} 表记录|空对象
+     */
+    function getRecord(sheetId) {
+      var sRecord = userService.getRecord(sheetId);
+      return sRecord || {};
+    }
   }
 
 })();

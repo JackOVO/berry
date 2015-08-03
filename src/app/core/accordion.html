@@ -1,0 +1,16 @@
+<accordion data="ccvm.condition.order">
+  <accordion-group
+    ng-init="dim = ccvm.condition.dimensions[code]"
+    selected="ccvm.upSelectedFn(dim.code)"
+    attr-open="{{dim.code == ccvm.selectedDimCode}}"
+    ng-repeat="code in ccvm.condition.order track by ccvm.byIndex(code)">
+    <accordion-heading>
+      {{dim.name}}
+      <div class="icon-bar">
+        <i class="icon-btn"
+           ng-class="{'row':'icon-col', 'col':'icon-row'}[ccvm.condition.direction[dim.code]]"
+           ></i>
+      </div>
+    </accordion-heading>
+  </accordion-group>
+</accordion>

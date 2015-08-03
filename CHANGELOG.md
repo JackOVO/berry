@@ -97,6 +97,18 @@
   - **树模块**
    - treeFactory 解析源数据创建树对象, 提供遍历, 选中等类方法.
 
-# v0.0.9 手风琴显示 2015/07/31
+# v0.0.9 手风琴显示 2015/07/31 - 2015/08/03
 ## 【增加】
-  - conditionService 维护选中的条件对象, 提供业务方法.
+  - **用户模块**
+   - 提供用户记录状态的接口, setRecord(k, v), getRecord(id), 用户为单位.
+  - **条件模块**
+   - conditionService 维护选中的条件对象, 提供业务方法.
+   - 添加条件容器控制器ConditionCtrl, 监听变更并绑定到指定作用域中.
+  - **工作表模块**
+   - sheetService sheetChange方法中联动更新条件容器.
+   - sheetService 添加setRecord(), getRecord()方法, 以表为单位.
+  - **核心模块**
+   - 添加手风琴页面, accordion.html负责显示条件容器的内容.
+  - **指令模块**
+   - 添加手风琴指令accordion, 监听数据变化, 负责展现条件容器数据.
+   - 添加滚动条容器scrollbar, 改变div的滚动条行为样式.

@@ -17,6 +17,8 @@
     var service = {
       'login': login,
       'initialize': initialize,
+      'setRecord': setLocalRecord,
+      'getRecord': function(key){ return getLocalRecord(_user.id)[key]; },
       'getSessionUser': getSessionUser
     };
     return service;
