@@ -1,16 +1,29 @@
 <accordion data="ccvm.condition.order">
-  <accordion-group
-    ng-init="dim = ccvm.condition.dimensions[code]"
-    selected="ccvm.upSelectedFn(dim.code)"
-    attr-open="{{dim.code == ccvm.selectedDimCode}}"
-    ng-repeat="code in ccvm.condition.order track by ccvm.byIndex(code)">
-    <accordion-heading>
-      {{dim.name}}
-      <div class="icon-bar">
-        <i class="icon-btn"
-           ng-class="{'row':'icon-col', 'col':'icon-row'}[ccvm.condition.direction[dim.code]]"
-           ></i>
-      </div>
-    </accordion-heading>
-  </accordion-group>
+  <div ui-sortable="ccvm.accSortableOptions" ng-model="ccvm.condition.order" style="height:100%">
+    <accordion-group
+      ng-init="dim = ccvm.condition.dimensions[code]"
+      selected="ccvm.upSelectedFn(dim.code)"
+      attr-open="{{dim.code == ccvm.selectedDimCode}}"
+      ng-repeat="code in ccvm.condition.order track by ccvm.byIndex(code)">
+      <accordion-heading>
+        {{dim.name}}
+        <div class="icon-bar">
+          <i class="icon-btn"
+             ng-class="{'row':'icon-col', 'col':'icon-row'}[ccvm.condition.direction[dim.code]]"
+             ng-click="ccvm.toggleDirection($event, dim.code)"></i>
+        </div>
+      </accordion-heading>
+
+      <scrollbar>
+        <div ng-if="dim.feature.indicator"
+          ng-include="'app/template/property/dimeitem.html'"></div>
+        <!-- <div ng-if="dim.feature.indicator"
+          ng-include="'app/template/property/addIndicatorBtn.html'"></div>
+        <div ng-if="dim.feature.indicator"
+          ng-include="'app/template/property/recommend.html'"></div>
+        <div ng-if="dim.feature.tree"
+          ng-include="'app/template/property/tree.html'"></div> -->
+      </scrollbar>
+    </accordion-group>
+  </div>
 </accordion>

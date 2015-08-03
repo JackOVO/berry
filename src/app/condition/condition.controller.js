@@ -6,13 +6,19 @@
     .module('pf.condition')
     .controller('conditionCtrl', conditionCtrl);
 
-  conditionCtrl.$inject = ['$scope', '$timeout', 'sheetService', 'coreCF'];
-  function conditionCtrl($scope, $timeout, sheetService, config) {
+  conditionCtrl.$inject = ['$scope', '$timeout', 'conditionService', 'sheetService', 'coreCF'];
+  function conditionCtrl($scope, $timeout, conditionService, sheetService, config) {
     var _spk = config.spreadKey;
     var _after = null; // 区分不同维度key的后缀
     var that = this;
-    that.selectedDimCode = null; // 记录选中的维度代码
     that.condition = null;
+    that.selectedDimCode = null; // 记录选中的维度代码
+    that.accSortableOptions = {
+      axis: 'y',
+      handle: '.hander',
+      tolerance: 'pointer',
+      containment: 'parent'
+    };
 
     // 数组去重index记录
     that.byIndex = function(code) { return code + _after; };
@@ -20,6 +26,11 @@
     that.upSelectedFn = function(code) {
       return function(){ sheetService.setRecord('dimCode', code); };
     };
+    // 切换维度方向
+    that.toggleDirection = function(e, code) {
+      conditionService.toggleDirection(code);
+      e.stopPropagation();
+    }
 
     // 监听条件容器变更通知
     $scope.$on(_spk.conditionChange, function(e, condition) {

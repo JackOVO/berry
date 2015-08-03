@@ -11,7 +11,8 @@
     var _spk = config.spreadKey;
     var _condition = null; // 维护的条件容器
     var service = {
-      'update': conditionChange
+      'update': conditionChange,
+      'toggleDirection': toggleDirection
     };
     return service;
 
@@ -24,6 +25,15 @@
       _condition = condition;
       $rootScope.$broadcast(_spk.conditionChange, _condition);
       return condition;
+    }
+
+    /**
+     * 切换条件方向
+     * @param {String} code 维度Code
+     * @return {String} 'col'|'row'
+     */
+    function toggleDirection(code) {
+      return _condition.toggleDire(code);
     }
   }
 

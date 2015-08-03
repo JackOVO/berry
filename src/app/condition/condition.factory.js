@@ -12,6 +12,7 @@
     var service = {
       'parse': parse
     };
+    Condition.prototype.toggleDire = toggleDire;
     return service;
 
     /**
@@ -26,6 +27,21 @@
       this.current = current;
       this.direction = direction;
       this.dimensions = dimensions;
+    }
+
+    /**
+     * 切换指定维度的方向
+     * @param {String} code 维度的代码
+     * @return {String} 返回切换后的维度代码
+     */
+    function toggleDire(code) {
+      var direction = this.direction[code];
+      if (direction) {
+        this.direction[code] = (direction === 'col' ? 'row' : 'col');
+      } else {
+        console.error('错误的维度代码!', code)
+      }
+      return this.direction[code];
     }
 
     /**

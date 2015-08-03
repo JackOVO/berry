@@ -6,6 +6,7 @@
       'ui.router',
       'ngResource',
       'ngSanitize',
+      'ui.sortable',
       'pf.user',
       'pf.workbook',
       'pf.directive'

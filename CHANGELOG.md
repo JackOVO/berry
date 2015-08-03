@@ -20,7 +20,7 @@
   - 为userService添加登陆方法.
   - 添加LoginCtrl, 执行登录, 错误输出.
  - **错误模块:**
-  - 添加依赖模块ngDialog(对话框指令). 
+  - 添加依赖模块ngDialog(对话框指令).
 
 # v0.0.3 用户模块 2015/07/20
 ## 【增加】
@@ -112,3 +112,12 @@
   - **指令模块**
    - 添加手风琴指令accordion, 监听数据变化, 负责展现条件容器数据.
    - 添加滚动条容器scrollbar, 改变div的滚动条行为样式.
+
+# v0.0.11 维度调整 2015/08/03
+## 【增加】
+  - **条件模块** 维度拖动.
+   - conditionFactory 添加维度切换方法toggle(code), 切换维度的方向.
+   - conditionService 包装一层切换维度的方法, 并提供接口toggleDirection(code).
+   - 在accordion.html中添加可拖动指令, 并绑定模型, 配置在conditionCtrl中.
+   - 添加特性模板页面dimeitem.html, 负责展现维度项.
+   - 在**指标模块**中添加侧边栏指标控制器, 显示数据, 删除指标的方法.

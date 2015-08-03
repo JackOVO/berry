@@ -58,6 +58,7 @@ $accordion-indicator-font-color: rgba($white, .8);;
         letter-spacing: $accordion-hander-letter-spacing;
         color: $accordion-font-color;
         background-color: $accordion-header-bg-color;
+        cursor: pointer;
 
         @include icon-bar-posi(rem-calc(12), null, $accordion-padding-left);
 
