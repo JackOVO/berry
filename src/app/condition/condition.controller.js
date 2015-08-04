@@ -43,6 +43,20 @@
         that.selectedDimCode = sheetService.getRecord('dimCode') || config.openDimCode;
       }, 1);
     });
+
+    // 监听是否请求推荐信息还是使用缓存数据
+    $scope.$on(_spk.askRecommendRefresh, function(e, type) {
+      // 拿到现在的指标长度
+      var size = sheetService.getRecord('iss');
+      var nowSize = that.condition.dimensions.indicatorCode.tree.childs.length;
+      sheetService.setRecord('iss', nowSize);
+
+      if (size === nowSize) {
+        $scope.$broadcast(_spk.getRecommendChange, type);
+      } else {
+        $scope.$broadcast(_spk.refreshRecommend, type);
+      }
+    });
   }
 
 })();

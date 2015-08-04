@@ -20,10 +20,14 @@
         'login': 'login.do',
         'sheet': 'sheet.do',
         'initial': 'jump.do',
+        'recommend': 'recmd.do',
         'userInfo': 'userInfo.do'
       },
       // 监听事件的关键字
       spreadKey: {
+        // 动作告知
+        'refreshRecommend': 'rr',
+        'getRecommendChange': 'grc',
         // 变更通知
         'sheetChange': 'sc',
         'workbookChange': 'wc',

@@ -121,3 +121,13 @@
    - 在accordion.html中添加可拖动指令, 并绑定模型, 配置在conditionCtrl中.
    - 添加特性模板页面dimeitem.html, 负责展现维度项.
    - 在**指标模块**中添加侧边栏指标控制器, 显示数据, 删除指标的方法.
+
+# v0.0.12 维度调整 2015/08/04
+## 【增加】
+ - **条件模块**
+   - 增加添加指标按钮特性页面, 以及判断的条件在accordion.html中.
+ - **推荐模块**
+   - recommendFactory 添加请求推荐的方法rqRecommend(), 返回数据解析成推荐类.
+   - recommendService 封装请求推荐的方法, 根据表id获取推荐判断缓存等.
+   - recommendService 每次请求推荐会缓存到内存中.
+   - 添加推荐页面recommend.html 显示指标推荐.
