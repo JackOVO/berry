@@ -12,6 +12,6 @@
   <span class="line-font-line">{{ircvm.title}}</span>
   <label class="checkbox fn-fonthid" title="{{item.name}}"
     ng-repeat="item in ircvm.recommends"
-    ng-class="{'selected': irvm.selectRecord[item.indicatorCode]}"
-    ng-click="irvm.selected(item)">{{item.name}}</label>
+    ng-class="{'selected': ircvm.selectRecord[item.code]}"
+    ng-click="ircvm.selected(item.code)">{{item.name}}</label>
 </div>

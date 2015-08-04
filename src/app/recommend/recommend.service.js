@@ -10,6 +10,8 @@
   function recommendService($q, recommendFactory, sheetService) {
     var _recommendChange = {}; // 推荐缓存 id:数据
     var service = {
+      'addSelected': addSelected,
+      'getSelected': getSelected,
       'getRecommend': getRecommend
     };
     return service;
@@ -34,6 +36,27 @@
       // var promise = defer.promise;
       // return promise;
       return _recommendChange[sheetId];
+    }
+
+    /**
+     * 返回当亲表推荐选中
+     * @return {k:v} 记录选中
+     */
+    function getSelected() {
+      var record = sheetService.getRecord('reSelected');
+      if (!record) { record = {}; }
+      sheetService.setRecord('reSelected', record);
+      return record;
+    }
+
+    /**
+     * 添加一条选中, 为true反选
+     */
+    function addSelected(code) {
+      var record = getSelected();
+      record[code] = !record[code];
+      sheetService.setRecord('reSelected', record);
+      return getSelected();
     }
   }
 
@@ -66,43 +89,8 @@
 //       return _recommendChange[sheetId];
 //     }
 
-//     /**
-//      * 请求推荐内容
-//      * @param  {String} type 推荐类型(扩展用?)
-//      * @return {Promise} 承诺
-//      */
-//     function requireRecommend(type) {
-//       var sheetId = sheetService.getSheetId();
-//       var params = {'sheetId': sheetId};
 
-//       return dataService.get('recommend', params)
-//         .then(function(recommendSource) {
-//           _recommendChange[sheetId] = recommendSource;
-//           return recommendSource; // 没做格式化处理, 由上层请求决定, 自行处理
-//         });
-//     }
 
-//     /**
-//      * 记录选中的记录
-//      * @param  {String} code 选中的代码
-//      * @return {Object} 全部选中项
-//      */
-//     function selectedRecommend(code) {
-//       var record = getSelectRecord();
-//       record[code] = !record[code];
-//       sheetService.addRecord('selectedR', record);
-//     }
-
-//     /**
-//      * 返回选择记录, 如果没有会初始化一个
-//      * @return {Object} 选中的对象合集
-//      */
-//     function getSelectRecord() {
-//       var record = sheetService.getRecord('selectedR');
-//       if (!record) { record = {}; }
-//       sheetService.addRecord('selectedR', record);
-//       return record;
-//     }
 
 //     /**
 //      * 清空选中记录(同步数据后要做清空处理, 防止重复添加推荐选中)
