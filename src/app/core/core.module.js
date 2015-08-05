@@ -6,7 +6,7 @@
     .module('pf.core', ['ngDialog'])
     .constant('coreCF', {
       debug: true,
-      openDimCode: 'indicatorCode',
+      openDimCode: 'regionCode',
       // 本地存储KEY
       record: 'record', // 用户Local存储拼接
       dimeKey: 'userData', // 维度
