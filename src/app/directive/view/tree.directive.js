@@ -57,7 +57,8 @@
     .module('pf.directive')
     .directive('ztree', ztreeDirective);
 
-  function ztreeDirective() {
+  ztreeDirective.$inject = ['rightmenuService'];
+  function ztreeDirective(rightmenuService) {
     return {
       replace: true,
       template: '<div></div>',
@@ -95,9 +96,9 @@
           if (!node) { return; }
           var menuData = getRightMenuData(node);
 
-          // rightMenuService.setData(menuData);
-          // rightMenuService.setClick(_getClickCallback(treeId, node));
-          // rightMenuService.show(event.clientY, event.clientX);
+          rightmenuService.createMenu(menuData, _getClickCallback(treeId, node));
+          rightmenuService.show(event.clientY, event.clientX);
+          scope.$apply();
         };
 
         // 初始化ztree

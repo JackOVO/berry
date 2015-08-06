@@ -20,6 +20,7 @@
         'login': 'login.do',
         'sheet': 'sheet.do',
         'initial': 'jump.do',
+        'search': 'search.do',
         'recommend': 'recmd.do',
         'userInfo': 'userInfo.do'
       },
@@ -28,6 +29,9 @@
         // 动作告知
         'refreshRecommend': 'rr',
         'getRecommendChange': 'grc',
+
+        'createRightMenu': 'crm',
+        'toggleRightMenu': 'trm', // 切换显示隐藏状态
         // 变更通知
         'sheetChange': 'sc',
         'workbookChange': 'wc',
