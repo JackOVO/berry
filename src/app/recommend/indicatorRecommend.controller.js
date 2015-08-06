@@ -18,10 +18,13 @@
 
     that.selectRecord = recommendService.getSelected();
 
-    //     // 监听选中变更
-//     $scope.$watch('irvm.selectRecord', function(nsel) {
-//       $scope.$emit(_spk.dimSelectedChange, nsel);
-//     });
+    // 监听选中变更, 通知选中变更重新判断同步, 主意监听key的变更
+    $scope.$watch('ircvm.selectRecord', function(nsel) {
+      for (var key in nsel) {
+        $scope.$emit(_spk.dimSelectedChange, nsel);
+        return true;
+      }
+    });
 
     /**
      * 选中一项推荐, 记录在表记录上

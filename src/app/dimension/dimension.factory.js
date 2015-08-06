@@ -42,7 +42,7 @@
       // 由于指标传过来都不是选中的, 要做一下特殊处理, 囧rz.
       if (code === 'indicatorCode') {
         // 指标只有一层
-        // angular.forEach(tree.childs, function(node) { node.checked = true; });
+        angular.forEach(tree.childs, function(node) { node.checked = true; });
       }
       return new Dimension(code, name, tree, feature);
     }

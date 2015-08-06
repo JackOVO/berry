@@ -7,8 +7,8 @@
       </a>
       <div><img src="assets/images/oval.png" alt="LOGO"></div>
       <button class="large primary submit"
-        ng-class="{'disabled': !wbvm.isSync}"
-        ng-click="wbvm.sync();">同步数据</button>
+        ng-class="{'disabled': wb.isSync}"
+        ng-click="wb.sync();">同步数据</button>
     </div><!-- 侧边头结束 -->
     <div id="plat-side-content" ng-controller="conditionCtrl as ccvm"
       ng-include="'app/core/accordion.html'">

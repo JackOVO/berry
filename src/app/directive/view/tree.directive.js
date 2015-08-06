@@ -57,13 +57,14 @@
     .module('pf.directive')
     .directive('ztree', ztreeDirective);
 
-  ztreeDirective.$inject = ['rightmenuService'];
-  function ztreeDirective(rightmenuService) {
+  ztreeDirective.$inject = ['rightmenuService', 'coreCF'];
+  function ztreeDirective(rightmenuService, config) {
     return {
       replace: true,
       template: '<div></div>',
       scope: {'data': '=', 'oncheck': '&'},
       link: function(scope, element, attr) {
+        var _spk = config.spreadKey;
         var Id = 'zt' + attr.mark; // 区分多个树
         var statusKey = attr.statuskey; // 区分多个表的状态保存
         var onCheckFn = scope.oncheck();
@@ -79,6 +80,7 @@
         setting.callback = {};
         setting.callback.onClick = function(e, treeId, node) {
           ztree.checkNode(node, !node.checked, true, true);
+          scope.$apply();
         };
         setting.callback.onCheck = function(e, treeId, node) {
           if(onCheckFn) { onCheckFn(node); }
@@ -100,6 +102,13 @@
           rightmenuService.show(event.clientY, event.clientX);
           scope.$apply();
         };
+
+        // 搜索选中后同步选中监听
+        scope.$on(_spk.searchSelectNodeChange, function(e, id) {
+          var node = ztree.getNodeByParam('id', id);
+          // 选中不会触发回调
+          ztree.checkNode(node, !node.checked, true, false);
+        });
 
         // 初始化ztree
         element.attr('id', Id);
@@ -164,35 +173,3 @@
   }
 
 })();
-
-// (function() {
-//   'use strict';
-
-//   angular
-//     .module('platform.directive')
-//     .directive('tree', treeDirective);
-
-
-//   treeDirective.$inject = ['rightMenuService', 'coreCF'];
-//   function treeDirective(rightMenuService, config) {
-//     return {
-//       replace: true,
-//       scope: {'data': '=', 'oncheck': '&'},
-//       template: '<div></div>',
-//       link: function(scope, element, attr) {
-//         var statusKey = attr.statuskey; // 区分多个表的状态保存
-//         
-//         var spk = config.spreadKey;
-
-//         // 搜索选中后同步选中监听
-//         scope.$on(spk.searchSelectNodeChange, function(e, id) {
-//           var node = ztree.getNodeByParam('id', id);
-//           // 选中不会触发回调
-//           ztree.checkNode(node, !node.checked, true, false);
-//         });
-//       }
-//     };
-//   }
-
-
-

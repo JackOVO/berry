@@ -44,6 +44,23 @@
       }, 1);
     });
 
+    // 监听条件内容改变
+    $scope.$watch('ccvm.condition', function(n, o) {
+      if (!that.condition) { return; }
+      var gundam = that.condition.press();
+      var isSync = gundam.equal(that.condition.current);
+      $scope.$emit(_spk.syncStatusChange, isSync);
+    }, true);
+
+    // 附加选中变更后, 添加选中后, 重新判断同步
+    $scope.$on(_spk.dimSelectedChange, function(e, selected) {
+      var gundam = that.condition.press();
+      // 从推荐中添加选中的指标
+      gundam.addSlectedCode('indicatorCode', selected);
+      var isSync = gundam.equal(that.condition.current);
+      $scope.$emit(_spk.syncStatusChange, isSync);
+    });
+
     // 监听是否请求推荐信息还是使用缓存数据
     $scope.$on(_spk.askRecommendRefresh, function(e, type) {
       // 拿到现在的指标长度

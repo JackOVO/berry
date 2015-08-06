@@ -7,9 +7,13 @@
 
   function gundamFactory() {
     var service = {
+      'create': createGundam,
       'sequenceOXC': sequenceOXC
     };
+    Gundam.prototype.equal = equal;
     Gundam.prototype.sequence = sequence;
+    Gundam.prototype.getDImIndex = getDImIndex;
+    Gundam.prototype.addSlectedCode = addSlectedCode;
     return service;
 
     /**
@@ -24,6 +28,51 @@
       this.metaRow = metaRow;
       this.productID = productId;
       this.metaColumn = metaColumn;
+    }
+
+
+    function createGundam(dims, metaRow, metaColumn) {
+      return new Gundam(dims, metaRow, metaColumn);
+    }
+
+    /**
+     * 字符串比较
+     * @param  {Gundam} gundam 看不见
+     * @return {Boolean}
+     */
+    function equal(gundam) {
+      var tstring = angular.toJson(this);
+      var nstring = angular.toJson(gundam);
+      return tstring === nstring;
+    }
+
+    /**
+     * 添加选中的code
+     * @param {String} dimCode 维度代码
+     * @param {Array|Object} codes 选中ID的合集
+     */
+    function addSlectedCode(dimCode, codes) {
+      var index = this.getDImIndex(dimCode);
+      if (index !== false) {
+        var selectedCode = this.dims[index].codes;
+        angular.forEach(codes, function(bl, code) {
+          if (bl === true) { selectedCode.push(code); }
+        });
+      }
+    }
+
+    /**
+     * 获取一个维度下标
+     * @param  {String} code 维度代码
+     * @return {Array} 选中维度数据
+     */
+    function getDImIndex(code) {
+      var array = this.dims;
+      for (var i = 0, ilen = array.length; i < ilen; i++) {
+        var dim = array[i];
+        if (dim.codeName === code) { return i; }
+      }
+      return false;
     }
 
     /**

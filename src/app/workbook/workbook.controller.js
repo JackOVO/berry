@@ -10,6 +10,7 @@
   function workbookCtrl($scope, workbookService, config) {
     var _spk = config.spreadKey;
     var that = this;
+    that.isSync = true;
     that.workbook = null;
 
     that.toggle = toggle;
@@ -19,6 +20,11 @@
     $scope.$on(_spk.workbookChange, function(e, workbook) {
 console.warn('C工作簿更新!', workbook);
       that.workbook = workbook;
+    });
+
+    // 数据同步状态监听
+    $scope.$on(_spk.syncStatusChange, function(e, isSync) {
+      that.isSync = isSync;
     });
 
     // 切换表接口

@@ -6,12 +6,13 @@
     .module('pf.condition')
     .factory('conditionFactory', conditionFactory);
 
-  conditionFactory.$inject = ['dimensionFactory'];
-  function conditionFactory(dimensionFactory) {
+  conditionFactory.$inject = ['dimensionFactory', 'gundamFactory'];
+  function conditionFactory(dimensionFactory, gundamFactory) {
     var _directionMap = {'metaColumn': 'col', 'metaRow': 'row'};
     var service = {
       'parse': parse
     };
+    Condition.prototype.press = press;
     Condition.prototype.toggleDire = toggleDire;
     return service;
 
@@ -45,6 +46,37 @@
     }
 
     /**
+     * 将选中数据和维度方法位置提取出对象
+     * @return {Gundam} 选中
+     */
+    function press() {
+      var order = this.order,
+          direction = this.direction,
+          dimensions = this.dimensions;
+      var dims = [], metaRows = [], metaColumns = [];
+
+      // 获得每一个维度代码和选中
+      angular.forEach(order, function(key, index) {
+        var dim = dimensions[key].press(); // 维度流化, 提取
+        dims.push(dim);
+      });
+
+      // 按顺序, 匹配维度的方向
+      angular.forEach(order, function(code, index) {
+        var status = direction[code];
+        if (status === _directionMap['metaColumn']) {
+          metaColumns.push(code);
+        } else if (status === _directionMap['metaRow']) {
+          metaRows.push(code)
+        } else {
+          console.error('条件方向序列化失败', code, status);
+        }
+      });
+
+      return gundamFactory.create(dims, metaRows, metaColumns);
+    }
+
+    /**
      * 解析成条件对象
      * @param  {Object} conditionSource 对象源
      * @return {Condition}
@@ -60,7 +92,7 @@
         dimensions[dimension.code] = dimension;
       }
       var condition = new Condition(order, direction, dimensions, null);
-      // condition.current = condition.press(); // 方便判断同步状态
+      condition.current = condition.press(); // 方便判断同步状态
       return condition;
     }
 

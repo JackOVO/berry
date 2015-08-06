@@ -32,10 +32,15 @@
 
         'createRightMenu': 'crm',
         'toggleRightMenu': 'trm', // 切换显示隐藏状态
+        'bridgeNow': 'bn', // 桥梁
         // 变更通知
         'sheetChange': 'sc',
         'workbookChange': 'wc',
-        'conditionChange': 'cc'
+        'conditionChange': 'cc',
+        // 状态通知
+        'syncStatusChange': 'ssc', // 同步状态
+        'dimSelectedChange': 'dsc', // 维度选中
+        'searchSelectNodeChange': 'ssnc'
       },
       dime: {
         'dims': [

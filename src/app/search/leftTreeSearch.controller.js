@@ -37,7 +37,7 @@
       // 实际数据选中
       root.checkNode(node.code, node.isSelected);
       // 通知指令树选中
-      // $scope.$emit(_spk.accContentBridge, ['searchSelectNodeChange', node.code]);
+      $scope.$emit(_spk.bridgeNow, ['searchSelectNodeChange', node.code]);
     };
   }
 
