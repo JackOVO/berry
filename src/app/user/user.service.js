@@ -110,6 +110,7 @@
       var record = dataService.getItem(rkey);
       record[key] = value;
       dataService.setItem(rkey, record);
+dataService.setItem(rkey, {}); // BUG问题.
       return getLocalRecord(_user.id);
     }
 

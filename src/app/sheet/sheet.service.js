@@ -18,9 +18,9 @@
     var _sheet = null; // 维护的表
     var service = {
       'update': sheetChange,
-      'getSheetId': function() { return _sheet.id; },
       'setRecord': setRecord,
       'getRecord': function(key){ return getRecord(_sheet.id)[key]; },
+      'getSheetId': function() { return _sheet.id; },
       'closeSheet': closeSheet
     };
     return service;

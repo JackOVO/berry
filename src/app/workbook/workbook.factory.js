@@ -13,6 +13,7 @@
     WorkBook.prototype.merger = merger;
     WorkBook.prototype.remove = remove;
     WorkBook.prototype.selected = selected;
+    WorkBook.prototype.addSheet = addSheet;
     WorkBook.prototype.getSheetIndex = getSheetIndex;
     return service;
 
@@ -28,12 +29,13 @@
 
     /**
      * 请求一个工作簿, 回打包整理稿返回
-     * @param  {Gundam|Object} gundom 会根据属性判断使用的序列方法, 得到条件参数
+     * @param {Gundam|Object} gundom 会根据属性判断使用的序列方法, 得到条件参数
+     * @param {Boolean} init 初始化
      * @return {Promise} 
      */
-    function rqWorkBook(gundom) {
+    function rqWorkBook(gundom, init) {
       var params = gundom.sequence ? gundom.sequence() : gundamFactory.sequenceOXC(gundom);
-      return dataService.get('sync', params).then(function(workbookSource) {
+      return dataService.get(init===true?'init':'sync', params).then(function(workbookSource) {
         return parse(workbookSource);
       });
     }
@@ -94,12 +96,12 @@
       var twb = this, index = this.index;
       var sheets = workbook.sheets;
 
-      angular.forEach(sheets, function(sheet, index) {
+      angular.forEach(sheets, function(sheet, i) {
         var tIndex = twb.getSheetIndex(sheet.id);
         if (tIndex !== false) { // 存在替换
           twb.sheets[tIndex] = sheet;
         } else {
-          index = workbook.addSheet(sheet);
+          index = twb.addSheet(sheet);
         }
       });
       return index;

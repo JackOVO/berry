@@ -10,6 +10,7 @@
     var _spk = config.spreadKey;
     var _workbook = null;
     var service = {
+      'addSheet': addSheet,
       'initialize': initialize,
       'getWorkBook': getWorkBook,
       'syncWorkBook': syncWorkBook,
@@ -19,18 +20,19 @@
     return service;
 
     function initialize(gundam) {
-      return getWorkBook(gundam).then(function(workbook) {
+      return getWorkBook(gundam, true).then(function(workbook) {
         return workbookChange(workbook);
       });
     }
 
     /**
      * 获取工作簿根据钢弹
-     * @param  {Gundam|Object} gundam 选中维度对象钢弹
+     * @param {Gundam|Object} gundam 选中维度对象钢弹
+     * @param {Boolean} init 后台一样的功能不懂为什么要搞两个链接
      * @return {Promise}
      */
-    function getWorkBook(gundam) {
-      return workbookFactory.rqWorkBook(gundam).then(function(workbook) {
+    function getWorkBook(gundam, init) {
+      return workbookFactory.rqWorkBook(gundam, init).then(function(workbook) {
         return workbook;
       });
     }
@@ -42,9 +44,15 @@
      */
     function syncWorkBook(gundam) {
       var sheetId = sheetService.getSheetId();
-
       gundam.sheetId = sheetId; // 根据sheetId判断是否新增表
+      return addSheet(gundam);
+    }
 
+    /**
+     * 添加一个工作簿, 即不传sheetId
+     * @return {Promise} 返回需要选中的index
+     */
+    function addSheet(gundam) {
       return getWorkBook(gundam).then(function(workbook) {
         var selIndex = _workbook.merger(workbook);
         toggleSheetByIndex(selIndex, true);

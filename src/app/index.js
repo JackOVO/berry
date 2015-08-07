@@ -3,6 +3,7 @@
 
   angular
     .module('pf', [
+      'ngDialog',
       'ui.router',
       'ngResource',
       'ngSanitize',

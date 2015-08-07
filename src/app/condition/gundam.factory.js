@@ -13,6 +13,7 @@
     Gundam.prototype.equal = equal;
     Gundam.prototype.sequence = sequence;
     Gundam.prototype.getDImIndex = getDImIndex;
+    Gundam.prototype.setSnlyDime = setSnlyDime;
     Gundam.prototype.addSlectedCode = addSlectedCode;
     return service;
 
@@ -61,6 +62,18 @@
           }
         });
       }
+    }
+
+    /**
+     * set唯一的维度, 先为添加表使用, 貌似功能带单一没更多用处!!!
+     * @param {String} dimCode 维度代码
+     */
+    function setSnlyDime(dimCode, codes) {
+      var dim = {'codeName': dimCode, 'codes': []};
+      angular.forEach(codes, function(bl, code) {
+        if (bl === true) { dim.codes.push(code); }
+      });
+      this.dims = [dim];
     }
 
     /**

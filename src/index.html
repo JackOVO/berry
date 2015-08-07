@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ch" ng-app="pf">
-<head>
+<head ng-controller="HeadCtrl as head">
   <meta charset="UTF-8">
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="edge">
@@ -21,7 +21,7 @@
   <!-- endinject -->
   <!-- endbuild -->
 
-  <title>ﾚ(ﾟ∀ﾟ;)ﾍ=З=З=З</title>
+  <title ng-bind="head.title">DFinder平台</title>
 </head>
 <body>
 

@@ -11,9 +11,10 @@
     'workbookService',
     'conditionService',
     'recommendService',
+    'indicatorService',
     'coreCF'];
 
-  function workbookCtrl($scope, workbookService, conditionService, recommendService, config) {
+  function workbookCtrl($scope, workbookService, conditionService, recommendService, indicatorService, config) {
     var _spk = config.spreadKey;
     var that = this;
     that.isSync = true;
@@ -22,6 +23,7 @@
     that.sync = sync;
     that.toggle = toggle;
     that.remove = remove;
+    that.openAddSheetDialog = openAddSheetDialog;
 
     $scope.loading = false; // 加载中标示
 
@@ -54,15 +56,23 @@ console.warn('C工作簿更新!', workbook);
     function sync() {
       if (that.isSync === true) { return; }
 
+      // 可以封装起来
       var gundam = conditionService.getGundam();
       var indicRecommendSelected = recommendService.getSelected();
-      recommendService.clearRecord(); // 清除指标推荐选中记录
       gundam.addSlectedCode('indicatorCode', indicRecommendSelected);
+      // 可以封装起来
+
+      recommendService.clearRecord(); // 清除指标推荐选中记录
 
       $scope.loading = true;
       workbookService.syncWorkBook(gundam).then(function() {
         $scope.loading = false;
       });
+    }
+
+    // 添加表窗口
+    function openAddSheetDialog() {
+      indicatorService.openModel('addSheet');
     }
   }
 

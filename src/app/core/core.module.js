@@ -17,6 +17,7 @@
       // 请求地址映射
       urlMap: {
         'sync': 'dim.do',
+        'init': 'jump.do',
         'login': 'login.do',
         'sheet': 'sheet.do',
         'initial': 'jump.do',
@@ -27,8 +28,8 @@
       // 监听事件的关键字
       spreadKey: {
         // 动作告知
+        'syncWorkBook': 'swb',
         'refreshRecommend': 'rr',
-        'getRecommendChange': 'grc',
 
         'createRightMenu': 'crm',
         'toggleRightMenu': 'trm', // 切换显示隐藏状态
