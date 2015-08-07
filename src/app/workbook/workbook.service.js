@@ -12,6 +12,7 @@
     var service = {
       'initialize': initialize,
       'getWorkBook': getWorkBook,
+      'syncWorkBook': syncWorkBook,
       'remove': removeSheetByIndex,
       'toggle': toggleSheetByIndex,
     };
@@ -31,6 +32,23 @@
     function getWorkBook(gundam) {
       return workbookFactory.rqWorkBook(gundam).then(function(workbook) {
         return workbook;
+      });
+    }
+
+    /**
+     * 同步工作簿, 合并得到的表数据
+     * @param  {Gundam|Object} gundam 选中维度对象钢弹
+     * @return {Promise} 返回需要选中的index
+     */
+    function syncWorkBook(gundam) {
+      var sheetId = sheetService.getSheetId();
+
+      gundam.sheetId = sheetId; // 根据sheetId判断是否新增表
+
+      return getWorkBook(gundam).then(function(workbook) {
+        var selIndex = _workbook.merger(workbook);
+        toggleSheetByIndex(selIndex, true);
+        return selIndex;
       });
     }
 

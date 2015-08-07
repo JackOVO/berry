@@ -55,7 +55,7 @@
     // 附加选中变更后, 添加选中后, 重新判断同步
     $scope.$on(_spk.dimSelectedChange, function(e, selected) {
       var gundam = that.condition.press();
-      // 从推荐中添加选中的指标
+      // 从推荐中添加选中的指标, 扩展后'indicatorCode'可以传递
       gundam.addSlectedCode('indicatorCode', selected);
       var isSync = gundam.equal(that.condition.current);
       $scope.$emit(_spk.syncStatusChange, isSync);

@@ -6,15 +6,25 @@
     .module('pf.workbook')
     .controller('WorkBookCtrl', workbookCtrl);
 
-  workbookCtrl.$inject = ['$scope', 'workbookService', 'coreCF'];
-  function workbookCtrl($scope, workbookService, config) {
+  workbookCtrl.$inject = [
+    '$scope',
+    'workbookService',
+    'conditionService',
+    'recommendService',
+    'coreCF'];
+
+  function workbookCtrl($scope, workbookService, conditionService, recommendService, config) {
     var _spk = config.spreadKey;
     var that = this;
     that.isSync = true;
     that.workbook = null;
 
+    that.sync = sync;
     that.toggle = toggle;
     that.remove = remove;
+
+    $scope.loading = false; // 加载中标示
+
 
     // 变更监听
     $scope.$on(_spk.workbookChange, function(e, workbook) {
@@ -38,6 +48,21 @@ console.warn('C工作簿更新!', workbook);
       if (r === false) { return; }
       workbookService.remove(index);
       e.stopPropagation();
+    }
+
+    // 同步工作簿
+    function sync() {
+      if (that.isSync === true) { return; }
+
+      var gundam = conditionService.getGundam();
+      var indicRecommendSelected = recommendService.getSelected();
+      recommendService.clearRecord(); // 清除指标推荐选中记录
+      gundam.addSlectedCode('indicatorCode', indicRecommendSelected);
+
+      $scope.loading = true;
+      workbookService.syncWorkBook(gundam).then(function() {
+        $scope.loading = false;
+      });
     }
   }
 

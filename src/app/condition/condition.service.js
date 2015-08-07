@@ -12,7 +12,8 @@
     var _condition = null; // 维护的条件容器
     var service = {
       'update': conditionChange,
-      'toggleDirection': toggleDirection
+      'toggleDirection': toggleDirection,
+      'getGundam': function() { return _condition.press(); }
     };
     return service;
 

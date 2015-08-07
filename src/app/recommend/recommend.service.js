@@ -12,7 +12,8 @@
     var service = {
       'addSelected': addSelected,
       'getSelected': getSelected,
-      'getRecommend': getRecommend
+      'getRecommend': getRecommend,
+      'clearRecord': clearSelectRecord,
     };
     return service;
 
@@ -58,49 +59,17 @@
       sheetService.setRecord('reSelected', record);
       return getSelected();
     }
+
+    /**
+     * 清空选中记录
+     * (同步数据后要做清空处理, 防止重复添加推荐选中)
+     * @return {Object} 选中记录
+     */
+    function clearSelectRecord() {
+      var record = {};
+      sheetService.setRecord('reSelected', record);
+      return record;
+    }
   }
 
 })();
-
-
-// (function() {
-//   'use strict';
-//   // 推荐类型的扩展
-
-//   angular
-//     .module('platform.recommend')
-//     .factory('recommendService', recommendService);
-
-//   recommendService.$inject = ['dataService', 'sheetService'];
-//   function recommendService(dataService, sheetService) {
-//     var _recommendChange = {}; // 缓存
-//     var service = {
-//       'getRecommend': getRecommend,
-//       'getSelectRecord': getSelectRecord,
-//       'requireRecommend': requireRecommend,
-//       'clearSelectRecord': clearSelectRecord,
-//       'selectedRecommend': selectedRecommend
-//     };
-//     return service;
-
-//     // 返回缓存
-//     function getRecommend(type) {
-//       var sheetId = sheetService.getSheetId();
-//       return _recommendChange[sheetId];
-//     }
-
-
-
-
-//     /**
-//      * 清空选中记录(同步数据后要做清空处理, 防止重复添加推荐选中)
-//      * @return {[type]} [description]
-//      */
-//     function clearSelectRecord() {
-//       sheetService.addRecord('selectedR', {});
-//       var record = sheetService.getRecord('selectedR');
-//       return record;
-//     }
-//   }
-
-// })();

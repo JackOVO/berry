@@ -47,7 +47,7 @@
     }
 
     /**
-     * 添加选中的code
+     * 添加选中的code, 会去重
      * @param {String} dimCode 维度代码
      * @param {Array|Object} codes 选中ID的合集
      */
@@ -56,7 +56,9 @@
       if (index !== false) {
         var selectedCode = this.dims[index].codes;
         angular.forEach(codes, function(bl, code) {
-          if (bl === true) { selectedCode.push(code); }
+          if (bl === true && selectedCode.indexOf(code) === -1) {
+            selectedCode.push(code);
+          }
         });
       }
     }

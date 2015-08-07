@@ -10,8 +10,10 @@
     var service = {
       'rqWorkBook': rqWorkBook
     };
+    WorkBook.prototype.merger = merger;
     WorkBook.prototype.remove = remove;
     WorkBook.prototype.selected = selected;
+    WorkBook.prototype.getSheetIndex = getSheetIndex;
     return service;
 
     /**
@@ -37,6 +39,18 @@
     }
 
     /**
+     * 添加一个表, 并返回最后一个表的下标
+     * @param {Sheet} sheet 工作表, 会做类型判断
+     */
+    function addSheet(sheet) {
+      /*jshint validthis:true */
+      // sheet instanceof Sheet
+      if (sheet.id) { this.sheets.push(sheet); }
+       else { console.error('不是一个工作表!', sheet); }
+      return this.sheets.length - 1;
+    }
+
+    /**
      * 根据下标选中一个表, 更新选中下标
      * @param  {Number} index 预选中的下标
      * @return {Sheet} 选中的表|undefined
@@ -55,6 +69,40 @@
     function remove(index) {
       var sheets = this.sheets.splice(index, 1);
       return sheets;
+    }
+
+    /**
+     * 根据id返回一个表下标
+     * @param {String} id
+     * @return {Number} 下标
+     */
+    function getSheetIndex(id) {
+      var sheets = this.sheets;
+      for (var i = 0, ilen = sheets.length; i < ilen; i++) {
+        var sheet = sheets[i];
+        if (sheet.id === id) { return i; }
+      }
+      return false;
+    }
+
+    /**
+     * 合并两个工作簿, 根据sheetId判断表的唯一
+     * @param  {WorkBook} workbook 工作簿
+     * @return {Number} 选中的下标
+     */
+    function merger(workbook) {
+      var twb = this, index = this.index;
+      var sheets = workbook.sheets;
+
+      angular.forEach(sheets, function(sheet, index) {
+        var tIndex = twb.getSheetIndex(sheet.id);
+        if (tIndex !== false) { // 存在替换
+          twb.sheets[tIndex] = sheet;
+        } else {
+          index = workbook.addSheet(sheet);
+        }
+      });
+      return index;
     }
 
     /**
