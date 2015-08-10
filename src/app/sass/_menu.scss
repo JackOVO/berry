@@ -36,6 +36,8 @@ $rmenu-item-disabled-bg-color: rgba(172, 171, 167, .5);
 @include exports ("menu") {
   .menu { // ul
     margin: 0; padding: 0;
+    position: relative;
+    z-index: 119;
 
     li {
       display: $menu-container-display;

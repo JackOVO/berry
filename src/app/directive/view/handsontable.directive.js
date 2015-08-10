@@ -47,10 +47,10 @@
 
         // 监听容器变更
         scope.$on(_spk.containerSizeChange, function(){
-          setTimeout(function(){
+          window.setTimeout(function(){
             resizeTB();
             _handsontable.render();
-          }, 301);
+          }, 400);
         });
 
         // 监听窗口
