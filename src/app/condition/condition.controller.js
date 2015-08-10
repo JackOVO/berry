@@ -35,10 +35,13 @@
     // 监听条件容器变更通知
     $scope.$on(_spk.conditionChange, function(e, condition) {
       // 条件排序数组不会刷新, 强制刷新整个对象
-      that.condition = null;
+      var order = angular.copy(condition.order);
+      that.condition = condition;
+      that.condition.order = [];
+
       $timeout(function() {
         _after = new Date().getTime(); // 创建一个新后缀
-        that.condition = condition;
+        that.condition.order = order;
         // 打开的维度代码
         that.selectedDimCode = sheetService.getRecord('dimCode') || config.openDimCode;
       }, 1);

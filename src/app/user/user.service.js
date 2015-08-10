@@ -19,6 +19,7 @@
       'initialize': initialize,
       'setRecord': setLocalRecord,
       'getRecord': function(key){ return getLocalRecord(_user.id)[key]; },
+      'clearRecord': clearLocalRecord,
       'getSessionUser': getSessionUser
     };
     return service;
@@ -36,7 +37,9 @@
           }
 
           var localDime = getLocalRecord(_user.id).dime;
+          clearLocalRecord(); // 清除所有记录, 防止脏数据(表记录)
           _user.addRecordItem('dime', localDime);
+          setLocalRecord('dime', _user.record.dime);
           return _user;
         } else {
           errorService.swallow(errorService.NotLoggedIn);
@@ -110,8 +113,16 @@
       var record = dataService.getItem(rkey);
       record[key] = value;
       dataService.setItem(rkey, record);
-dataService.setItem(rkey, {}); // BUG问题.
+// dataService.setItem(rkey, {}); // BUG问题.
       return getLocalRecord(_user.id);
+    }
+
+    /**
+     * 清空用户本地记录
+     */
+    function clearLocalRecord() {
+      var rkey = config.record + _user.id;
+      dataService.setItem(rkey, {});
     }
 
     /**

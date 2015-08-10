@@ -2,6 +2,6 @@
   'use strict';
 
   angular
-    .module('pf.directive', []);
+    .module('pf.directive', ['pf.information']);
 
 })();

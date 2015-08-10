@@ -15,7 +15,8 @@
 
   function indicatorService($rootScope, ngDialog, workbookService, conditionService, config) {
     var _spk = config.spreadKey;
-    var _syncType = 'syncWorkBook'; // 同步的类型
+    var _syncType = 'syncWorkBook'; // 同步的类型(同步表||添加表)
+    var _indicatorId = null; // 切换至的当前指标id
     var service = {
       'sync': sync,
       'openModel': openModel
@@ -28,7 +29,10 @@
      */
     function sync(selected) {
       var gundam = conditionService.getGundam();
-      gundam.setSnlyDime('indicatorCode', selected);
+      gundam.addSlectedCode('indicatorCode', selected);
+      if (_syncType === 'addSheet') { // 添加表才设置唯一条件
+        gundam.setSnlyDime('indicatorCode', selected);
+      }
       workbookService[_syncType](gundam);
     }
 

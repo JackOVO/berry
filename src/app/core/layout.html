@@ -16,6 +16,15 @@
   </div>
 
   <div id="plat-body">
+
+    <div id="plat-body-info" style="display:none;" class="right width-transition"
+      ng-controller="InformationCtrl as icvm" ng-style="icvm.style">
+      <button id="plat-info-sudo" class="right" ng-click="icvm.toggle()">收起</button>
+      <scrollbar>
+        <div ng-include="'app/template/fiexible.html'"></div>
+      </scrollbar>
+    </div><!-- 附属信息结束 -->
+
     <div id="plat-body-container">
       <handsontable data="sc.sheet.table"></handsontable>
     </div><!-- 内容容器结束 -->

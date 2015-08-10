@@ -1,0 +1,79 @@
+<div class="fiexible">
+  <ul>
+    <li ng-if="icvm.infomation.sourceOrg || icvm.infomation.fileInfoVOLst" class="fiex-open"
+        ng-class="{'fiex-close':OP1}">
+      <span class="font-line dashed"
+        ng-click="OP1=!OP1">数据来源</span>
+      <ul ng-hide="OP1">
+        <li ng-if="icvm.infomation.sourceOrg" class="fiex-open"
+          ng-class="{'fiex-close':OP2}">
+          <span ng-click="OP2=!OP2">机构来源</span>
+          <ul ng-hide="OP2">
+            <li><a href="javascropt:;" ng-bind="icvm.infomation.sourceOrg"></a></li>
+          </ul>
+        </li>
+        <li ng-if="icvm.infomation.fileInfoVOLst" class="fiex-open"
+          ng-class="{'fiex-close':OP3}">
+          <span ng-click="OP3=!OP3">文件来源</span>
+          <ul ng-hide="OP3">
+            <li ng-repeat="file in icvm.infomation.fileInfoVOLst">
+              <a href="http://dfms.dfinder.cn/file.html?fileId={{file.fileId}}" ng-bind="($index+1)+'. '+file.fileName" target="_blank">
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li ng-if="icvm.infomation.desc" class="fiex-open"
+      ng-class="{'fiex-close':OP5}">
+      <span class="font-line dashed"
+        ng-click="OP5=!OP5">指标解释</span>
+      <ul ng-hide="OP5">
+        <li>
+          <a href="javascript:;" ng-bind="icvm.infomation.desc"></a>
+        </li>
+      </ul>
+    </li>
+    <li ng-if="icvm.infomation.comment" class="fiex-open"
+      ng-class="{'fiex-close':OP6}">
+      <span class="font-line dashed"
+        ng-click="OP6=!OP6">指标批注</span>
+      <ul ng-hide="OP6">
+        <li>
+          <a href="javascript:;" ng-bind="icvm.infomation.comment"></a>
+        </li>
+      </ul>
+    </li>
+    <li ng-if="icvm.infomation.quoteVOLst" class="fiex-open"
+      ng-class="{'fiex-close':OP4}">
+      <span class="font-line dashed"
+        ng-click="OP4=!OP4">与指标主题相关的文献</span>
+      <ul ng-hide="OP4">
+        <li ng-repeat="file in icvm.infomation.quoteVOLst">
+          <a href="{{file.paperUrl}}" ng-bind="($index+1)+'. '+file.title" target="_blank"></a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+<!-- {{icvm.infomation}} -->
+  <!-- <ul>
+    <li class="fiex-open"><span class="font-line dashed">数据来源</span>
+      <ul>
+        <li class="fiex-open"><span>文件来源</span>
+          <ul>
+            <li><a href="javascropt:;">文件来源的小弟</a></li>
+            <li><a href="javascropt:;">文件来源的小树二</a></li>
+            <li><a href="javascropt:;">文件来源的书架三</a></li>
+            <li><a href="javascropt:;">文件来源的床单四</a></li>
+            <li><a href="javascropt:;">文件来源的水壶五</a></li>
+            <li><a href="javascropt:;">文件来源的拖鞋六</a></li>
+            <li><a href="javascropt:;">文件来源的苹果七</a></li>
+            <li><a href="javascropt:;">文件来源的橡皮八</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="fiex-close"><span class="font-line dashed">被引用情况</span></li>
+    <li class="fiex-close"><span class="font-line dashed">指标解释</span></li>
+  </ul> -->
+</div>

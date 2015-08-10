@@ -12,9 +12,9 @@
     var that = this;
     that.title = 'ﾚ(ﾟ∀ﾟ;)ﾍ=З=З=З';
 
-    $scope.$on(_spk.sheetChange, function(e, sheet) {
-      that.title = sheet.name;
-    });
+    // $scope.$on(_spk.sheetChange, function(e, sheet) {
+    //   that.title = sheet.name;
+    // });
   }
 
 })();

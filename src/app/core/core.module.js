@@ -6,7 +6,7 @@
     .module('pf.core', ['ngDialog'])
     .constant('coreCF', {
       debug: true,
-      openDimCode: 'regionCode',
+      openDimCode: 'indicatorCode',
       // 本地存储KEY
       record: 'record', // 用户Local存储拼接
       dimeKey: 'userData', // 维度
@@ -23,13 +23,18 @@
         'initial': 'jump.do',
         'search': 'search.do',
         'recommend': 'recmd.do',
-        'userInfo': 'userInfo.do'
+        'userInfo': 'userInfo.do',
+        'information': 'info.do'
       },
       // 监听事件的关键字
       spreadKey: {
         // 动作告知
+        'loading': 'load',
         'syncWorkBook': 'swb',
         'refreshRecommend': 'rr',
+        'InfoIsOpenChange': 'iic',
+        'getRecommendChange': 'grc',
+        'containerSizeChange': 'csc',
 
         'createRightMenu': 'crm',
         'toggleRightMenu': 'trm', // 切换显示隐藏状态

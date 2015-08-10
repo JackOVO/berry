@@ -39,6 +39,11 @@ console.warn('C工作簿更新!', workbook);
       that.isSync = isSync;
     });
 
+    // 控制加载状态显示
+    $scope.$on(_spk.loading, function(e, loading) {
+      $scope.loading = loading;
+    });
+
     // 切换表接口
     function toggle(index) {
       workbookService.toggle(index);
