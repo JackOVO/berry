@@ -11,7 +11,7 @@ $menu-content-padding: rem-calc(5) 0;
 
 $menu-item-font-size: rem-calc(12);
 $menu-item-display: block;
-$menu-item-gap: rem-calc(12); // 菜单项空隙
+$menu-item-gap: rem-calc(10); // 菜单项空隙
 $menu-item-filling: rem-calc(20); // 两侧填充尺寸
 $menu-item-min-width: rem-calc(140); // 最小尺寸
 $menu-item-font-padding: rem-calc(5) rem-calc(8); // 权重低默认
@@ -98,6 +98,7 @@ $rmenu-item-disabled-bg-color: rgba(172, 171, 167, .5);
       white-space: nowrap;
       vertical-align: middle;
       text-decoration: none;
+      border: 1px solid transparent;
     }
 
     > li.hover > a { // 向下覆盖li形成一个整体的框

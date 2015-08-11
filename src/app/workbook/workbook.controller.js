@@ -12,13 +12,19 @@
     'conditionService',
     'recommendService',
     'indicatorService',
+    'dispatchService', // 调度服务, 服务于菜单
     'coreCF'];
 
-  function workbookCtrl($scope, workbookService, conditionService, recommendService, indicatorService, config) {
+  function workbookCtrl($scope, workbookService, conditionService, recommendService, indicatorService, dispatchService, config) {
     var _spk = config.spreadKey;
     var that = this;
     that.isSync = true;
     that.workbook = null;
+
+    that.menudata = dispatchService.getCoolMenu(); // 获取菜单数据
+    that.menuCallback = function(key, keys) {
+      dispatchService.execution(key, keys);
+    };
 
     that.sync = sync;
     that.toggle = toggle;

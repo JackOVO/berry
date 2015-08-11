@@ -14,6 +14,7 @@
       'initialize': initialize,
       'getWorkBook': getWorkBook,
       'syncWorkBook': syncWorkBook,
+      'remoceNowSheet': removeNowSheet,
       'remove': removeSheetByIndex,
       'toggle': toggleSheetByIndex,
     };
@@ -95,6 +96,16 @@
       } else {
         console.error('错误的下标', index);
       }
+    }
+
+    /**
+     * 删除当前选中的表
+     * @return {Number} 剩余表长度
+     */
+    function removeNowSheet() {
+      var length = _workbook.sheets.length;
+      if (length > 1) { removeSheetByIndex(_workbook.index); }
+      return _workbook.sheets.length;
     }
 
     /**

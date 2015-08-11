@@ -38,7 +38,7 @@
 
     /**
      * 打开添加指标的窗口
-     * @param {String} oper 操作
+     * @param {String} oper 操作 addSheet|syncWorkBook
      */
     function openModel(oper) {
       ngDialog.open({
@@ -46,7 +46,7 @@
         controller: 'AddIndicatorCtrl',
         controllerAs: 'aivm'
       });
-      _syncType = oper ? 'addSheet' : 'syncWorkBook';
+      _syncType = (oper==='addSheet'?'addSheet':'syncWorkBook');
     }
   }
 
