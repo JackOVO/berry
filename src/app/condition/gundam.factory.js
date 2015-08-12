@@ -12,8 +12,10 @@
     };
     Gundam.prototype.equal = equal;
     Gundam.prototype.sequence = sequence;
-    Gundam.prototype.getDImIndex = getDImIndex;
     Gundam.prototype.setSnlyDime = setSnlyDime;
+    Gundam.prototype.removeCodes = removeCodes;
+    Gundam.prototype.getDimeIndex = getDimeIndex;
+    Gundam.prototype.getDimeCodes = getDimeCodes;
     Gundam.prototype.addSlectedCode = addSlectedCode;
     return service;
 
@@ -53,7 +55,7 @@
      * @param {Array|Object} codes 选中ID的合集
      */
     function addSlectedCode(dimCode, codes) {
-      var index = this.getDImIndex(dimCode);
+      var index = this.getDimeIndex(dimCode);
       if (index !== false) {
         var selectedCode = this.dims[index].codes;
         angular.forEach(codes, function(bl, code) {
@@ -61,6 +63,24 @@
             selectedCode.push(code);
           }
         });
+      }
+    }
+
+    /**
+     * 移除指定维度的code
+     * @param  {String} dimCode 维度代码
+     * @param  {Array|Object} codes 选中ID的合集
+     * @return {Number} 剩余个数
+     */
+    function removeCodes(dimCode, codes) {
+      var index = this.getDimeIndex(dimCode);
+      if (index !== false) {
+        var selectedCode = this.dims[index].codes;
+        angular.forEach(codes, function(code) {
+          var index = selectedCode.indexOf(code);
+          if (index !== -1) { selectedCode.splice(index, 1); }
+        });
+        return this.dims[index].codes.length;
       }
     }
 
@@ -81,13 +101,24 @@
      * @param  {String} code 维度代码
      * @return {Array} 选中维度数据
      */
-    function getDImIndex(code) {
+    function getDimeIndex(code) {
       var array = this.dims;
       for (var i = 0, ilen = array.length; i < ilen; i++) {
         var dim = array[i];
         if (dim.codeName === code) { return i; }
       }
       return false;
+    }
+
+    /**
+     * 获取指定维度选中的code
+     * @param  {[type]} code [description]
+     * @return {[type]}      [description]
+     */
+    function getDimeCodes(code) {
+      var index = this.getDimeIndex(code);
+      if (index !== false) { return this.dims[index].codes; }
+        else { return []; }
     }
 
     /**

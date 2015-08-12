@@ -205,3 +205,22 @@
   - 对于工具栏的事件, 是仿照对window顶部菜单的事件, 点击开启over, 再点击关闭这样.
  - **用户模块**
   - 添加菜单接口控制器, 负责协调调度服务于菜单指令之间的交互.
+
+# v0.1.2 表格功能 2015/08/12
+  - **表格模块**
+   - tableFactory 添加表格计算方法total(), 请求后台根据类型得出新表格.
+   - tableFactory 添加表格排序方法sort(), 请求后台的排序.
+  - **工作表模块**
+   - sheetService 包装上表格计算方法为tableTotal(), 计算当前工作表的表格, 并更新表格.
+   - sheetService 包装上表格的排序方法为tableSort(), 更新表格.
+  - **核心模块**
+   - dispatchService 添加对于表格计算菜单的匹配switch.
+  - **条件模块**
+   - gundamFactory 添加移除执行维度的选中code方法removeCodes();
+  - **指标模块**
+   - indicatorService 添加移除指定维度的选中code, 并同步单元格的方法.
+  - **指令模块**
+   - handsontableService 添加移除指标的右键菜单, 并通过指标提供的接口执行.
+   - handsontableService 移除指标的菜单项加入了禁用验证, 要保证留有一个指标.
+## 【BUG】
+  - **指标模块** 控制器中删除指标方法传入的属性不存在(不是code是id).

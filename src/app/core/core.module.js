@@ -22,6 +22,8 @@
         'sheet': 'sheet.do',
         'initial': 'jump.do',
         'search': 'search.do',
+        'tableSort': 'sort.do',
+        'tableTotal': 'calc.do',
         'recommend': 'recmd.do',
         'userInfo': 'userInfo.do',
         'information': 'info.do'

@@ -34,6 +34,7 @@
           // 变更就重新生成
           if (_handsontable) { _handsontable.destroy(); }
           _handsontable = new Handsontable(_container[0], settings);
+          handsontableService.setHandsontable(_handsontable);
         });
 
         // 调整大小他妈的

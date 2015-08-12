@@ -19,7 +19,12 @@
     var _indicatorId = null; // 切换至的当前指标id
     var service = {
       'sync': sync,
-      'openModel': openModel
+      'remove': remove,
+      'openModel': openModel,
+      'getCodesSize': function(){
+        var gundam = conditionService.getGundam();
+        return gundam.getDimeCodes('indicatorCode').length;
+      }
     };
     return service;
 
@@ -47,6 +52,16 @@
         controllerAs: 'aivm'
       });
       _syncType = (oper==='addSheet'?'addSheet':'syncWorkBook');
+    }
+
+    /**
+     * 删除指标并提交
+     * @param  {Array} codes 指标代码
+     */
+    function remove(codes) {
+      var gundam = conditionService.getGundam();
+      gundam.removeCodes('indicatorCode', codes);
+      workbookService.syncWorkBook(gundam);
     }
   }
 

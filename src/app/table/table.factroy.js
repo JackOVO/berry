@@ -6,8 +6,11 @@
     .module('pf.table')
     .factory('tableFactory', tableFactory);
 
-  function tableFactory() {
+  tableFactory.$inject = ['dataService'];
+  function tableFactory(dataService) {
     var service = {
+      'sort': sort,
+      'total': total,
       'parse': parse
     };
     return service;
@@ -45,6 +48,36 @@
       merges = kbo.merges;
       special = extractSpecial(special);
       return new Table(data, special, merges, fixedRowsTop, fixedColumnsLeft);
+    }
+
+    /**
+     * 表格合计方法
+     * @param  {String} sheetId 表id
+     * @param  {String} type 行列
+     * @param  {String} method 方法名
+     * @return {Promise} 
+     */
+    function total(sheetId, type, method) {
+      var params = {'sheetId': sheetId, 'type': type, 'method': method};
+      return dataService.get('tableTotal', params).then(function(source) {
+        return parse(source);
+      });
+    }
+
+    /**
+     * 表格后台排序, 后台有问题(column, desc, 3)
+     * @param  {Stirng} sheetId 工作表id
+     * @param  {Stirng} type 行|列
+     * @param  {Stirng} order asc|desc
+     * @param  {Number} index 行号|列号
+     * @return {Promise}
+     */
+    function sort(sheetId, type, order, index) {
+      var params = {'sheetId': sheetId, 'sortType': type,
+                    'order': order, 'index': index};
+      return dataService.get('tableSort', params).then(function(response) {
+        return parse(response.tableVO);
+      });
     }
 
     // 表格值格式化

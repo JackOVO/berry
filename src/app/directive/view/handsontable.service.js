@@ -6,10 +6,14 @@
     .module('pf.directive')
     .factory('handsontableService', handsontableService);
 
-  handsontableService.$inject = ['$rootScope', 'informationService'];
-  function handsontableService($rootScope, informationService) {
+  handsontableService.$inject = ['$rootScope', 'indicatorService', 'informationService'];
+  function handsontableService($rootScope, indicatorService, informationService) {
+    var _hd = null; // 没有人说抱歉
     var _table = null;
     var _hoverIcon = null; // 唯一激活判断
+    var _pive = { // 中转私有
+      rmcodes: []
+    };
     var _settings = { // 默认参数
       rowHeaders: true,
       colHeaders: true,
@@ -18,7 +22,8 @@
       outsideClickDeselects: false // 点击不去掉选中
     };
     var service = {
-      'settings': createSettings
+      'settings': createSettings,
+      'setHandsontable': function(handsontable){ _hd = handsontable; }
     };
     return service;
 
@@ -41,6 +46,34 @@
           // cellProperties.type = 'numeric';
           cellProperties.format = '0,0.00';
           return cellProperties;
+        },
+        contextMenu: {
+          items: {
+            'rmIndicator': {
+              name: '删除指标',
+              disabled: function() {
+                _pive.rmcodes = [];
+                var size = indicatorService.getCodesSize(), area = _hd.getSelected();
+                getAreaCood({row:area[0], col:area[1]}, {row:area[2], col:area[3]},
+                  function(row, col){
+                    var td = _hd.getCell(row, col), special = $(td).data();
+                    if (special && special.type === 'indicator') {
+                      _pive.rmcodes.push(special.code);
+                    }
+                });
+                return (size - _pive.rmcodes.length) < 1;
+              }
+            }
+          },
+          callback: function(key, opts) {
+console.info(key, opts);
+            switch(key) {
+              case 'rmIndicator':
+                if (_pive.rmcodes.length) { indicatorService.remove(_pive.rmcodes); }
+                break;
+              default: break;
+            }
+          }
         }
       };
       return angular.extend(_settings, settings);
@@ -99,6 +132,20 @@
       }).mousedown(function(e) {
         e.stopPropagation();
       }); // 阻止选中单元格
+    }
+
+    /**
+     * 获取一个区域的坐标, 提供每个点的回调
+     * @param  {Object}   start 起点
+     * @param  {Object}   end 终点
+     * @param  {Function} callback 回调
+     */
+    function getAreaCood(start, end, callback) {
+      for(var r=start.row, rlen=end.row; r<=rlen; r++) {
+        for(var c=start.col, clen=end.col; c<=clen; c++) {
+          callback(r, c);
+        }
+      }
     }
   }
 

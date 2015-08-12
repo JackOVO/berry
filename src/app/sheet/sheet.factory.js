@@ -11,6 +11,7 @@
       'parse': parse,
       'rqClose': rqClose
     };
+    Sheet.prototype.setTable = function(table){ this.table = table; };
     return service;
 
     /**

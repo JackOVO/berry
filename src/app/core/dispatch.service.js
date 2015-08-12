@@ -6,8 +6,8 @@
     .module('pf.core')
     .factory('dispatchService', dispatchService);
 
-  dispatchService.$inject = ['workbookService', 'indicatorService'];
-  function dispatchService(workbookService, indicatorService) {
+  dispatchService.$inject = ['workbookService', 'sheetService', 'indicatorService'];
+  function dispatchService(workbookService, sheetService, indicatorService) {
     var service = {
       'execution': execution,
       'getCoolMenu': function(){ return menuData; },
@@ -20,11 +20,24 @@
      * @param  {Stirng} keys 一次向上的方法名
      */
     function execution(key, keys) {
+      if (!keys.length) { return; } // 根
+
+      var fstr = keys.join('-');
 console.info(key, keys);
+
       switch(key) {
+        case 'close': workbookService.remoceNowSheet(); break;
         case 'newSheet': indicatorService.openModel('addSheet'); break;
         case 'addIn': indicatorService.openModel('syncWorkBook'); break;
-        case 'close': workbookService.remoceNowSheet(); break;
+        default: sheetService.tableSort('column', 'desc', 3); break;
+      }
+
+      switch(fstr) {
+        case 'rows-table':
+        case 'columns-table':
+          sheetService.tableTotal(keys[0], key);
+        break;
+        default: break;
       }
     }
   }

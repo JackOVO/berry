@@ -9,11 +9,12 @@
   sheetService.$inject = [
     '$rootScope',
     'sheetFactory',
+    'tableFactory',
     'conditionService',
     'userService',
     'coreCF'];
 
-  function sheetService($rootScope, sheetFactory, conditionService, userService, config) {
+  function sheetService($rootScope, sheetFactory, tableFactory, conditionService, userService, config) {
     var _spk = config.spreadKey;
     var _sheet = null; // 维护的表
     var service = {
@@ -21,6 +22,8 @@
       'setRecord': setRecord,
       'getRecord': function(key){ return getRecord(_sheet.id)[key]; },
       'getSheetId': function() { return _sheet.id; },
+      'tableSort': tableSort,
+      'tableTotal': tableTotal,
       'closeSheet': closeSheet
     };
     return service;
@@ -67,6 +70,34 @@
     function getRecord(sheetId) {
       var sRecord = userService.getRecord(sheetId);
       return sRecord || {};
+    }
+
+    /**
+     * 表格数值合计
+     * @param  {Stirng} type 方向
+     * @param  {Stirng} method 方法
+     * @return {Promise}
+     */
+    function tableTotal(type, method) {
+      var sheetId = _sheet.id;
+      return tableFactory.total(sheetId, type, method).then(function(table) {
+        _sheet.setTable(table); // 更新表, 关于新增值的变更
+      });
+    }
+
+    /**
+     * 表格数值排序
+     * @param  {[type]} type  [description]
+     * @param  {[type]} order [description]
+     * @param  {[type]} index [description]
+     * @return {[type]}       [description]
+     */
+    function tableSort(type, order, index) {
+      var sheetId = _sheet.id;
+      return tableFactory.sort(sheetId, type, order, index).then(function(table) {
+        // 后台只提供了数据, 所以这块的更新要注意
+        _sheet.setTable(table);
+      });
     }
   }
 
