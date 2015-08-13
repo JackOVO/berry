@@ -93,6 +93,9 @@ console.info(key, opts);
             $(td).data(colSpecial); // 存
             IndicatorRenderer.apply(that, arguments);
             break;
+          case 'total':
+            TotalRenderer.apply(that, arguments);
+            break;
         }
       }
     };

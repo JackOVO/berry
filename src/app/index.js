@@ -33,11 +33,11 @@
     function startLogic($rootScope, userService, workbookService, config) {
       // 控制器加载完成, 可以初始化
       $rootScope.$on('$stateChangeSuccess', function(e) {
-console.info('run');
+// console.info('run');
         // 用户初始化
         userService.initialize().then(function(user) {
           var dime = user.record.dime; // 维度记录
-console.info(user);
+// console.info(user);
 if (config.debug === true) { dime = config.dime; }
           // 工作簿初始化
           workbookService.initialize(dime).then(function(workbook) {
