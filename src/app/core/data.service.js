@@ -82,7 +82,7 @@
     // 正确完成后回调
     function completeCallBack(response) {
       var data = response.data;
-console.info('DaTa', new Date().getTime(), data);
+console.warn('DaTa', new Date().getTime(), data);
       // 错误信息拦截
       return errorService.interception(data); // 注意返回
     }
