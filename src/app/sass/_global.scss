@@ -312,6 +312,9 @@ $xxlarge-range: (120.063em, 99999999em) !default;
     .width-transition {
       @include single-transition(width);
     }
+    .mr-transition {
+      @include single-transition(margin-right);
+    }
     .height-transition {
       @include single-transition(height);
     }

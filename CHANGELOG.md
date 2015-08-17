@@ -228,3 +228,4 @@
 # v0.1.3 容器指令 2015/08/13
  - **指令模块**
   - containerDriective 容器指令, 划分区域, 可以伸缩, 最大化.
+  - 修复handontable针对容器宽度获取不正确的bug, 展开info时级联container元素margin-left.

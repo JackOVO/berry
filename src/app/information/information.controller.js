@@ -28,8 +28,13 @@
     // 饿
     $scope.$watch('isOpen', function(isOpen) {
       if (isOpen === undefined) { return; }
-      if (isOpen === true) { that.style = {'display':'block'};
-      } else { that.style = {'width':0, 'padding':0, 'display':'block'}; }
+      if (isOpen === true) {
+        that.style = {'display':'block'};
+        $('#plat-body-container').css('margin-right', '290px');
+      } else {
+        that.style = {'width':0, 'padding':0, 'display':'block'};
+        $('#plat-body-container').css('margin-right', '0');
+      }
       $rootScope.$broadcast(_spk.containerSizeChange);
     });
 
