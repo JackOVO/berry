@@ -13,13 +13,14 @@
       scope: {'data': '='},
       link: function(scope, element, attrs) {
 //console.info(element);
+        var _spk = config.spreadKey;
         var _handsontable = null;
 
         scope.$watch('data', function(data) {
           if (!data) { return; }
 
           var width = element.width(), height = element.height();
-//console.info(width, height);
+console.info(element, width, height);
           var settings = angular.extend({
             // stretchH: 'all',
             width: width,
@@ -60,22 +61,21 @@
 //   handsontableService.setHandsontable(_handsontable);
 // });
 
-// // 调整大小他妈的
-// function resizeTB() {
-//   var width = element.width(), height = element.height();
-//   _handsontable.updateSettings({
-//     width: width - 20,
-//     height: height - 20
-//   });
-// }
+// 调整大小他妈的
+function resizeTB() {
+  var width = element.width(), height = element.height();
+  _handsontable.updateSettings({
+    width: width, height: height
+  });
+   _handsontable.render();
+}
 
-// // 监听容器变更
-// scope.$on(_spk.containerSizeChange, function(){
-//   window.setTimeout(function(){
-//     resizeTB();
-//     _handsontable.render();
-//   }, 400);
-// });
+// 监听容器变更
+scope.$on(_spk.containerSizeChange, function(){
+  window.setTimeout(function(){
+    resizeTB();
+  }, 400);
+});
 
 // // 监听窗口
 // $(window).resize(function() { resizeTB(); });
