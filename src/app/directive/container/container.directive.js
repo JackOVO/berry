@@ -1,148 +1,134 @@
-// (function() {
-//   'use strict';
-//   // 容器指令, 划分区域, 可以伸缩, 放大
+(function() {
+  'use strict';
+  // 容器指令, 划分区域, 可以伸缩, 放大
+  
+  angular
+    .module('pf.directive')
+    .directive('row', rowDriective)
+    .controller('containerCtrl', containerCtrl)
+    .directive('container', containerDirective);
 
-//   angular
-//     .module('pf.directive')
-//     .directive('row', rowDriective)
-//     .controller('containerCtrl', containerCtrl)
-//     .directive('container', containerDirective)
-//     .factory('containerService', containerService);
+  containerCtrl.$inject = ['$scope', 'coreCF'];
+  function containerCtrl($scope, config) {
+    var _spk = config.spreadKey;
+    var _countHeight = 0; // 容器总高度
+    var _rowScopes = []; // 行作用域
 
-//   containerService.$inject = ['$rootScope'];
-//   function containerService($rootScope) {
-//     var service = {};
-//     return service;
-//   }
+    var that = this;
+    that.pushRowScope = pushRowScope;
+    that.setRowHeight = setRowHeight;
+    that.setCountHeight = setCountHeight;
+    that.getRowScopeByName = getRowScopeByName;
 
-//   containerCtrl.$inject = ['$scope'];
-//   function containerCtrl($scope) {
-//     var _rowScopes = [];
-//     var _countHeight = 0;
-//     var that = this;
+    // 设置容器总高度
+    function setCountHeight(height){
+      _countHeight = height;
+      rendar(_countHeight);
+    }
+    // 添加行作用域
+    function pushRowScope(scope) {
+      _rowScopes.push(scope);
+      return _rowScopes.length;
+    }
+    // 平均渲染
+    function rendar(height) {
+      var showScope = [];
+      angular.forEach(_rowScopes, function(scope, index) {
+        if (!scope.name) { scope.name = 'r' + index; }
+        if (scope.show === true) { showScope.push(scope); }
+      });
+      var showCount = showScope.length;
+      var remainder = height % showCount; // 总高/总显示数
+      var average = (height - remainder) / showCount;
 
-//     that.getBrother = getBrother;
-//     that.addRowScope = addRowScope;
-//     that.setCountHeight = setCountHeight;
-//     that.getCountHeight = function(){ return _countHeight; };
+      angular.forEach(showScope, function(scope, index) {
+        scope.height = average;
+        if (index === showCount - 1) { scope.height += remainder; }
+      });
+      $scope.$broadcast(_spk.containerSizeChange);
+    }
+    // 获取指定名作用域
+    function getRowScopeByName(name) {
+      for (var i = 0, ilen = _rowScopes.length; i < ilen; i++) {
+        var rowScope = _rowScopes[i];
+        if (rowScope.name === name) { return rowScope; }
+      }
+    }
+    // 获取指定行下标
+    function getRowIndexByName(name) {
+      for (var i = 0, ilen = _rowScopes.length; i < ilen; i++) {
+        var rowScope = _rowScopes[i];
+        if (rowScope.name === name) { return i; }
+      }
+      return -1;
+    }
+    // 切换指定作用域显示状态
+    function toggleRowStatus(name) {
+      var rowScope = getRowScopeByName(name);
+      if (!rowScope) { return; }
+      rowScope.show = !rowScope.show;
+      rendar(_countHeight);
+    }
+    // 设置定制行高度
+    function setRowHeight(name, height) {
+      var nowRowIndex = getRowIndexByName(name);
+      if (nowRowIndex === -1) { return; }
+      var nowRow = _rowScopes[nowRowIndex];
+      var brotherRow = _rowScopes[nowRowIndex - 1] || _rowScopes[nowRowIndex + 1];
 
-//     // 添加行作用域
-//     function addRowScope(scope) {
-//       _rowScopes.push(scope);
-//       return _rowScopes.length;
-//     }
-//     // 设置总高度
-//     function setCountHeight(height) {
-//       _countHeight = height;
-//       render();
-//     }
-//     // 计算个数
-//     function countAttr(key, value) {
-//       var count = 0;
-//       angular.forEach(_rowScopes, function(scope, index) {
-//         if (scope[key] === value) { count++; }
-//       });
-//       return count;
-//     }
-//     // 获取行作用域
-//     function getRowByName(name) {
-//       for (var i = 0, ilen = _rowScopes.length; i < ilen; i++) {
-//         if (_rowScopes[i].name === name) { return _rowScopes[i]; }
-//       }
-//       return null;
-//     }
-//     // 渲染
-//     function render() {
-//       var showCount = countAttr('show', true);
-//       var remainder = _countHeight % showCount; // 总高/总显示数
-//       var average = (_countHeight - remainder) / showCount;
+      var amount = nowRow.height - height;
+      if (height < 100 || brotherRow.height + amount < 100) { return; }
+      nowRow.height = height;
+      brotherRow.height = brotherRow.height + amount;
+      $scope.$broadcast(_spk.containerSizeChange);
+    }
+  }
 
-//       angular.forEach(_rowScopes, function(scope, index) {
-//         if (!scope.name) { scope.name = 'r' + index; }
-//         if (scope.show === true) { scope.height = average; } // 设置高度
-//       });
-//     }
-//     // 指定行切换
-//     function toggle(name, show) {
-//       var rowScope = getRowByName(name);
-//       if (rowScope) { rowScope.show = show; }
-//       render();
-//     }
-//     // 获取我和我兄弟
-//     function getBrother(name) {
-//       for (var i = 0, ilen = _rowScopes.length; i < ilen; i++) {
-//         if (_rowScopes[i].name === name) {
-//           var iii = _rowScopes[i];
-//           var brother = _rowScopes[i - 1] || _rowScopes[i + 1];
-//           return [iii, brother]
-//         }
-//       }
-//     }
-//   }
+  function containerDirective() {
+    return {
+      controller: 'containerCtrl',
+      link: function(scope, element, attrs, ctrl) {
+        var height = element.height();
+        ctrl.setCountHeight(height);
+      }
+    }
+  }
 
-//   function containerDirective() {
-//     return {
-//       controller: 'containerCtrl',
-//       link: function(scope, element, attrs, ctrl) {
-//         element.css('border', '1px solid red');
-//         var height = element.height();
-//         ctrl.setCountHeight(height);
+  function rowDriective() {
+    return {
+      scope: true,
+      replace: true,
+      transclude: true,
+      require: '^container',
+      template: '<div ng-transclude></div>',
+      link: function(scope, element, attrs, ctrl) {
+        // element.css('padding-top', '10px');
+        scope.show = (attrs.show !== 'false');
+        scope.$watch('height', function(height) {
+          element.height(height);
+        });
+        scope.$watch('show', function(show) {
+          if (show === true) { element.show(); }
+            else { element.hide(); }
+        });
 
-//         console.info('-container', height);
+        var index = ctrl.pushRowScope(scope);
 
-//         $(window).resize(function() {
-//           var height = element.height();
-//           ctrl.setCountHeight(height);
-//         });
-//       }
-//     };
-//   }
+        if (index !== 1) { // 不是第一个
+          var tborder = $('<div class="bx"></div>');
+          tborder.prependTo(element).mousedown(function(e) {
+            var originY = e.pageY;
+            var nowHeight = ctrl.getRowScopeByName(scope.name).height;
 
-//   function rowDriective() {
-//     return {
-//       scope: true,
-//       replace: true,
-//       transclude: true,
-//       require: '^container',
-//       template: '<div ng-transclude></div>',
-//       link: function(scope, element, attrs, ctrl) {
-//         element.css('outline', '1px solid green');
-//         scope.show = (attrs.show !== 'false');
-//         var index = ctrl.addRowScope(scope);
+            $('body').mousemove(function(e) {
+              var amount = originY - e.pageY;
+              ctrl.setRowHeight(scope.name, nowHeight + amount);
+              scope.$apply();
+            }).one('mouseup', function(){ $(this).unbind('mousemove'); });
+          });
+        }
+      }
+    };
+  }
 
-//         if (index !== 1) { // 不是第一个
-//           var tborder = $('<div class="bx"></div>');
-//           tborder.prependTo(element).mousedown(function(e) {
-//             // 固定
-//             var pageY = e.pageY;
-//             var count = ctrl.getCountHeight();
-//             var brothers = ctrl.getBrother(scope.name);
-//             var ah = brothers[0].height;
-//             var bh = brothers[1].height;
-
-//             $('body').mousemove(function(e) {
-//               var amount = pageY - e.pageY;
-// // console.info('amount', amount);
-//               if (ah + amount <= 100 || bh - amount <= 100) { return; }
-//               brothers[0].height = ah + amount;
-//               brothers[1].height = bh - amount;
-//               scope.$apply();
-
-//             }).mouseup(function(){ $('body').unbind('mousemove'); });
-
-//           });
-//         }
-
-//         scope.$watch('height', function(height) {
-//           element.height(height);
-//         });
-
-//         scope.$watch('show', function(show) {
-//           if (show === true) { element.show(); }
-//             else { element.hide(); }
-//         });
-//       }
-//     };
-//   }
-
-// })();
+})();

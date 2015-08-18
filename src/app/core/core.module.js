@@ -21,12 +21,13 @@
         'login': 'login.do',
         'sheet': 'sheet.do',
         'initial': 'jump.do',
+        'charts': 'charts.do',
         'search': 'search.do',
         'tableSort': 'sort.do',
         'tableTotal': 'calc.do',
         'recommend': 'recmd.do',
+        'information': 'info.do',
         'userInfo': 'userInfo.do',
-        'information': 'info.do'
       },
       // 监听事件的关键字
       spreadKey: {

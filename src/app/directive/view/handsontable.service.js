@@ -12,7 +12,8 @@
     var _table = null;
     var _hoverIcon = null; // 唯一激活判断
     var _pive = { // 中转私有
-      rmcodes: []
+      rmcodes: [],
+      afterSelectionEndCallback: [] // 选中结束鼠标抬起回调数组
     };
     var _settings = { // 默认参数
       rowHeaders: true,
@@ -47,6 +48,9 @@
           cellProperties.format = '0,0.00';
           return cellProperties;
         },
+        afterSelectionEnd: function(r, c, r2, c2) {
+          console.info(r, c, r2, c2);
+        },
         contextMenu: {
           items: {
             'rmIndicator': {
@@ -61,7 +65,9 @@
                       _pive.rmcodes.push(special.code);
                     }
                 });
-                return (size - _pive.rmcodes.length) < 1;
+                var indicSize = _pive.rmcodes.length;
+                // 指标数不能为0, 不能删除所有指标
+                return indicSize === 0 || size - indicSize < 1;
               }
             }
           },
@@ -78,6 +84,8 @@ console.info(key, opts);
       };
       return angular.extend(_settings, settings);
     }
+
+    /**-------------------------渲染器定义-------------------------**/
 
     // 统一渲染
     function PolicemenRenderer(instance, td, row, col, prop, value) {
@@ -138,14 +146,16 @@ console.info(key, opts);
     }
 
     /**
-     * 获取一个区域的坐标, 提供每个点的回调
+     * 获取一个区域的坐标, 提供每个点的回调, 不分开始结束
      * @param  {Object}   start 起点
      * @param  {Object}   end 终点
      * @param  {Function} callback 回调
      */
     function getAreaCood(start, end, callback) {
-      for(var r=start.row, rlen=end.row; r<=rlen; r++) {
-        for(var c=start.col, clen=end.col; c<=clen; c++) {
+      for(var r = (start.row < end.row ? start.row : end.row),
+           rlen = r + Math.abs(start.row - end.row); r <= rlen; r++) {
+        for(var c = (start.col < end.col ? start.col : end.col),
+             clen = c + Math.abs(start.col - end.col); c<=clen; c++) {
           callback(r, c);
         }
       }

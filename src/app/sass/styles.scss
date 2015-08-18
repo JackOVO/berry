@@ -131,7 +131,6 @@ $plat-body-footer-bg-color: #f0f0f0;
     #plat-body-container {
       height: 100%;
       overflow: hidden;
-      outline: 1px solid red;
     }
 
     #plat-body-footer {
@@ -219,11 +218,11 @@ $plat-body-footer-bg-color: #f0f0f0;
 .bx {
   height: 7px;
   width: 100%;
+  position: relative;
+  z-index: 1;
   background-color: #CBCCCD;
   cursor: n-resize;
   //margin-top: 10px;
   //border-top: 3px solid rgb(245, 247, 249);
   // border-bottom: 3px solid #ffffff;
-  position: relative;
-  z-index: 2;
 }

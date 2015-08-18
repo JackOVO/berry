@@ -2,6 +2,6 @@
   'use strict';
 
   angular
-    .module('pf.table', []);
+    .module('pf.table', ['pf.charts']);
 
 })();

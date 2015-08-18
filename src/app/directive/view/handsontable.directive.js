@@ -15,17 +15,15 @@
         var _handsontable = null;
         var _spk = config.spreadKey;
         var _father = element.parent();
-console.info(_father);
 
           scope.$watch('data', function(data) {
             if (!data) { return; }
-            var width = _father.width(), height = _father.height();
-console.info('_____________', width, height);
+            var width = _father.innerWidth(), height = _father.height();
 
             var settings = angular.extend({
-              // stretchH: 'all',
-              width: width,
-              height: height
+              //stretchH: 'all',
+              width: width - 20,
+              height: height - 10
             }, handsontableService.settings(data));
 
             // 变更就重新生成
@@ -35,24 +33,21 @@ console.info('_____________', width, height);
           });
 
         // 调整大小他妈的
-        function resizeTB() {
+        function resizeHandsontable() {
           var width = _father.innerWidth(), height = _father.height();
-        console.info(_father, width);
-          _handsontable.updateSettings({
-            width: width - 20, height: height
-          });
+          element.width(width - 20).height(height - 10);
           _handsontable.render();
         }
 
         // 监听容器变更
-        scope.$on(_spk.containerSizeChange, function(){
+        scope.$on(_spk.containerSizeChange, function(e, timeout){
           window.setTimeout(function(){
-            resizeTB();
-          }, 450);
+            resizeHandsontable();
+          }, timeout || 1);
         });
 
         // 监听窗口
-        $(window).resize(function() { resizeTB(); });
+        $(window).resize(function() { resizeHandsontable(); });
       }
     };
   }

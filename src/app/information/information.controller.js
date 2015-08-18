@@ -35,7 +35,8 @@
         that.style = {'width':0, 'padding':0, 'display':'block'};
         $('#plat-body-container').css('margin-right', '0');
       }
-      $rootScope.$broadcast(_spk.containerSizeChange);
+      $rootScope.$broadcast(_spk.containerSizeChange, 400);
+      console.info('4');
     });
 
     // 切换开关, 用Service控制
