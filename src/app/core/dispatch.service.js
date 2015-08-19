@@ -6,8 +6,15 @@
     .module('pf.core')
     .factory('dispatchService', dispatchService);
 
-  dispatchService.$inject = ['workbookService', 'sheetService', 'indicatorService'];
-  function dispatchService(workbookService, sheetService, indicatorService) {
+  dispatchService.$inject = [
+    '$rootScope',
+    'workbookService',
+    'sheetService',
+    'indicatorService',
+    'containerService',
+    'chartService'];
+
+  function dispatchService($rootScope, workbookService, sheetService, indicatorService, containerService, chartService) {
     var service = {
       'execution': execution,
       'getCoolMenu': function(){ return menuData; },
@@ -25,18 +32,24 @@
       var fstr = keys.join('-');
 console.info(key, keys);
 
+      // 点击判断
       switch(key) {
         case 'close': workbookService.remoceNowSheet(); break;
         case 'newSheet': indicatorService.openModel('addSheet'); break;
         case 'addIn': indicatorService.openModel('syncWorkBook'); break;
-        default: sheetService.tableSort('column', 'desc', 3); break;
+        default: break;
       }
 
+      // 父判断
       switch(fstr) {
         case 'rows-table':
         case 'columns-table':
           sheetService.tableTotal(keys[0], key);
         break;
+        case 'chart':
+          containerService.switchRow('r1', true);
+          chartService.getCharts(key);
+          $rootScope.$apply();
         default: break;
       }
     }

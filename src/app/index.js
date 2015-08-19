@@ -26,6 +26,18 @@
         });
 
       $urlRouterProvider.otherwise('/');
+
+// var container = document.getElementById('basic_example');
+// var data = function () {
+//  return Handsontable.helper.createSpreadsheetData(10, 12);
+// };
+
+// var hot = new Handsontable(container, {
+//   data: data(),
+//   colHeaders: true,
+//   rowHeaders: true
+// });
+
     }
 
     // 启动逻辑

@@ -6,7 +6,26 @@
     .module('pf.directive')
     .directive('row', rowDriective)
     .controller('containerCtrl', containerCtrl)
-    .directive('container', containerDirective);
+    .directive('container', containerDirective)
+    .factory('containerService', containerService);
+
+  containerService.$inject = ['$rootScope', 'coreCF'];
+  function containerService($rootScope, config) {
+    var _spk = config.spreadKey;
+    var service = {
+      'switchRow': switchRow
+    };
+    return service;
+
+    /**
+     * 开关容器行
+     * @param  {String} name 自定义名或行index
+     * @param  {Boolean} show 可选
+     */
+    function switchRow(name, show) {
+      $rootScope.$broadcast(_spk.switchContainerRow, [name, show]);
+    }
+  }
 
   containerCtrl.$inject = ['$scope', 'coreCF'];
   function containerCtrl($scope, config) {
@@ -18,7 +37,13 @@
     that.pushRowScope = pushRowScope;
     that.setRowHeight = setRowHeight;
     that.setCountHeight = setCountHeight;
+    that.toggleRowStatus = toggleRowStatus;
     that.getRowScopeByName = getRowScopeByName;
+
+    // 开关row监听
+    $scope.$on(_spk.switchContainerRow, function(e, arg) {
+      that.toggleRowStatus(arg[0], arg[1]);
+    });
 
     // 设置容器总高度
     function setCountHeight(height){
@@ -63,10 +88,10 @@
       return -1;
     }
     // 切换指定作用域显示状态
-    function toggleRowStatus(name) {
+    function toggleRowStatus(name, show) {
       var rowScope = getRowScopeByName(name);
       if (!rowScope) { return; }
-      rowScope.show = !rowScope.show;
+      rowScope.show = show !== undefined ? show : !rowScope.show;
       rendar(_countHeight);
     }
     // 设置定制行高度
@@ -100,7 +125,7 @@
       replace: true,
       transclude: true,
       require: '^container',
-      template: '<div ng-transclude></div>',
+      template: '<div ng-transclude style=""></div>',
       link: function(scope, element, attrs, ctrl) {
         // element.css('padding-top', '10px');
         scope.show = (attrs.show !== 'false');

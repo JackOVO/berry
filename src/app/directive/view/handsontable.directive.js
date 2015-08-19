@@ -9,7 +9,7 @@
   function handsontableDirective(handsontableService, config) {
     return {
       replace: true,
-      template: '<div></div>',
+      template: '<div style="height:100%;"></div>',
       scope: {'data': '='},
       link: function(scope, element, attrs) {
         var _handsontable = null;

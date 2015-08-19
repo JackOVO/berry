@@ -35,10 +35,11 @@
       <row>
         <handsontable data="sc.sheet.table"></handsontable>
       </row>
-      <row>
-        <echarts></echarts>
+      <row show="false">
+        <div style="height:100%;" ng-controller="chartCtrl as cc">
+          <echarts chart="cc.charts"></echarts>
+        </div>
       </row>
-      <!-- <handsontable data="sc.sheet.table"></handsontable> -->
     </div><!-- 内容容器结束 -->
 
     <div id="plat-body-footer">

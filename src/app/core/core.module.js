@@ -41,9 +41,11 @@
 
         'createRightMenu': 'crm',
         'toggleRightMenu': 'trm', // 切换显示隐藏状态
+        'switchContainerRow': 'swr', // 开关容器行
         'bridgeNow': 'bn', // 桥梁
         // 变更通知
         'sheetChange': 'sc',
+        'chartsChange': 'cc1',
         'workbookChange': 'wc',
         'conditionChange': 'cc',
         // 状态通知

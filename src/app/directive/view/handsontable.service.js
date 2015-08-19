@@ -24,6 +24,7 @@
     };
     var service = {
       'settings': createSettings,
+      'addAfterSelectionEnd': addAfterSelectionEndCallback,
       'setHandsontable': function(handsontable){ _hd = handsontable; }
     };
     return service;
@@ -49,26 +50,16 @@
           return cellProperties;
         },
         afterSelectionEnd: function(r, c, r2, c2) {
-          console.info(r, c, r2, c2);
+          var cbary = _pive.afterSelectionEndCallback;
+          for (var i = 0, ilen = cbary.length; i < ilen; i++) {
+            cbary[i](r, c, r2, c2);
+          }
         },
         contextMenu: {
           items: {
             'rmIndicator': {
               name: '删除指标',
-              disabled: function() {
-                _pive.rmcodes = [];
-                var size = indicatorService.getCodesSize(), area = _hd.getSelected();
-                getAreaCood({row:area[0], col:area[1]}, {row:area[2], col:area[3]},
-                  function(row, col){
-                    var td = _hd.getCell(row, col), special = $(td).data();
-                    if (special && special.type === 'indicator') {
-                      _pive.rmcodes.push(special.code);
-                    }
-                });
-                var indicSize = _pive.rmcodes.length;
-                // 指标数不能为0, 不能删除所有指标
-                return indicSize === 0 || size - indicSize < 1;
-              }
+              disabled: rmIndicatorDisableCheck
             }
           },
           callback: function(key, opts) {
@@ -83,6 +74,32 @@ console.info(key, opts);
         }
       };
       return angular.extend(_settings, settings);
+    }
+
+    /**
+     * 添加选中事件回调函数
+     * @param {Function} callback 回调方法
+     */
+    function addAfterSelectionEndCallback(callback) {
+      if (angular.isFunction(callback)) {
+        _pive.afterSelectionEndCallback.push(callback);
+      }
+    }
+
+    // 菜单禁用验证
+    function rmIndicatorDisableCheck() {
+      _pive.rmcodes = [];
+      var size = indicatorService.getCodesSize(), area = _hd.getSelected();
+      getAreaCood({row:area[0], col:area[1]}, {row:area[2], col:area[3]},
+        function(row, col){
+          var td = _hd.getCell(row, col), special = $(td).data();
+          if (special && special.type === 'indicator') {
+            _pive.rmcodes.push(special.code);
+          }
+      });
+      var indicSize = _pive.rmcodes.length;
+      // 指标数不能为0, 不能删除所有指标
+      return indicSize === 0 || size - indicSize < 1;
     }
 
     /**-------------------------渲染器定义-------------------------**/
