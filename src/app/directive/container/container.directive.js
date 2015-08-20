@@ -34,6 +34,7 @@
     var _rowScopes = []; // 行作用域
 
     var that = this;
+    that.rendar = rendar;
     that.pushRowScope = pushRowScope;
     that.setRowHeight = setRowHeight;
     that.setCountHeight = setCountHeight;
@@ -70,7 +71,10 @@
         scope.height = average;
         if (index === showCount - 1) { scope.height += remainder; }
       });
-      $scope.$broadcast(_spk.containerSizeChange);
+      // 执行顺序关系到拿到的容器大小
+      setTimeout(function() {
+        $scope.$broadcast(_spk.containerSizeChange);
+      }, 1);
     }
     // 获取指定名作用域
     function getRowScopeByName(name) {
@@ -105,7 +109,10 @@
       if (height < 100 || brotherRow.height + amount < 100) { return; }
       nowRow.height = height;
       brotherRow.height = brotherRow.height + amount;
-      $scope.$broadcast(_spk.containerSizeChange);
+      // 执行顺序关系到拿到的容器大小
+      setTimeout(function() {
+        $scope.$broadcast(_spk.containerSizeChange);
+      }, 1);
     }
   }
 
@@ -115,11 +122,17 @@
       link: function(scope, element, attrs, ctrl) {
         var height = element.height();
         ctrl.setCountHeight(height);
+
+        $(window).resize(function() {
+          height = element.height();
+          ctrl.rendar(height);
+        });
       }
     }
   }
 
-  function rowDriective() {
+  rowDriective.$inject = ['coreCF'];
+  function rowDriective(config) {
     return {
       scope: true,
       replace: true,
@@ -127,6 +140,7 @@
       require: '^container',
       template: '<div ng-transclude style=""></div>',
       link: function(scope, element, attrs, ctrl) {
+        var _spk = config.spreadKey;
         // element.css('padding-top', '10px');
         scope.show = (attrs.show !== 'false');
         scope.$watch('height', function(height) {
@@ -141,6 +155,15 @@
 
         if (index !== 1) { // 不是第一个
           var tborder = $('<div class="bx"></div>');
+          var closeBtn = $('<i class="icon-btn icon-wuclose"></i>').appendTo(tborder);
+
+          // 关闭
+          closeBtn.click(function() {
+            ctrl.toggleRowStatus(scope.name, false);
+            scope.$broadcast(_spk.closeContainerRow, scope.name);
+            scope.$apply();
+          });
+
           tborder.prependTo(element).mousedown(function(e) {
             var originY = e.pageY;
             var nowHeight = ctrl.getRowScopeByName(scope.name).height;

@@ -44,8 +44,8 @@ $icon-container-width: rem-clac(16);
   }
 
   // /assets/images/
-  .icon-sprite, .icon-add-search, .icon-arrow, .icon-background, .icon-blod, .icon-broken, .icon-carry, .icon-color, .icon-column, .icon-cross, .icon-curve, .icon-del, .icon-down, .icon-e, .icon-fail, .icon-file, .icon-filter, .icon-format, .icon-info, .icon-italics, .icon-left, .icon-less, .icon-middle, .icon-percent, .icon-pie, .icon-refresh, .icon-right, .icon-row, .icon-small-arrow, .icon-small-close, .icon-strikethrough {
-    background-image: url('/assets/images/icon-sc54e8b19ef.png');
+  .icon-sprite, .icon-add-search, .icon-arrow, .icon-background, .icon-blod, .icon-broken, .icon-carry, .icon-color, .icon-column, .icon-cross, .icon-curve, .icon-del, .icon-down, .icon-e, .icon-fail, .icon-file, .icon-filter, .icon-format, .icon-info, .icon-italics, .icon-left, .icon-less, .icon-middle, .icon-percent, .icon-pie, .icon-refresh, .icon-right, .icon-row, .icon-small-arrow, .icon-small-close, .icon-strikethrough, .icon-wuclose, .icon-wuxian {
+    background-image: url('/assets/images/icon-sdcdcecf3f5.png');
     background-repeat: no-repeat;
   }
 
@@ -233,6 +233,18 @@ $icon-container-width: rem-clac(16);
     background-position: 0 -462px;
     height: 16px;
     width: 16px;
+  }
+
+  .icon-wuclose {
+    background-position: 0 -478px;
+    height: 15px;
+    width: 15px;
+  }
+
+  .icon-wuxian {
+    background-position: 0 -493px;
+    height: 9px;
+    width: 17px;
   }
 
 

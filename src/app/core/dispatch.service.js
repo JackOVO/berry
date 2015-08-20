@@ -48,8 +48,10 @@ console.info(key, keys);
         break;
         case 'chart':
           containerService.switchRow('r1', true);
+          sheetService.setRecord('chartRow', true);
+
           chartService.getCharts(key);
-          $rootScope.$apply();
+          // $rootScope.$apply();
         default: break;
       }
     }
@@ -119,18 +121,17 @@ console.info(key, keys);
     {'key': 'chart', 'text': '图表', 'childs': [
       {'key': 'Line', 'text': '折线图'},
       {'key': 'StackLine', 'text': '堆积折线图'},
-      {'type': 'line'},
-      {'key': 'Bar', 'text': '柱形图'},
-      {'key': 'StackBar', 'text': '堆积柱形图'},
-      {'type': 'line'},
-      {'key': 'RotateBar', 'text': '条形图'},
-      {'key': 'StackRotateBar', 'text': '堆积条形图'},
-      {'type': 'line'},
       {'key': 'Area', 'text': '面积图'},
       {'key': 'StackArea', 'text': '堆积面积图'},
       {'type': 'line'},
+      {'key': 'Bar', 'text': '柱形图'},
+      {'key': 'StackBar', 'text': '堆积柱形图'},
+      {'key': 'RotateBar', 'text': '条形图'},
+      {'key': 'StackRotateBar', 'text': '堆积条形图'},
+      {'type': 'line'},
       {'key': 'Pie', 'text': '饼图'},
       {'key': 'Ring', 'text': '环形图'},
+      {'type': 'line'},
       {'key': 'Radar', 'text': '雷达图'},
       {'key': 'FillRadar', 'text': '填充雷达图'}
     ]},

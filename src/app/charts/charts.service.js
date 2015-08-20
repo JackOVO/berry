@@ -8,9 +8,11 @@
   chartService.$inject = ['$rootScope', 'dataService', 'sheetService', 'coreCF'];
   function chartService($rootScope, dataService, sheetService, config) {
     var _spk = config.spreadKey;
+    var _chartCache = {}; // 图表缓存
     var service = {
       'getCharts': getCharts,
-      'getAreaCharts': getChartsData
+      'getAreaCharts': getChartsData,
+      'getChartById': function(id){ return _chartCache[id]; }
     };
     return service;
 
@@ -43,6 +45,9 @@
 
       return dataService.get('charts', params).then(function(source) {
         var chart = {'type': type, 'data': source};
+        var sheetId = sheetService.getSheetId();
+        _chartCache[sheetId] = chart; // 缓存上
+
         $rootScope.$broadcast(_spk.chartsChange, chart);
         return source;
       });

@@ -38,6 +38,7 @@
         'InfoIsOpenChange': 'iic',
         'getRecommendChange': 'grc',
         'containerSizeChange': 'csc',
+        'closeContainerRow': 'ccr',
 
         'createRightMenu': 'crm',
         'toggleRightMenu': 'trm', // 切换显示隐藏状态

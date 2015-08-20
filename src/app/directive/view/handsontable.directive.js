@@ -36,7 +36,7 @@
         function resizeHandsontable() {
           var width = _father.innerWidth(), height = _father.height();
           element.width(width - 20).height(height - 10);
-          _handsontable.render();
+          if(_handsontable) { _handsontable.render(); }
         }
 
         // 监听容器变更
