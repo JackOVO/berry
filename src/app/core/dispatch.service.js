@@ -49,9 +49,7 @@ console.info(key, keys);
         case 'chart':
           containerService.switchRow('r1', true);
           sheetService.setRecord('chartRow', true);
-
           chartService.getCharts(key);
-          // $rootScope.$apply();
         default: break;
       }
     }
