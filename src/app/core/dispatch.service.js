@@ -12,9 +12,10 @@
     'sheetService',
     'indicatorService',
     'containerService',
+    'handsontableService',
     'chartService'];
 
-  function dispatchService($rootScope, workbookService, sheetService, indicatorService, containerService, chartService) {
+  function dispatchService($rootScope, workbookService, sheetService, indicatorService, containerService, handsontableService, chartService) {
     var service = {
       'execution': execution,
       'getCoolMenu': function(){ return menuData; },
@@ -31,7 +32,6 @@
 
       var fstr = keys.join('-');
 console.info(key, keys);
-
       // 点击判断
       switch(key) {
         case 'close': workbookService.remoceNowSheet(); break;
@@ -45,11 +45,16 @@ console.info(key, keys);
         case 'rows-table':
         case 'columns-table':
           sheetService.tableTotal(keys[0], key);
-        break;
+          break;
         case 'chart':
           containerService.switchRow('r1', true);
           sheetService.setRecord('chartRow', true);
           chartService.getCharts(key);
+          break;
+        case 'handsontable-bg':
+          var style = {'background-color': key};
+          handsontableService.addSelectedAreaStyle(style);
+          break;
         default: break;
       }
     }

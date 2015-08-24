@@ -18,13 +18,15 @@
     /**
      * 表格类, handsontable配置映射
      * @param {Array} data 二维数组
+     * @param {Object} idmap id与坐标映射
      * @param {Array} special 特殊坐标的配置
      * @param {Array} mergeCells 合并单元格描述
      * @param {Number} fixedRowsTop 冻结行
      * @param {Number} fixedColumnsLeft 冻结列
      */
-    function Table(data, special, mergeCells, fixedRowsTop, fixedColumnsLeft) {
+    function Table(data, idmap, special, mergeCells, fixedRowsTop, fixedColumnsLeft) {
       this.data = data;
+      this.idmap = idmap; // 
       this.special = special;
       this.mergeCells = mergeCells;
       this.fixedRowsTop = fixedRowsTop;
@@ -37,7 +39,7 @@
      * @return {Table}
      */
     function parse(tableSouce) {
-      var data = [], merges = [];
+      var data = [], merges = [], idmap = {};
       var values = tableSouce.values;
       var special = tableSouce.infoIconPosLst;
       var fixedRowsTop = tableSouce.fixedRowsTop;
@@ -45,9 +47,10 @@
 
       var kbo = extract(values);
       data = kbo.data;
+      idmap = kbo.idmap;
       merges = kbo.merges;
       special = extractSpecial(special);
-      return new Table(data, special, merges, fixedRowsTop, fixedColumnsLeft);
+      return new Table(data, idmap, special, merges, fixedRowsTop, fixedColumnsLeft);
     }
 
     /**
@@ -101,16 +104,23 @@
      * @return {Object} ()
      */
     function extract(values) {
-      var result = { 'data': [], 'merges': [] };
-
+      var result = {'data': [], 'merges': [],
+                   'idmap': {'id':{}, 'coor':{}}};
       var row = [];
       traverseTwoDimeArray(
         values,
         function(r, rdata) { row = []; },
         function(r, c, cell) {
           if (cell === null) { cell = {}; } // 啊啊啊啊啊啊啊啊啊
+//console.info(r, c, cell.cellId);
           var value = cellFormat(cell);
           var merge = cellMerge(r, c, cell);
+
+          // 映射
+          var id = cell.cellId || r+','+c;
+          if (!result.idmap.id[r]) { result.idmap.id[r] = {}; }
+          result.idmap.id[r][c] = id;
+          result.idmap.coor[id] = r+','+c;
 
           row.push(value);
           if(merge) { result.merges.push(merge); }

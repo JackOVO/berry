@@ -24,6 +24,7 @@
     };
     var service = {
       'settings': createSettings,
+      'addSelectedAreaStyle': addSelectedAreaStyle,
       'addAfterSelectionEnd': addAfterSelectionEndCallback,
       'setHandsontable': function(handsontable){ _hd = handsontable; }
     };
@@ -86,13 +87,25 @@ console.info(key, opts);
       }
     }
 
+    /**
+     * 对选中的区域添加样式
+     * @param {Object} style
+     */
+    function addSelectedAreaStyle(style) {
+      var area = _hd.getSelected();
+      getAreaCood(area[0], area[1], area[2], area[3], function(r, c){
+          var cellId = _table.idmap['id'][r][c];
+console.info(cellId);
+      });
+    }
+
     // 菜单禁用验证
     function rmIndicatorDisableCheck() {
       _pive.rmcodes = [];
       var size = indicatorService.getCodesSize(), area = _hd.getSelected();
-      getAreaCood({row:area[0], col:area[1]}, {row:area[2], col:area[3]},
+      getAreaCood(area[0], area[1], area[2], area[3],
         function(row, col){
-          var td = _hd.getCell(row, col), special = $(td).data();
+          var meta = _hd.getCellMeta(row, col), special = meta.mydata;
           if (special && special.type === 'indicator') {
             _pive.rmcodes.push(special.code);
           }
@@ -113,14 +126,17 @@ console.info(key, opts);
       // 特殊单元格判断
       if (_table.special[row] && _table.special[row][col]) {
         var colSpecial = _table.special[row][col];
+        arguments[6]['mydata'] = colSpecial;
+
         switch(colSpecial.type) {
-          case 'indicator':
-            $(td).data(colSpecial); // 存
-            IndicatorRenderer.apply(that, arguments);
-            break;
-          case 'total':
-            TotalRenderer.apply(that, arguments);
-            break;
+          case 'indicator': IndicatorRenderer.apply(that, arguments);  break;
+          case 'total': TotalRenderer.apply(that, arguments); break; // 计算对比好难!!!
+          default: break;
+        }
+
+        // 存在自定义样式
+        if (colSpecial.style) {
+          StyleRenderer.apply(that, arguments);
         }
       }
     };
@@ -132,12 +148,13 @@ console.info(key, opts);
 
     // 指标渲染器
     function IndicatorRenderer(instance, td) {
+//console.info(arguments);
       // td.style.textAlign = 'center';
       Handsontable.renderers.HtmlRenderer.apply(this, arguments);
 
       // 保证唯一?
       if ($(td).children('.icon-btn').length) { return td; }
-      var code = $(td).data().code;
+      var code = arguments[6]['mydata'].code;
       var icon = $('<i class="icon-btn icon-info"></i>');
       var indicatorId = informationService.getNowId();
 
@@ -162,13 +179,19 @@ console.info(key, opts);
       }); // 阻止选中单元格
     }
 
+    // 样式渲染器
+    function StyleRenderer(instance, td) {
+
+    }
+
     /**
      * 获取一个区域的坐标, 提供每个点的回调, 不分开始结束
      * @param  {Object}   start 起点
      * @param  {Object}   end 终点
      * @param  {Function} callback 回调
      */
-    function getAreaCood(start, end, callback) {
+    function getAreaCood(r1, c1, r2, c2, callback) {
+      var start = {row:r1, col:c1}, end = {row:r2, col:c2};
       for(var r = (start.row < end.row ? start.row : end.row),
            rlen = r + Math.abs(start.row - end.row); r <= rlen; r++) {
         for(var c = (start.col < end.col ? start.col : end.col),
