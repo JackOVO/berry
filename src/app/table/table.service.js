@@ -6,12 +6,27 @@
     .module('pf.table')
     .factory('tableService', tableService);
 
-  tableService.$inject = ['tableFactory'];
-  function tableService(tableFactory) {
+  tableService.$inject = ['tableFactory', 'sheetService'];
+  function tableService(tableFactory, sheetService) {
+    var _cache = {};
     var service = {
-      'sieveCoord': sieveCoord
+      'sieveCoord': sieveCoord,
+      'getTempRecord': getTempRecord,
+      'setTempRecord': setTempRecord
     };
     return service;
+
+    function getTempRecord(key) {
+      var sheetId = sheetService.getSheetId();
+      var tableRecord = _cache[sheetId] || {};
+      return tableRecord[key];
+    }
+
+    function setTempRecord(key, val) {
+      var sheetId = sheetService.getSheetId();
+      if (!_cache[sheetId]) { _cache[sheetId] = {}; }
+      _cache[sheetId][key] = val;
+    }
 
     /**
      * 筛选出新增的坐标, 后台返回的是些啥, 我不愿匹配了, 乱七八糟.

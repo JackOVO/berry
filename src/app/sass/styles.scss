@@ -76,6 +76,7 @@ $plat-body-footer-bg-color: #f0f0f0;
     #plat-body-hander {
       height: $plat-body-hander-height;
       margin-top: -$plat-body-hander-height;
+      @extend .nonesel;
 
       .menu { display: inline-block; vertical-align: middle; }
       .toolbar { padding-left: 52px; }

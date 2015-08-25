@@ -6,8 +6,8 @@
     .module('pf.directive')
     .factory('handsontableService', handsontableService);
 
-  handsontableService.$inject = ['$rootScope', 'indicatorService', 'informationService'];
-  function handsontableService($rootScope, indicatorService, informationService) {
+  handsontableService.$inject = ['$rootScope', 'indicatorService', 'tableService', 'informationService'];
+  function handsontableService($rootScope, indicatorService, tableService, informationService) {
     var _hd = null; // 没有人说抱歉
     var _table = null;
     var _hoverIcon = null; // 唯一激活判断
@@ -37,6 +37,7 @@
      */
     function createSettings(table) {
       _table = table;
+pushCellStyleSpecial(); // 有些操作是要分离到表格服务中的
       var settings = {
         data: table.data,
         mergeCells: table.mergeCells,
@@ -52,9 +53,7 @@
         },
         afterSelectionEnd: function(r, c, r2, c2) {
           var cbary = _pive.afterSelectionEndCallback;
-          for (var i = 0, ilen = cbary.length; i < ilen; i++) {
-            cbary[i](r, c, r2, c2);
-          }
+          for (var i = 0, ilen = cbary.length; i < ilen; i++) { cbary[i](r, c, r2, c2); }
         },
         contextMenu: {
           items: {
@@ -93,9 +92,28 @@ console.info(key, opts);
      */
     function addSelectedAreaStyle(style) {
       var area = _hd.getSelected();
+      if (!area) { return; }
+
+      var syList = tableService.getTempRecord('syList') || {};
       getAreaCood(area[0], area[1], area[2], area[3], function(r, c){
-          var cellId = _table.idmap['id'][r][c];
-console.info(cellId);
+        var cellId = _table.getCellId(r, c);
+        syList[cellId] = angular.extend(syList[cellId] || {}, style);
+      });
+
+      tableService.setTempRecord('syList', syList);
+      pushCellStyleSpecial();
+      _hd.render();
+    }
+
+    /**
+     * 填入单元格样式特殊定义
+     * @return {[type]} [description]
+     */
+    function pushCellStyleSpecial() {
+      var syList = tableService.getTempRecord('syList');
+      angular.forEach(syList, function(style, id) {
+        var coor = _table.getCellCoor(id).split(',');
+        _table.addCellSpecial(coor[0], coor[1], {'style': style});
       });
     }
 
@@ -121,6 +139,7 @@ console.info(cellId);
     function PolicemenRenderer(instance, td, row, col, prop, value) {
       var that = this;
       RowRenderer.apply(this, arguments); // 行渲染
+      arguments[6].format = '0,0.0';
       Handsontable.renderers.NumericRenderer.apply(this, arguments); // 数字格式化
 
       // 特殊单元格判断
@@ -129,15 +148,13 @@ console.info(cellId);
         arguments[6]['mydata'] = colSpecial;
 
         switch(colSpecial.type) {
-          case 'indicator': IndicatorRenderer.apply(that, arguments);  break;
+          case 'indicator': IndicatorRenderer.apply(that, arguments); break;
           case 'total': TotalRenderer.apply(that, arguments); break; // 计算对比好难!!!
           default: break;
         }
 
         // 存在自定义样式
-        if (colSpecial.style) {
-          StyleRenderer.apply(that, arguments);
-        }
+        if (colSpecial.style) { StyleRenderer.apply(that, arguments); }
       }
     };
 
@@ -181,7 +198,10 @@ console.info(cellId);
 
     // 样式渲染器
     function StyleRenderer(instance, td) {
-
+      var style = arguments[6]['mydata'].style;
+      angular.forEach(style, function(val, key) {
+        td.style[key] = val;
+      });
     }
 
     /**
@@ -196,7 +216,8 @@ console.info(cellId);
            rlen = r + Math.abs(start.row - end.row); r <= rlen; r++) {
         for(var c = (start.col < end.col ? start.col : end.col),
              clen = c + Math.abs(start.col - end.col); c<=clen; c++) {
-          callback(r, c);
+          var pop = callback(r, c);
+          if (pop === false) { return; } // 出口, 查找不希望都找一遍
         }
       }
     }

@@ -16,11 +16,11 @@
   </div>
 
   <div id="plat-body">
-    <div id="plat-body-hander">
+    <div id="plat-body-hander" ng-controller="UserCtrl as uc">
       <button id="plat-body-hamburger"></button>
       <coolmenu data="wb.menudata" callback="wb.menuCallback" ></coolmenu>
       <div id="plat-body-userInfo">{{ucvm.user.name}}</div>
-      <toolbar></toolbar>
+      <toolbar cclickk="uc.toolBarClick"></toolbar>
     </div><!-- 头结束 -->
 
     <div id="plat-body-info" style="display:none;" class="right width-transition"

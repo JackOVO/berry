@@ -13,6 +13,9 @@
       'total': total,
       'parse': parse
     };
+    Table.prototype.getCellId = function(r, c) { return this.idmap['id'][r][c]; };
+    Table.prototype.getCellCoor = function(id) { return this.idmap['coor'][id]; };
+    Table.prototype.addCellSpecial = addCellSpecial;
     return service;
 
     /**
@@ -145,6 +148,20 @@
         cols.type = sok.type;
       });
       return special;
+    }
+
+    /**
+     * 指定坐标添加单元格属性
+     * @param {String} r    [description]
+     * @param {String} c    [description]
+     * @param {Object} data [description]
+     */
+    function addCellSpecial(r, c, data) {
+      var special = this.special;
+      if (!special[r]) { special[r] = {}; }
+      if (!special[r][c]) { special[r][c] = {}; }
+      special[r][c] = angular.extend(special[r][c], data);
+      return special[r][c];
     }
 
     /**

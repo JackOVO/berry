@@ -51,8 +51,10 @@ console.info(key, keys);
           sheetService.setRecord('chartRow', true);
           chartService.getCharts(key);
           break;
-        case 'handsontable-bg':
-          var style = {'background-color': key};
+        case 'hd-styles':
+          var srtr = key.split(':');
+          var style = {}; style[srtr[0]] = srtr[1];
+console.warn(style);
           handsontableService.addSelectedAreaStyle(style);
           break;
         default: break;
