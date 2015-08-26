@@ -15,7 +15,7 @@
     return service;
 
     // 由dom触发的
-    function inform(key, fkey) {
+    function inform(key, fkey, status) {
       var mf = key.toLowerCase();
 console.info(key, fkey);
 
@@ -23,12 +23,22 @@ console.info(key, fkey);
       switch(mf) {
         case 'line': case 'bar': case 'pie': case 'area':
           dispatchService.execution(key, ['chart']); break;
+          /*    font-weight: normal;
+    font-style: normal;
+    text-decoration: blink;*/
         case 'bold':
-          dispatchService.execution('font-weight:bold', ['hd-styles']); break;
+          var val = (status.active === true ? 'bold' : 'normal');
+          dispatchService.execution('font-weight:' + val, ['hd-styles']); break;
         case 'italic':
-          dispatchService.execution('font-style:italic', ['hd-styles']); break;
+          var val = (status.active === true ? 'italic' : 'normal');
+          dispatchService.execution('font-style:' + val, ['hd-styles']); break;
         case 'through':
-          dispatchService.execution('text-decoration:line-through', ['hd-styles']); break;
+          var val = (status.active === true ? 'line-through' : 'blink');
+          dispatchService.execution('text-decoration:' +  val, ['hd-styles']); break;
+        case 'carry': dispatchService.execution(1, ['hd-floatSize']); break;
+        case 'less': dispatchService.execution(-1, ['hd-floatSize']); break;
+        case 'e': dispatchService.execution('e:'+status.active, ['hd-calc']); break;
+        case 'percent': dispatchService.execution('percent:'+status.active, ['hd-calc']); break;
         default: break;
       }
 

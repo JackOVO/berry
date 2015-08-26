@@ -23,7 +23,11 @@
       outsideClickDeselects: false // 点击不去掉选中
     };
     var service = {
+      'trtb': function() { return _table; },
       'settings': createSettings,
+      'getAreaCood': getAreaCood,
+      'adjustFloatSize': adjustFloatSize,
+      'addSelectedAreaCalc': addSelectedAreaCalc,
       'addSelectedAreaStyle': addSelectedAreaStyle,
       'addAfterSelectionEnd': addAfterSelectionEndCallback,
       'setHandsontable': function(handsontable){ _hd = handsontable; }
@@ -47,8 +51,8 @@ pushCellStyleSpecial(); // 有些操作是要分离到表格服务中的
           var cellProperties = {};
           cellProperties.readOnly = true; // 只读
           cellProperties.renderer = PolicemenRenderer;
-          // cellProperties.type = 'numeric';
-          cellProperties.format = '0,0.00';
+// cellProperties.type = 'numeric';
+          cellProperties.format = '0,0.00'; // 默认, 实际由渲染来控制
           return cellProperties;
         },
         afterSelectionEnd: function(r, c, r2, c2) {
@@ -112,9 +116,43 @@ console.info(key, opts);
     function pushCellStyleSpecial() {
       var syList = tableService.getTempRecord('syList');
       angular.forEach(syList, function(style, id) {
-        var coor = _table.getCellCoor(id).split(',');
-        _table.addCellSpecial(coor[0], coor[1], {'style': style});
+        // 后台id无法定位问题, 日, 只有在计算时才能保存已定义样式.
+        var coor = _table.getCellCoor(id);
+        if (coor) {
+          coor = coor.split(',');
+          _table.addCellSpecial(coor[0], coor[1], {'style': style});
+        }
       });
+    }
+
+    /**
+     * 为选中的区域添加计算的数据
+     * @param {Object} calc 计算方法标示
+     */
+    function addSelectedAreaCalc(calc) {
+      var area = _hd.getSelected();
+      if (!area) { return; }
+
+      getAreaCood(area[0], area[1], area[2], area[3], function(r, c){
+        if (_table.special[r] && _table.special[r][c] && _table.special[r][c].calc) {
+          // {} 防止引用问题
+          calc = angular.extend({}, _table.special[r][c].calc, calc);
+        }
+        _table.addCellSpecial(r, c, {'calc': calc});
+      });
+      _hd.render();
+    }
+
+    /**
+     * 调节小数点的位数
+     * @param  {Number} direction -1 左 1 右
+     */
+    function adjustFloatSize(direction) {
+      var value = _table.floatNum + direction;
+      if (value >= 0 && value < 5) { 
+        _table.floatNum = value;
+      }
+      _hd.render();
     }
 
     // 菜单禁用验证
@@ -136,16 +174,20 @@ console.info(key, opts);
     /**-------------------------渲染器定义-------------------------**/
 
     // 统一渲染
-    function PolicemenRenderer(instance, td, row, col, prop, value) {
+    function PolicemenRenderer(instance, td, row, col, prop, value, properties) {
       var that = this;
       RowRenderer.apply(this, arguments); // 行渲染
-      arguments[6].format = '0,0.0';
+
+var fs = (new Array(_table.floatNum + 1)+'').replace(/,/g, '0');
+if (fs) { fs = '.' + fs; };
+properties.format = '0,0' + fs;
+
       Handsontable.renderers.NumericRenderer.apply(this, arguments); // 数字格式化
 
       // 特殊单元格判断
       if (_table.special[row] && _table.special[row][col]) {
         var colSpecial = _table.special[row][col];
-        arguments[6]['mydata'] = colSpecial;
+        properties['mydata'] = colSpecial;
 
         switch(colSpecial.type) {
           case 'indicator': IndicatorRenderer.apply(that, arguments); break;
@@ -155,6 +197,8 @@ console.info(key, opts);
 
         // 存在自定义样式
         if (colSpecial.style) { StyleRenderer.apply(that, arguments); }
+        // 存在计算的方法
+        if (colSpecial.calc) { CalcRenderer.apply(that, arguments); }
       }
     };
 
@@ -202,6 +246,20 @@ console.info(key, opts);
       angular.forEach(style, function(val, key) {
         td.style[key] = val;
       });
+    }
+
+    // 计算渲染器
+    function CalcRenderer(instance, td, row, col, prop, value) {
+      var calc = arguments[6]['mydata'].calc;
+      if (isNaN(value)) { return; }
+      if (calc.e === true) { value = Math.log(value); }
+      if (calc.percent === true) {
+        value = value * 100;
+        arguments[6].format = '0,0%';
+      }
+
+      arguments[5] = value;
+      Handsontable.renderers.NumericRenderer.apply(this, arguments); // 数字格式化
     }
 
     /**

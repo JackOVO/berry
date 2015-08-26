@@ -13,7 +13,9 @@
 
     // 工具条点击接口
     function toolBarClick(key, fkey, ele) {
-      toolbarService.inform(key, fkey, ele);
+      var status = {};
+      status.active = ele.hasClass('hover');
+      toolbarService.inform(key, fkey, status);
     }
   }
 

@@ -23,14 +23,16 @@
      * @param {Array} data 二维数组
      * @param {Object} idmap id与坐标映射
      * @param {Array} special 特殊坐标的配置
+     * @param {Number} floatNum 控制小数位
      * @param {Array} mergeCells 合并单元格描述
      * @param {Number} fixedRowsTop 冻结行
      * @param {Number} fixedColumnsLeft 冻结列
      */
-    function Table(data, idmap, special, mergeCells, fixedRowsTop, fixedColumnsLeft) {
+    function Table(data, idmap, special, floatNum, mergeCells, fixedRowsTop, fixedColumnsLeft) {
       this.data = data;
-      this.idmap = idmap; // 
+      this.idmap = idmap; //
       this.special = special;
+      this.floatNum = floatNum; //
       this.mergeCells = mergeCells;
       this.fixedRowsTop = fixedRowsTop;
       this.fixedColumnsLeft = fixedColumnsLeft;
@@ -53,7 +55,7 @@
       idmap = kbo.idmap;
       merges = kbo.merges;
       special = extractSpecial(special);
-      return new Table(data, idmap, special, merges, fixedRowsTop, fixedColumnsLeft);
+      return new Table(data, idmap, special, 2, merges, fixedRowsTop, fixedColumnsLeft);
     }
 
     /**

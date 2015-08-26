@@ -4,13 +4,14 @@
     .module('pf.directive')
     .directive('toolbar', toolbarDirective);
 
-  toolbarDirective.$inject = ['handsontableService'];
-  function toolbarDirective (handsontableService) {
+  toolbarDirective.$inject = ['handsontableService', 'coreCF'];
+  function toolbarDirective (handsontableService, config) {
     return {
       replace: true,
       scope: {'cclickk': '='},
       templateUrl: 'app/template/toolbar.html',
       link: function(scope, element, attrs, ctrl) {
+        var _spk = config.spreadKey;
         var _statuCheck = []; // 由状态验证的项
 
         // 开始创建
@@ -25,19 +26,42 @@
           if (type !== 'line' && (_arr[index+1] && _arr[index+1].type !== 'line')) {
             element.append('&nbsp;')
           }
-          if(item.hover) { _statuCheck.push(item); }
+          if(item.active) { _statuCheck.push(item); }
         });
 
         // 注册表格选中的回调
-        // handsontableService.addAfterSelectionEndMeta(function(meta) {
-        //   angular.forEach(_statuCheck, function(item, index) {
-        //     if(meta.mydata && meta.mydata.style) {
-        //       item.active(meta.mydata.style);
-        //     }
-        //   });
-        //   //console.info(meta);
-        //   // return false;
-        // });
+        handsontableService.addAfterSelectionEnd(function(r, c, r2, c2) {
+          var _table = handsontableService.trtb();
+          var cyary = _statuCheck.concat();
+
+          // 命中的图标激活状态
+          handsontableService.getAreaCood(r, c, r2, c2, function(r, c) {
+            if (_table.special[r] && _table.special[r][c]) {
+              for (var i = 0, ilen = cyary.length; i < ilen; i++) {
+                var checkFn = cyary[i].active;
+                if ( checkFn(_table.special[r][c]) ) {
+                  cyary[i]._o.addClass('hover');
+                  cyary.splice(i, 1);
+                  i = -1, ilen = cyary.length;
+                }
+              }
+              if (!cyary.length) { return false; }
+            }
+          });
+
+          // 未命中的图标
+          for (var i = 0, ilen = cyary.length; i < ilen; i++) {
+            cyary[i]._o.removeClass('hover');
+          }
+        });
+
+        // 切换重置
+        scope.$on(_spk.sheetChange, function() {
+          angular.forEach(_statuCheck, function(item) {
+            item._o.removeClass('hover');
+          });
+        });
+        /***************************创建方法**********************************/
 
         // 创建图标
         function createIcon(fill) {
@@ -88,6 +112,8 @@
             var sp = $(this), fsp = sp.parent('.tool-group');
             var key = sp.attr('data-key'), fkey = '';
             if (fsp.length) { fkey = fsp.attr('data-key'); }
+            if (item.sw === true) { sp.toggleClass('hover'); }
+
             if (scope.cclickk) { scope.cclickk(key, fkey, sp); }
           });
 
@@ -124,10 +150,20 @@
       {'key':'more', 'type':'more', 'icon':'small-arrow', 'style':{'line-height':'10px'}}
     ]},
     {'type': 'line'},
-    {'key':'bold', 'icon': 'blod',
-      'hover': function(style){ return style['font-weight'] === 'bold'; }},
-    {'key':'italic', 'icon': 'italics'},
-    {'key':'through', 'icon': 'strikethrough'},
+    {'key':'bold', 'icon': 'blod', 'sw': true,
+      'active': function(status) {
+        return !!(status.style && status.style['font-weight'] === 'bold');
+      }
+    },
+    {'key':'italic', 'icon': 'italics', 'sw': true,
+      'active': function(status) {
+        return !!(status.style && status.style['font-style'] === 'italic');
+      }},
+    {'key':'through', 'icon': 'strikethrough', 'sw': true,
+      'active': function(status) {
+        return !!(status.style && status.style['text-decoration'] === 'line-through');
+      }
+    },
     {'key':'color','type': 'group', childs: [
       {'key':'show','fill': {'name': 'color', 'nail': '<span class="icon-swy"></span>'}},
       {'key':'more','type': 'more', 'icon':'small-arrow', 'style':{'line-height':'10px'}}
@@ -147,8 +183,11 @@
     {'key':'Pie', 'icon': 'pie'},
     {'key':'Area', 'icon': 'curve'},
     {'type': 'line'},
-    {'key':'e', 'icon': 'e'},
-    {'key':'percent', 'icon': 'percent'},
+    {'key':'e', 'icon': 'e', 'sw': true,
+      'active': function(status) {
+        return !!(status.calc && status.calc.e);
+      }},
+    {'key':'percent', 'icon': 'percent', 'sw': true},
     {'key':'carry', 'icon': 'carry'},
     {'key':'less', 'icon': 'less'}
   ];

@@ -271,13 +271,14 @@
   - toolbarService 转接工具条点击方法, 传递出按钮组key, 和按钮key.
  - **handsontableService**
   - 添加对于选中区域设置样式的方法, 通过每个表格的id转成当前的坐标来判断唯一性.
+  - 添加调整当前表格对于小数点位数的调整方法adjustFloatSize, 请无视名字.
  - **核心模块**
   - dispatchService 添加变更选中区域单元格样式的接口, 提供外部.
   - toolbarService 拼装变更背景颜色的方法, 用dispatchService提供的接口执行.
  - **工作表模块**
   - tableService 添加可以记录表数据的方法, 记录在内存中.
+  - tableFactory 在实体类中添加floatNum来控制, 小数点位数, 默认2.
  - **handsontable指令**
   - 通过表格id定位到表格的样式, 使用特殊的渲染器渲染出用户定义的样式.
  - **工具条指令**
   - 注册表格的选中事件, 通过选中的区域来改变自身按钮的状态.
-
