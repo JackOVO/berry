@@ -39,6 +39,7 @@
         'getRecommendChange': 'grc',
         'containerSizeChange': 'csc',
         'closeContainerRow': 'ccr',
+        'panelConfigChange': 'pcc',
 
         'createRightMenu': 'crm',
         'toggleRightMenu': 'trm', // 切换显示隐藏状态

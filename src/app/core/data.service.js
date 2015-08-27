@@ -6,12 +6,13 @@
     .module('pf.core')
     .factory('dataService', dataService);
 
-  dataService.$inject = ['$http', '$q', 'errorService', 'coreCF'];
-  function dataService($http, $q, errorService, config) {
+  dataService.$inject = ['$http', '$q', '$templateCache', 'errorService', 'coreCF'];
+  function dataService($http, $q, $templateCache, errorService, config) {
     var _urlMap = config.urlMap; // 请求地址映射
     var service = {
       'get': get,
       'post': post,
+      'getHtml': getHtml,
       'getItem': getItem,
       'setItem': setItem,
       'removeCookie': removeCookie,
@@ -47,6 +48,23 @@
       return $http.post(url, params)
         .then(completeCallBack)
         .catch(failedCallBack);
+    }
+
+    /**
+     * 获取html
+     * @param  {Stirng} url 地址
+     * @return {Promise}
+     */
+    function getHtml(url) {
+      var deferred = $q.defer(), html = $templateCache.get(url);
+      if (html) { deferred.resolve(html); }
+      else {
+        $http.get(url).then(function(res) {
+          deferred.resolve(res.data);
+          $templateCache.put(url, res.data); // 可以加判断限制是否缓存
+        });
+      }
+      return deferred.promise;
     }
 
     //jquery-cookie封装
