@@ -133,7 +133,8 @@ _up[0] = fkey; _up[1] = key;
     'download': {icon:'down'},
     'l1': {type: 'line'},
     'font': {info:'字体', childs:{
-      'deal': {val:'黑体', attr:'font-family', style:{'width':'72px'}, dfval: '黑体',
+      'deal': {val:'微软雅黑', attr:'font-family',
+              style:{'width':'72px'}, dfval: '微软雅黑',
               upval: function(jq, v){ jq.children('.font-container').html(v); }},
       'more': {val:'font-more', icon:'small-arrow'}
       }
