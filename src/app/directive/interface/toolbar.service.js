@@ -11,6 +11,8 @@
     var service = {
       'ex': ex,
       'updateValue': updateValue,
+      'toggleStatus': toggleStatus,
+      'updateStatusByVal': updateStatusByVal,
       'toggleGroupChild': toggleGroupChildStatus,
       'getData': function(){ return _toolbar; }
     };
@@ -18,13 +20,25 @@
 
     // 擦擦擦擦擦擦
     function ex(key, fkey) {
-console.info(key, fkey);
       switch(key) {
+        case 'less': case 'carry':
+          var val = _toolbar[key].val;
+          dispatchService.execution(val, ['hd-move']);
+          break;
+        case 'e': case 'percent':
+          var val = getStatusStyle(key);
+          toggleStatus(key); // 切换状态
+          dispatchService.execution(val, ['hd-calc']);
+          break;
+        case 'line': case 'bar': case 'pie': case 'area':
+          var val = _toolbar[key].val;
+          dispatchService.execution(val, ['chart']);
+          break;
         case 'bold': // 单键
         case 'italic':
         case 'through':
           var style = getStatusStyle(key);
-          updateStatus(key); // 切换状态
+          toggleStatus(key); // 切换状态
           dispatchService.execution(style, ['hd-styles']);
           break;
         case 'deal': // 组执行键
@@ -35,7 +49,7 @@ console.info(key, fkey);
           toggleGroupChildStatus(fkey, key, true);
           var offset = getPanelOffset(fkey), cName = 'list';
 
-          if (fkey === 'color') { cName += ' color-container'; }
+          if (fkey === 'color' || fkey === 'bg') { cName += ' color-container'; }
 
           panelService.open({
             cName: cName, style: offset,
@@ -64,21 +78,20 @@ console.info(key, fkey);
     function getChildStyle(fkey, key) {
       var val = _toolbar[fkey]['childs'][key].val;
       var attr = _toolbar[fkey]['childs'][key].attr;
-
-      if (fkey === 'size') { val += 'px'; }
-
       return attr + ':' + val;
     }
 
     // 激活按钮组子项
-    function toggleGroupChildStatus(fkey, key, op) {
-      if (op === undefined) { op = !_toolbar[fkey]['childs'][key].jq.hasClass('active'); }
-      if (op) {
+    function toggleGroupChildStatus(fkey, key, isOPQ) {
+      if (isOPQ === undefined) {
+        isOPQ = !_toolbar[fkey]['childs'][key].jq.hasClass('active');
+      }
+      if (isOPQ) {
         _toolbar[fkey].jq.addClass('hover');
         _toolbar[fkey]['childs'][key].jq.addClass('active');
 
-        if(_up.length) { toggleGroupChildStatus(_up[0],_up[1], false); }
-        _up[0] = fkey; _up[1] = key;
+if(_up.length && _up[0] !== fkey) { toggleGroupChildStatus(_up[0],_up[1], false); }
+_up[0] = fkey; _up[1] = key;
       } else {
         _toolbar[fkey].jq.removeClass('hover');
         _toolbar[fkey]['childs'][key].jq.removeClass('active');
@@ -92,13 +105,25 @@ console.info(key, fkey);
       ex(key, fkey);
     }
 
-    // 更新状态
-    function updateStatus(key) {
-      var item = _toolbar[key];
+    // 切换状态
+    function toggleStatus(key, tsp) {
+      var item = _toolbar[key]; 
+      if (tsp !== undefined) { item.status = tsp; } // 固定切换
+
       var status = item.status;
       if (status === 'none') { item.status = 'hover'; }
       else if (status === 'hover') { item.status = 'none'; }
       item.jq.removeClass(status).addClass(item.status);
+    }
+
+    // 从值反射更新状态
+    function updateStatusByVal(key, val) {
+      var item = _toolbar[key], nowStatus = null;
+      angular.forEach(item.smap, function(v, status) {
+        console.info(v, val, v === val);
+        if (v === val) { item.status = status; } // 当前值对应的状态
+      });
+      toggleStatus(key) // 状态固定, 反向切换
     }
   }
 
@@ -108,14 +133,14 @@ console.info(key, fkey);
     'download': {icon:'down'},
     'l1': {type: 'line'},
     'font': {info:'字体', childs:{
-      'deal': {val:'黑体', attr:'font-family', style:{'width':'72px'},
+      'deal': {val:'黑体', attr:'font-family', style:{'width':'72px'}, dfval: '黑体',
               upval: function(jq, v){ jq.children('.font-container').html(v); }},
       'more': {val:'font-more', icon:'small-arrow'}
       }
     },
     'l2': {type: 'line'},
     'size': {info:'字号', childs:{
-      'deal': {val:'16', attr:'font-size',
+      'deal': {val:'16', attr:'font-size', dfval: '16',
               upval: function(jq, v){ jq.children('.font-container').html(v); }},
       'more': {val:'font-more', icon:'small-arrow'}
     }},
@@ -126,135 +151,50 @@ console.info(key, fkey);
     'italic': {info:'斜体', icon:'italics', attr:'font-style', status:'none',
              smap:{'hover':'normal', 'none':'italic'}
     },
-    'through': {info:'删除线', icon:'strikethrough', attr:'text-decoration', status:'none',
-             smap:{'hover':'blink', 'none':'line-through'}
+    'through': {info:'删除线', icon:'strikethrough', attr:'text-decoration',
+             status:'none', smap:{'hover':'blink', 'none':'line-through'}
     },
     'color': {info:'颜色', childs:{
-      'deal': {val:'red', icons:['color', $('<span class="icon-swy">')], attr:'color',
-              upval: function(jq, v){ jq.find('.icon-swy').css('background-color', v); }},
+      'deal': {val:'red', attr:'color', dfval: 'red',
+              icons:['color', $('<span class="icon-swy">')], 
+              upval: function(jq, v){
+                jq.find('.icon-swy').css('background-color', v);
+              }},
       'more': {val:'font-more', icon:'small-arrow'}
       }
     },
     'l4': {type: 'line'},
     'align': {info:'对齐', childs:{
-      'deal': {val:'left', icon:'left', attr:'text-align',
-              upval: function(jq, v){}},
+      'deal': {val:'left', icon:'left', attr:'text-align', dfval: 'left',
+              upval: function(jq, v){
+                jq.find('.icon').removeClass().addClass('icon '+'icon-'+(v=='center'?'middle':v));
+              }},
       'more': {val:'font-more', icon:'small-arrow'}
       }
     },
-    //     {'key':'background', 'type': 'group', childs: [
-    //       {'key':'show', 'fill': {'name': 'background', 'nail': '<span class="icon-swy2"></span>'}},
-    //       {'key':'more', 'type': 'more', 'icon':'small-arrow', 'style':{'line-height':'10px'}}
-    //     ]},
-
-    //     {'key':'color','type': 'group', childs: [
-    //       {'key':'show','fill': {'name': 'color', 'nail': '<span class="icon-swy"></span>'}},
-    //       {'key':'more','type': 'more', 'icon':'small-arrow', 'style':{'line-height':'10px'}}
-    //     ]},
-    //     {'type': 'line'},
-    /*
-    // 'color': {'info':'颜色', childs:{
-    //   'deal': {val:'red', icons: ['color', $('<span class="icon-swy">')], attr:'color'},
-    //   'more': {val:'color-more', icon:'small-arrow'}
-    // }}*/
+    'bg': {info:'背景', childs:{
+      'deal': {val:'red', attr:'background-color',  dfval: 'red',
+              icons:['background', $('<span class="icon-swy2"></span>')],
+              upval: function(jq, v){
+                jq.find('.icon-swy2').css('background-color', v);
+              }},
+      'more': {val:'font-more', icon:'small-arrow'}
+      }
+    },
+    'l5': {type: 'line'},
+    'line': {info:'折线图', icon:'broken', val: 'Line'},
+    'bar': {info:'柱状图', icon:'column', val: 'Bar'},
+    'pie': {info:'饼图', icon:'pie', val: 'Pie'},
+    'area': {info:'面积图', icon:'curve', val: 'Area'},
+    'l6': {type: 'line'},
+    'e': {info:'对数', icon:'e', attr:'e', status:'none',
+          smap:{'hover':false, 'none':true}
+    },
+    'percent': {info:'百分比', icon:'percent', attr:'percent', status:'none',
+          smap:{'hover':false, 'none':true}
+    },
+    'carry': {info:'前移', icon:'carry', val: 1},
+    'less': {info:'后移', icon:'less', val: -1},
   };
 
-  // {'key':'size', 'type': 'group', childs: [
-  // //       {'key':'show', 'type':'more', 'ctype':'font', 'fill':'12' },
-  // //       {'key':'more', 'type':'more', 'icon':'small-arrow', 'style':{'line-height':'10px'}}
-  // //     ]},
-
 })();
-
-// (function() {
-//   'use strict';
-//   // 工具条控制器, 方法转移
-
-//   angular
-//     .module('pf.directive')
-//     .factory('toolbarService', toolbarService);
-
-//   toolbarService.$inject = ['dispatchService'];
-//   function toolbarService(dispatchService) {
-//     var service = {
-//       'inform': inform,
-//       'getToolbarArr': function(){ return arr; }
-//     };
-//     return service;
-
-//     // 由dom触发的
-//     function inform(key, fkey, status) {
-//       var mf = key.toLowerCase();
-// console.info(key, fkey);
-
-//       // 子
-//       switch(mf) {
-//         case 'line': case 'bar': case 'pie': case 'area':
-//           dispatchService.execution(key, ['chart']); break;
-//           /*    font-weight: normal;
-//     font-style: normal;
-//     text-decoration: blink;*/
-//         case 'bold':
-//           var val = (status.active === true ? 'bold' : 'normal');
-//           dispatchService.execution('font-weight:' + val, ['hd-styles']); break;
-//         case 'italic':
-//           var val = (status.active === true ? 'italic' : 'normal');
-//           dispatchService.execution('font-style:' + val, ['hd-styles']); break;
-//         case 'through':
-//           var val = (status.active === true ? 'line-through' : 'blink');
-//           dispatchService.execution('text-decoration:' +  val, ['hd-styles']); break;
-//         case 'carry': dispatchService.execution(1, ['hd-floatSize']); break;
-//         case 'less': dispatchService.execution(-1, ['hd-floatSize']); break;
-//         case 'e': dispatchService.execution('e:'+status.active, ['hd-calc']); break;
-//         case 'percent': dispatchService.execution('percent:'+status.active, ['hd-calc']); break;
-//         default: break;
-//       }
-
-//       // 父
-//       switch(fkey) {
-//         case 'font': dispatchService.execution('font-family:'+key, ['hd-styles']); break;
-//         case 'size': dispatchService.execution('font-size:'+key, ['hd-styles']); break;
-//         case 'color': dispatchService.execution('color:'+key, ['hd-styles']); break;
-//         case 'align': dispatchService.execution('text-align:'+key, ['hd-styles']); break;
-//         case 'background':
-//           dispatchService.execution('background-color:'+key, ['hd-styles']);
-//           break;
-//         default: break;
-//       }
-//     }
-//   }
-
-// })();
-
-// // case 'hd-decoration':
-// //   var style = {'text-decoration': key};
-// //   handsontableService.addSelectedAreaStyle(style);
-// //   break;
-// // case 'hd-style':
-// //   var style = {'font-style': key};
-// //   handsontableService.addSelectedAreaStyle(style);
-// //   break;
-// // case 'hd-align':
-// //   var style = {'text-align': key};
-// //   handsontableService.addSelectedAreaStyle(style);
-// //   break;
-// // case 'hd-font':
-// //   var style = {'font-family': key};
-// //   handsontableService.addSelectedAreaStyle(style);
-// //   break;
-// // case 'hd-size':
-// //   var style = {'font-size': key};
-// //   handsontableService.addSelectedAreaStyle(style);
-// //   break;
-// // case 'hd-bg':
-// //   var style = {'background-color': key};
-// //   handsontableService.addSelectedAreaStyle(style);
-// //   break;
-// // case 'hd-bold':
-// //   var style = {'font-weight': key};
-// //   handsontableService.addSelectedAreaStyle(style);
-// //   break;
-// // case 'hd-color':
-// //   var style = {'color': key};
-// //   handsontableService.addSelectedAreaStyle(style);
-// //   break;

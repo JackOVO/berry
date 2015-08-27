@@ -244,6 +244,7 @@ properties.format = '0,0' + fs;
     function StyleRenderer(instance, td) {
       var style = arguments[6]['mydata'].style;
       angular.forEach(style, function(val, key) {
+        if (key === 'font-size' && val .indexOf('px') === -1) { val += 'px'; }
         td.style[key] = val;
       });
     }

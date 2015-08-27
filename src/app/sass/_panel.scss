@@ -11,7 +11,7 @@ $list-font-block-display: block;
 $list-font-block-position: relative;
 $list-font-block-padding: 0 0 0 18px;
 $list-font-block-font-size: 12px;
-$list-font-block-cursor: default;
+$list-font-block-cursor: pointer;
 
 // 列表颜色块
 $list-color-container-padding: 9px;
@@ -19,6 +19,7 @@ $list-color-block-display: inline-block;
 $list-color-block-width: 12px;
 $list-color-block-height: 12px;
 $list-color-block-gap: 5px;
+$list-color-block-cursor: pointer;
 
 // 面板颜色定义
 $panel-list-bg-color: $white;
@@ -67,6 +68,7 @@ $list-font-block-hover-bg-color: #f0f0f0;
         width: $list-color-block-width;
         height: $list-color-block-height;
         margin-right: $list-color-block-gap;
+        cursor: $list-font-block-cursor;
 
         // 空白或透明边框
         &.color-border { border: 1px solid $list-color-blank-border-color; }

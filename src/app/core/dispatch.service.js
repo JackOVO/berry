@@ -56,7 +56,7 @@ console.info(key, keys);
           style[srtr[0]] = srtr[1];
           handsontableService.addSelectedAreaStyle(style);
           break;
-        case 'hd-floatSize': handsontableService.adjustFloatSize(key); break;
+        case 'hd-move': handsontableService.adjustFloatSize(key); break;
         case 'hd-calc':
           var srtr = key.split(':'), calc = {}
           calc[srtr[0]] = (srtr[1] === 'true');
