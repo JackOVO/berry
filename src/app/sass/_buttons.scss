@@ -171,6 +171,10 @@ $button-disabled-border-color: #4a4a4a;
     @include single-transition(background-color);
 
     // 尺寸
+    &.min {
+      @include button-size($side-width:10px,$letter-spacing:0,$line-height:22px);
+      font-size: 12px;
+    }
     &.short { @include button-size($side-width: $button-tny-side,$line-height: 20px); }
     &.tiny { @include button-size($side-width: $button-tny-side); }
     &.small { @include button-size($side-width: $button-sml-side); }
@@ -191,6 +195,8 @@ $button-disabled-border-color: #4a4a4a;
     }
 
 
+
+
     // 功能
     &.primary { @include button-style($bg: $button-bg-color, $radius: 4px); }
     &.confirm {
@@ -199,12 +205,22 @@ $button-disabled-border-color: #4a4a4a;
         $bg: $button-confirm-bg,
         $border-color: $button-confirm-border-color);
     }
+    // 清除
     &.cancel {
       @include button-style(
         $bg: $button-cancel-bg,
         $color: $button-cancel-color,
         $bg-hover: $button-cancel-bg-hover,
         $border-color: $button-cancel-border-color);
+    }
+    &.lit {
+      text-align: center;
+      @include button-style(
+        $bg: #efefef,
+        $color: rgba(0, 0, 0, .9),
+        $bg-hover: #efefef,
+        $border-color: #cecfcf,
+        $radius: true);
     }
 
     // 禁用

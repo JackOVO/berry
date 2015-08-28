@@ -73,12 +73,14 @@ $dialog-z-index: 501;
     padding-bottom: 0;
   }
   .ngdialog-overlay {
-    background-color: rgba(202, 232, 254, 0.25);
+    // background-color: rgba(202, 232, 254, 0.25);
+    background-color: rgba(163, 164, 165, 0.2);
   }
   .ngdialog.ngdialog-theme-default .ngdialog-content {
     padding: 0;
     width: $dialog-min-width;
     border: 1px solid $dialog-border-color;
+    background-color: #fafafa;
     box-shadow: $dialog-box-shadow;
     font-family: \5fae\8f6f\96c5\9ed1, tahoma;
     font-size: 14px;

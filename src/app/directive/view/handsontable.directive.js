@@ -28,7 +28,7 @@
 
             // 变更就重新生成
             if (_handsontable) { _handsontable.destroy(); }
-            _handsontable = new Handsontable(element[0], settings);
+            _handsontable = new window.Handsontable(element[0], settings);
             handsontableService.setHandsontable(_handsontable);
           });
 

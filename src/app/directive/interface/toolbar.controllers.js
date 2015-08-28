@@ -31,7 +31,7 @@
     };
   }
 
-  TBSizeCtrl.$inject = ['toolbarService', 'panelService'];
+  TBColorCtrl.$inject = ['toolbarService', 'panelService'];
   function TBColorCtrl(toolbarService, panelService) {
     var that = this;
     that.ary2 = [
@@ -60,7 +60,7 @@
     }
   }
 
-  TBSizeCtrl.$inject = ['toolbarService', 'panelService'];
+  TBBGCtrl.$inject = ['toolbarService', 'panelService'];
   function TBBGCtrl(toolbarService, panelService) {
     var that = this;
     that.ary2 = [

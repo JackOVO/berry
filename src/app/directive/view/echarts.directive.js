@@ -48,15 +48,17 @@
         // 根据映射获取文件名
         function getFileName(menuKey) {
           for (var key in _fileMap) {
-            var fileAry = _fileMap[key];
-            if (fileAry.indexOf(menuKey) !== -1) {
-              return key;
+            if (_fileMap.hasOwnProperty(key)) {
+              var fileAry = _fileMap[key];
+              if (fileAry.indexOf(menuKey) !== -1) {
+                return key;
+              }
             }
           }
           return menuKey;
         }
       }
-    }
+    };
   }
 
 })();

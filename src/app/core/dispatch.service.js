@@ -13,9 +13,10 @@
     'indicatorService',
     'containerService',
     'handsontableService',
+    'databaseService',
     'chartService'];
 
-  function dispatchService($rootScope, workbookService, sheetService, indicatorService, containerService, handsontableService, chartService) {
+  function dispatchService($rootScope, workbookService, sheetService, indicatorService, containerService, handsontableService, databaseService, chartService) {
     var service = {
       'execution': execution,
       'getCoolMenu': function(){ return menuData; },
@@ -34,6 +35,7 @@
 console.info(key, keys);
       // 点击判断
       switch(key) {
+        case 'mydb': databaseService.open(); break;
         case 'close': workbookService.remoceNowSheet(); break;
         case 'newSheet': indicatorService.openModel('addSheet'); break;
         case 'addIn': indicatorService.openModel('syncWorkBook'); break;

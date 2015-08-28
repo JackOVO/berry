@@ -20,19 +20,22 @@
 
     // 擦擦擦擦擦擦
     function ex(key, fkey) {
+console.info(key, fkey);
+      var value = null;
       switch(key) {
+        case 'file': dispatchService.execution('mydb', ['mydb']); break;
         case 'less': case 'carry':
-          var val = _toolbar[key].val;
-          dispatchService.execution(val, ['hd-move']);
+          value = _toolbar[key].val;
+          dispatchService.execution(value, ['hd-move']);
           break;
         case 'e': case 'percent':
-          var val = getStatusStyle(key);
+          value = getStatusStyle(key);
           toggleStatus(key); // 切换状态
-          dispatchService.execution(val, ['hd-calc']);
+          dispatchService.execution(value, ['hd-calc']);
           break;
         case 'line': case 'bar': case 'pie': case 'area':
-          var val = _toolbar[key].val;
-          dispatchService.execution(val, ['chart']);
+          value = _toolbar[key].val;
+          dispatchService.execution(value, ['chart']);
           break;
         case 'bold': // 单键
         case 'italic':
@@ -42,8 +45,8 @@
           dispatchService.execution(style, ['hd-styles']);
           break;
         case 'deal': // 组执行键
-          var style = getChildStyle(fkey, key);
-          dispatchService.execution(style, ['hd-styles']);
+          var styled = getChildStyle(fkey, key);
+          dispatchService.execution(styled, ['hd-styles']);
           break;
         case 'more': // 组更多键
           toggleGroupChildStatus(fkey, key, true);
@@ -64,7 +67,7 @@
     function getPanelOffset(fkey) {
       var fele = _toolbar[fkey].jq;
       var offset = fele.offset();
-      return {'top': offset.top + fele.height() - 1, 'left': offset.left}
+      return {'top': offset.top + fele.height() - 1, 'left': offset.left};
     }
 
     // 获取指定见样式
@@ -120,10 +123,9 @@ _up[0] = fkey; _up[1] = key;
     function updateStatusByVal(key, val) {
       var item = _toolbar[key], nowStatus = null;
       angular.forEach(item.smap, function(v, status) {
-        console.info(v, val, v === val);
         if (v === val) { item.status = status; } // 当前值对应的状态
       });
-      toggleStatus(key) // 状态固定, 反向切换
+      toggleStatus(key); // 状态固定, 反向切换
     }
   }
 
@@ -168,7 +170,7 @@ _up[0] = fkey; _up[1] = key;
     'align': {info:'对齐', childs:{
       'deal': {val:'left', icon:'left', attr:'text-align', dfval: 'left',
               upval: function(jq, v){
-                jq.find('.icon').removeClass().addClass('icon '+'icon-'+(v=='center'?'middle':v));
+                jq.find('.icon').removeClass().addClass('icon '+'icon-'+(v==='center'?'middle':v));
               }},
       'more': {val:'font-more', icon:'small-arrow'}
       }

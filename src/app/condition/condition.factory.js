@@ -40,7 +40,7 @@
       if (direction) {
         this.direction[code] = (direction === 'col' ? 'row' : 'col');
       } else {
-        console.error('错误的维度代码!', code)
+        console.error('错误的维度代码!', code);
       }
       return this.direction[code];
     }
@@ -67,7 +67,7 @@
         if (status === _directionMap['metaColumn']) {
           metaColumns.push(code);
         } else if (status === _directionMap['metaRow']) {
-          metaRows.push(code)
+          metaRows.push(code);
         } else {
           console.error('条件方向序列化失败', code, status);
         }

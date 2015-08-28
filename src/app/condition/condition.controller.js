@@ -30,7 +30,7 @@
     that.toggleDirection = function(e, code) {
       conditionService.toggleDirection(code);
       e.stopPropagation();
-    }
+    };
 
     // 监听条件容器变更通知
     $scope.$on(_spk.conditionChange, function(e, condition) {

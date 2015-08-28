@@ -129,7 +129,6 @@
     function sequenceOXC(chaos) {
       var dims = chaos.dims;
       var metaRow = chaos.metaRow;
-      var metaRow = chaos.metaRow;
       var productId = chaos.productID;
 
       var gundam = new Gundam(dims, metaRow, metaRow, productId);

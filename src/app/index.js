@@ -10,6 +10,7 @@
       'ui.sortable',
       'pf.user',
       'pf.workbook',
+      'pf.database',
       'pf.directive'
     ])
     .config(appConfig)

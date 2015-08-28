@@ -179,10 +179,10 @@ console.info(key, opts);
       RowRenderer.apply(this, arguments); // 行渲染
 
 var fs = (new Array(_table.floatNum + 1)+'').replace(/,/g, '0');
-if (fs) { fs = '.' + fs; };
+if (fs) { fs = '.' + fs; }
 properties.format = '0,0' + fs;
 
-      Handsontable.renderers.NumericRenderer.apply(this, arguments); // 数字格式化
+      window.Handsontable.renderers.NumericRenderer.apply(this, arguments); // 数字格式化
 
       // 特殊单元格判断
       if (_table.special[row] && _table.special[row][col]) {
@@ -191,7 +191,7 @@ properties.format = '0,0' + fs;
 
         switch(colSpecial.type) {
           case 'indicator': IndicatorRenderer.apply(that, arguments); break;
-          case 'total': TotalRenderer.apply(that, arguments); break; // 计算对比好难!!!
+          //case 'total': TotalRenderer.apply(that, arguments); break; // 计算对比好难!!!
           default: break;
         }
 
@@ -200,18 +200,18 @@ properties.format = '0,0' + fs;
         // 存在计算的方法
         if (colSpecial.calc) { CalcRenderer.apply(that, arguments); }
       }
-    };
+    }
 
     // 行渲染器
     function RowRenderer(instance, td, row) {
       if (row % 2 !== 0) { td.style.backgroundColor = '#F9F9F9'; }
-    };
+    }
 
     // 指标渲染器
     function IndicatorRenderer(instance, td) {
 //console.info(arguments);
       // td.style.textAlign = 'center';
-      Handsontable.renderers.HtmlRenderer.apply(this, arguments);
+      window.Handsontable.renderers.HtmlRenderer.apply(this, arguments);
 
       // 保证唯一?
       if ($(td).children('.icon-btn').length) { return td; }
@@ -252,7 +252,7 @@ properties.format = '0,0' + fs;
     // 计算渲染器
     function CalcRenderer(instance, td, row, col, prop, value) {
       var calc = arguments[6]['mydata'].calc;
-      if (isNaN(value)) { return; }
+      if (!value || isNaN(value)) { return; }
       if (calc.e === true) { value = Math.log(value); }
       if (calc.percent === true) {
         value = value * 100;
@@ -260,7 +260,7 @@ properties.format = '0,0' + fs;
       }
 
       arguments[5] = value;
-      Handsontable.renderers.NumericRenderer.apply(this, arguments); // 数字格式化
+      window.Handsontable.renderers.NumericRenderer.apply(this, arguments); // 数字格式化
     }
 
     /**
